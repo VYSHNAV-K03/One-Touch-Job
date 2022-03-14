@@ -1,0 +1,294 @@
+import { Button, IconButton } from "@mui/material";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import image from "../assets/images/progressbackground.png";
+import Navbar from "../components/Navbar";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { apiUrl } from "../data/api";
+import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+
+const bootstrap = require("bootstrap");
+
+const Container = styled.div`
+  padding: 20px 50px;
+  overflow-y: scroll;
+  height: 100vh;
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 8px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: gray;
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .container {
+    padding: 20px;
+  }
+  .addworkbutton {
+    display: ${(props) => (props.display ? "none" : "flex")};
+    margin: auto;
+  }
+  .formarea {
+    display: ${(props) => (props.display ? "flex" : "none")};
+    flex-direction: column;
+    margin: 20px auto;
+    max-width: 600px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: -1px -1px 15px -7px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: -1px -1px 15px -7px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: -1px -1px 15px -7px rgba(0, 0, 0, 0.7);
+  }
+  .container-workshop {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    min-height: 100vh;
+  }
+  .card {
+    width: 450px;
+  }
+  .image {
+    width: 100%;
+    height: 250px;
+    background-color: #537895;
+    background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+    position: relative;
+  }
+  .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .text {
+    height: 130px;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 8px;
+      background-color: #aaa;
+      cursor: pointer;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #000;
+    }
+  }
+  .box-shadow {
+    box-shadow: -1px -1px 15px -7px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: -1px -1px 15px -7px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: -1px -1px 15px -7px rgba(0, 0, 0, 0.7);
+  }
+  .deleteworkshopbtn {
+    position: absolute;
+    right: 60px;
+    top: 10px;
+    background: white;
+  }
+`;
+
+const Workshops = () => {
+  const [title, settitle] = useState("");
+  const [description, setdescription] = useState("");
+  const [url, seturl] = useState("");
+  const [file, setfile] = useState([]);
+
+  const [display, setdisplay] = useState(false);
+
+  const [data, setdata] = useState([]);
+
+  const [Role, setRole] = useState();
+  const navigate = useNavigate();
+
+  const myLoginState = useSelector((state) => state.changeTheLogin);
+
+  const uploadWorkshop = async () => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("url", url);
+    formData.append("file", file);
+
+    try {
+      const res = await axios.post(apiUrl + "/workshop/addworkshop", formData);
+      setdisplay(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getWorkshop = async () => {
+    try {
+      const res = await axios.get(apiUrl + "/workshop/getworkshop");
+      setdata(res.data);
+    } catch (error) {
+      console.log("get work error", error);
+    }
+  };
+
+  const deleteWorkshop = async (id) => {
+    try {
+      const res = await axios.delete(apiUrl + `/workshop/delete/${id}`);
+      getWorkshop();
+      window.alert("deleted succesfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const CallProjectpage = async () => {
+    try {
+      const res = await axios.get(apiUrl + `/getData/${myLoginState}`, {
+        withCredentials: true,
+      });
+
+      const data = await res.data;
+
+      console.log("Role", data.Role);
+      setRole(data.Role);
+      if (res.status !== 200) {
+        throw new Error(res.error);
+      }
+    } catch (e) {
+      console.log("sumesh", e);
+      navigate("/login");
+    }
+  };
+
+  console.log(Role);
+
+  useEffect(() => {
+    getWorkshop();
+    CallProjectpage();
+  }, []);
+
+  return (
+    <Container display={display}>
+      <div className="buttons">
+        <NavLink type="button" className="btn btn-outline-primary" to="/">
+          Back To Home Page
+        </NavLink>
+        <button type="button" className="btn btn-outline-primary">
+          Refresh
+        </button>
+      </div>
+      <div className="container">
+        {Role && Role === 1 ? (
+          <Button
+            variant="outlined"
+            className="addworkbutton"
+            color="secondary"
+            onClick={() => setdisplay(true)}
+          >
+            Add Workshop
+          </Button>
+        ) : (
+          <></>
+        )}
+        <form className="formarea">
+          <div className="mb-3">
+            <label for="exampleFormControlInput1" className="form-label">
+              Title of workshop
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleFormControlInput1"
+              placeholder=""
+              onChange={(e) => settitle(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label for="exampleFormControlTextarea1" className="form-label">
+              Description
+            </label>
+            <textarea
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              onChange={(e) => setdescription(e.target.value)}
+            ></textarea>
+          </div>
+          <div className="mb-3">
+            <label for="exampleFormControlInput1" className="form-label">
+              Registration Url
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleFormControlInput1"
+              placeholder=""
+              onChange={(e) => seturl(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="formFile" className="form-label">
+              Workshop image
+            </label>
+            <input
+              className="form-control"
+              type="file"
+              id="formFile"
+              onChange={(e) => setfile(e.target.files[0])}
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              class="btn btn-primary"
+              type="submit"
+              value="Submit"
+              onClick={uploadWorkshop}
+            />
+          </div>
+        </form>
+      </div>
+      <div className="container-workshop">
+        {data?.map((element, index) => (
+          <div className="card mb-3 box-shadow" key={index}>
+            <div className="image">
+              <img src={element.filepath} className="card-img-top" alt="..." />
+              {Role && Role === 1 ? (
+                <IconButton
+                  aria-label="delete"
+                  size="medium"
+                  className="deleteworkshopbtn"
+                  variant="outlined"
+                  onClick={() => deleteWorkshop(element._id)}
+                >
+                  <DeleteIcon color="primary" fontSize="inherit" />
+                </IconButton>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="card-body">
+              <h4 className="card-title">{element.title}</h4>
+              <p className="text">
+                <p className="card-text">{element.description}</p>
+                Registration:{" "}
+                <a className="card-text" href={element.url}>
+                  {element.url}
+                </a>
+              </p>
+              <p className="card-text">
+                <a className="text-muted" href={element.url}>
+                  {element.url}
+                </a>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  );
+};
+
+export default Workshops;
