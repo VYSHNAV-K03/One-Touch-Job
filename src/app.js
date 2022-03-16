@@ -24,12 +24,14 @@ app.use(express.urlencoded({ extended: false }));
 const fileRoutes = require("./router/auth");
 const quizRoutes = require("./router/quiz");
 const workshopRoute = require("./router/workshoproute");
+const portfolioRoute = require("./router/portfolioroute");
 
 app.use(bodyParser.json());
 
 app.use("/api", fileRoutes);
 app.use("/api/quiz", quizRoutes);
 app.use("/api/workshop", workshopRoute);
+app.use("/api/portfolio", portfolioRoute);
 
 app.use("/uploads", express.static(path.join("uploads")));
 

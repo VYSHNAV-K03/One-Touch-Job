@@ -3,14 +3,22 @@ const { upload } = require("../helpers/filehelper");
 const { deleteOne } = require("../models/workshopschema");
 const Workshop = require("../models/workshopschema");
 const router = express.Router();
+const fs = require("fs");
 
 router.post("/addworkshop", upload.single("file"), async (req, res) => {
+  const final_path = req.file.path;
+  const base64 = fs.readFileSync(final_path, "base64");
+  const buffer = Buffer.from(base64, "base64");
+
   try {
     const workshop = new Workshop({
       title: req.body.title,
       description: req.body.description,
       url: req.body.url,
-      filepath: req.file.path,
+      filepath: {
+        data: buffer,
+        contentType: req.file.mimetype,
+      },
     });
 
     // res.send(req.body);

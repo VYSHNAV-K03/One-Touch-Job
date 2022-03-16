@@ -2,6 +2,7 @@
 const SingleFile = require("../models/singlefile");
 const crypto = require("crypto");
 const cookieParser = require("cookie-parser"); //this is used for getting req.cookies in middleware otherwise we dont get cookies in req in middleware
+const fs = require("fs");
 
 const User = require("../models/userSchema");
 const React = require("../models/reactschema");
@@ -73,7 +74,6 @@ const singleFileupload = async (req, res, next) => {
 
 const ProfileUpdate = async (req, res, next) => {
   try {
-   
     const usercoet = await User.findByIdAndUpdate(req.userID, {
       profile: req.file.path,
     });
@@ -653,6 +653,10 @@ const FullstackProjectFileUploadMevn = async (req, res, next) => {
 };
 
 const placementserviceupload = async (req, res, next) => {
+  const final_path = req.file.path;
+
+  const base64 = fs.readFileSync(final_path, "base64");
+  const buffer = Buffer.from(base64, "base64");
   try {
     // const files = {
     //   filepath: req.file.path,
@@ -662,7 +666,7 @@ const placementserviceupload = async (req, res, next) => {
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);
@@ -675,15 +679,16 @@ const placementserviceupload = async (req, res, next) => {
 
 const placementservicecoetupload = async (req, res, next) => {
   try {
-    // const files = {
-    //   filepath: req.file.path,
-    // };
+    const final_path = req.file.path;
+
+    const base64 = fs.readFileSync(final_path, "base64");
+    const buffer = Buffer.from(base64, "base64");
 
     const multipleFiles = new ServiceBasedCoet({
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);
@@ -696,15 +701,16 @@ const placementservicecoetupload = async (req, res, next) => {
 
 const placementproductoffupload = async (req, res, next) => {
   try {
-    // const files = {
-    //   filepath: req.file.path,
-    // };
+    const final_path = req.file.path;
+
+    const base64 = fs.readFileSync(final_path, "base64");
+    const buffer = Buffer.from(base64, "base64");
 
     const multipleFiles = new ProductBasedOff({
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);
@@ -717,15 +723,16 @@ const placementproductoffupload = async (req, res, next) => {
 
 const placementproductcoetupload = async (req, res, next) => {
   try {
-    // const files = {
-    //   filepath: req.file.path,
-    // };
+    const final_path = req.file.path;
+
+    const base64 = fs.readFileSync(final_path, "base64");
+    const buffer = Buffer.from(base64, "base64");
 
     const multipleFiles = new ProductBasedCoet({
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);
@@ -738,15 +745,15 @@ const placementproductcoetupload = async (req, res, next) => {
 
 const placementstartupoffupload = async (req, res, next) => {
   try {
-    // const files = {
-    //   filepath: req.file.path,
-    // };
+    const final_path = req.file.path;
 
+    const base64 = fs.readFileSync(final_path, "base64");
+    const buffer = Buffer.from(base64, "base64");
     const multipleFiles = new StartupOff({
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);
@@ -759,15 +766,16 @@ const placementstartupoffupload = async (req, res, next) => {
 
 const placementstartupcoetupload = async (req, res, next) => {
   try {
-    // const files = {
-    //   filepath: req.file.path,
-    // };
+    const final_path = req.file.path;
+
+    const base64 = fs.readFileSync(final_path, "base64");
+    const buffer = Buffer.from(base64, "base64");
 
     const multipleFiles = new StartupCoet({
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);
@@ -780,15 +788,16 @@ const placementstartupcoetupload = async (req, res, next) => {
 
 const placementInternshipoffupload = async (req, res, next) => {
   try {
-    // const files = {
-    //   filepath: req.file.path,
-    // };
+    const final_path = req.file.path;
+
+    const base64 = fs.readFileSync(final_path, "base64");
+    const buffer = Buffer.from(base64, "base64");
 
     const multipleFiles = new InternshipOff({
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);
@@ -801,15 +810,16 @@ const placementInternshipoffupload = async (req, res, next) => {
 
 const placementInternshipcoetupload = async (req, res, next) => {
   try {
-    // const files = {
-    //   filepath: req.file.path,
-    // };
+    const final_path = req.file.path;
+
+    const base64 = fs.readFileSync(final_path, "base64");
+    const buffer = Buffer.from(base64, "base64");
 
     const multipleFiles = new InternshipCoet({
       name: req.body.name,
       salary: req.body.salary,
       url: req.body.url,
-      photo: req.file.path,
+      photo: { data: buffer, contentType: req.file.mimetype },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);

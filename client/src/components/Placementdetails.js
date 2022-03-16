@@ -69,6 +69,8 @@ const Placementdetails = () => {
     url: "",
     file: "",
   });
+  const [profile, setprofile] = useState();
+
   const [files, setfiles] = useState([]);
   const navigate = useNavigate();
 
@@ -106,6 +108,7 @@ const Placementdetails = () => {
       const res = await axios.get(
         apiUrl + `/placement/${PlacementState}/${myLoginState}`
       );
+
       setfiles(res.data);
     } catch (error) {
       console.log("getPlacement error", error);
@@ -113,7 +116,7 @@ const Placementdetails = () => {
   };
   console.log(files);
   files.forEach((element, index) => {
-    console.log(element.name);
+    console.log(element.photo);
   });
 
   const deletePlacement = async (id) => {
@@ -136,7 +139,7 @@ const Placementdetails = () => {
       console.log(res);
       console.log("get sumesh");
       if (res.status === 401) {
-        navigate("/login");
+        // navigate("/login");
       }
       console.log("Role", data.Role);
       setRole(data.Role);
@@ -145,7 +148,7 @@ const Placementdetails = () => {
       }
     } catch (e) {
       console.log("sumesh", e);
-      navigate("/login");
+      // navigate("/login");
     }
   };
 
@@ -197,7 +200,12 @@ const Placementdetails = () => {
         {files.map((element, index) => (
           <div className="placement1" key={index}>
             <div className="image">
-              <img src={element.photo} alt="placement img" />
+              <img
+                src={`data:${element?.photo?.contentType};base64, ${Buffer.from(
+                  element?.photo?.data.data
+                ).toString("base64")}`}
+                alt="placement img"
+              />
             </div>
             <div className="details">
               <ul className="items">

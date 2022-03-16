@@ -68,6 +68,118 @@ const userSchema = new mongoose.Schema({
     },
   ],
   files: [Object],
+  portfolio: {
+    photo: { data: Buffer, contentType: String },
+    first_name: {
+      type: String,
+      default: "",
+    },
+    last_name: {
+      type: String,
+      default: "",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    city: {
+      type: String,
+      default: "",
+    },
+    state: {
+      type: String,
+      default: "",
+    },
+    phone_number: {
+      type: String,
+      default: "",
+    },
+    website: {
+      type: String,
+      default: "",
+    },
+    email: {
+      type: String,
+      default: "",
+    },
+    objective: {
+      type: String,
+      default: "",
+    },
+    education: [
+      {
+        institution_name: {
+          type: String,
+          default: "",
+        },
+        course: {
+          type: String,
+          default: "",
+        },
+        grade: {
+          type: String,
+          default: "",
+        },
+        start_date: Date,
+        end_date: Date,
+        edu_description: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
+    certification: [
+      {
+        course_name: {
+          type: String,
+          default: "",
+        },
+        cer_organisation: {
+          type: String,
+          default: "",
+        },
+        cer_description: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
+    workexp: [
+      {
+        wrk_organisation: {
+          type: String,
+          default: "",
+        },
+        role: {
+          type: String,
+          default: "",
+        },
+        wrk_start_date: Date,
+        wrk_end_date: Date,
+        wrk_description: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
+    skill: [String],
+    hobbies: [String],
+    language: [
+      {
+        language_name: {
+          type: String,
+          default: "",
+        },
+        read: { type: Boolean, default: false },
+        write: { type: Boolean, default: false },
+        speak: { type: Boolean, default: false },
+        level: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
+  },
   tokens: [
     {
       token: {

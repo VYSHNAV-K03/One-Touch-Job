@@ -207,7 +207,7 @@ const Home2 = () => {
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Asperiores, possimus repellat? Sequi numquam enim ex?
               </div>
-              <NavLink to="/portfolio" className="placement">
+              <NavLink to="/postportfolio" className="placement">
                 <button>click</button>
                 <i class="fal fa-angle-double-right"></i>{" "}
               </NavLink>{" "}

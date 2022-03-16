@@ -28,10 +28,11 @@ import Ski from "./pages/Ski";
 import SkillQuiz from "./pages/SkillQuiz";
 import Quiz from "./pages/Quiz";
 import QuizResult from "./pages/QuizResult";
-import Portfolio from "./pages/Portfolio";
+import Portfolio from "./Porfolio/Portfolio";
 import TemporaryDrawer from "./pages/rightnav";
 import SearchFilter from "./components/SearchFilter";
 import Workshops from "./pages/Workshops";
+import PostPortfolio from "./Porfolio/PostPortfolio";
 
 const Container = styled.div``;
 
@@ -41,28 +42,29 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/placement" exact element={<Placement />} />
-        <Route path="/skill" exact element={<Skill />} />
         <Route path="/projects" exact element={<Projects />} />
+        <Route path="/postportfolio" exact element={<PostPortfolio />} />
+        <Route path="/portfolio" exact element={<Portfolio />} />
+        <Route path="/profile" exact element={<Profilepage />} />
+        <Route path="/placementeach" exact element={<Placementdetails />} />
+        <Route path="/skill" exact element={<Skill />} />
+        <Route path="/skillquiz" exact element={<SkillQuiz />} />
+        <Route path="/search" exact element={<SearchFilter />} />
         <Route path="/sumesh" exact element={<Ski />} />
         <Route path="/courses" exact element={<Eachcourses />} />
         <Route path="/contact" exact element={<Contact />} />
-        <Route path="/profile" exact element={<Profilepage />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/loginoff" exact element={<LoginOff />} />
         <Route path="/logincollege" exact element={<LoginCollege />} />
+        <Route path="/logout" exact element={<Logout />} />
         <Route path="/resetpassword" exact element={<ResetPass />} />
         <Route path="/reset/:token" exact element={<NewPassword />} />
         <Route path="/register" exact element={<Register />} />
-        <Route path="/logout" exact element={<Logout />} />
-        <Route path="/placementeach" exact element={<Placementdetails />} />
-        <Route path="/skillquiz" exact element={<SkillQuiz />} />
-        <Route path="/quiz" exact element={<Quiz />} />
         <Route path="/result" exact element={<QuizResult />} />
-        <Route path="/portfolio" exact element={<Portfolio />} />
-        <Route path="/search" exact element={<SearchFilter />} />
-        <Route path="*" element={<Errorpage />} />
         <Route path="/right" exact element={<TemporaryDrawer />} />
         <Route path="/workshop" exact element={<Workshops />} />
+        <Route path="/quiz" exact element={<Quiz />} />
+        <Route path="*" element={<Errorpage />} />
       </Routes>
     </>
   );

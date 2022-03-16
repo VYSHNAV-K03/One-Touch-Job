@@ -15,7 +15,8 @@ const workshopschema = new mongoose.Schema(
       default: "",
     },
     filepath: {
-      type: String,
+      data: Buffer,
+      contentType: String,
     },
   },
   { timestamps: true }

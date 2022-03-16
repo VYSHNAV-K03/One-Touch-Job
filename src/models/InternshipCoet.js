@@ -17,7 +17,7 @@ const Internshipcoetschema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    photo: { type: String, trim: true },
+    photo: { data: Buffer, contentType: String },
   },
   { timestamps: true }
 );

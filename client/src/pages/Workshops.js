@@ -1,10 +1,10 @@
 import { Button, IconButton } from "@mui/material";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import image from "../assets/images/progressbackground.png";
 import Navbar from "../components/Navbar";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 import { apiUrl } from "../data/api";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -52,7 +52,6 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
-    min-height: 100vh;
   }
   .card {
     width: 450px;
@@ -165,6 +164,10 @@ const Workshops = () => {
 
   console.log(Role);
 
+  data.map((element, index) => {
+    console.log(element.filepath);
+  });
+
   useEffect(() => {
     getWorkshop();
     CallProjectpage();
@@ -176,12 +179,16 @@ const Workshops = () => {
         <NavLink type="button" className="btn btn-outline-primary" to="/">
           Back To Home Page
         </NavLink>
-        <button type="button" className="btn btn-outline-primary">
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={getWorkshop}
+        >
           Refresh
         </button>
       </div>
       <div className="container">
-        {Role && Role === 1 ? (
+        {Role && (Role === 1 || Role === 5) ? (
           <Button
             variant="outlined"
             className="addworkbutton"
@@ -254,7 +261,15 @@ const Workshops = () => {
         {data?.map((element, index) => (
           <div className="card mb-3 box-shadow" key={index}>
             <div className="image">
-              <img src={element.filepath} className="card-img-top" alt="..." />
+              <img
+                src={`data:${
+                  element?.filepath?.contentType
+                };base64, ${Buffer.from(element?.filepath?.data.data).toString(
+                  "base64"
+                )}`}
+                className="card-img-top"
+                alt="..."
+              />
               {Role && Role === 1 ? (
                 <IconButton
                   aria-label="delete"
