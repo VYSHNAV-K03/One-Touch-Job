@@ -33,6 +33,7 @@ import TemporaryDrawer from "./pages/rightnav";
 import SearchFilter from "./components/SearchFilter";
 import Workshops from "./pages/Workshops";
 import PostPortfolio from "./Porfolio/PostPortfolio";
+import Signin from "./components/Login";
 
 const Container = styled.div``;
 
@@ -53,7 +54,7 @@ function App() {
         <Route path="/sumesh" exact element={<Ski />} />
         <Route path="/courses" exact element={<Eachcourses />} />
         <Route path="/contact" exact element={<Contact />} />
-        <Route path="/login" exact element={<Login />} />
+        <Route path="/login" exact element={<Signin />} />
         <Route path="/loginoff" exact element={<LoginOff />} />
         <Route path="/logincollege" exact element={<LoginCollege />} />
         <Route path="/logout" exact element={<Logout />} />

@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -16,10 +17,6 @@ const Container = styled.div`
     width: 200px;
     height: 50px;
     border-radius: 50px;
-    border: none;
-    outline: none;
-    background: coral;
-    font-size: 1.1rem;
   }
 `;
 
@@ -28,11 +25,11 @@ const Errorpage = () => {
     <Container>
       <h1>404</h1>
       <div className="message">page not found</div>
-      <button className="back">
-        <NavLink to="/" style={{ textDecoration: "none", color: "white" }}>
+      <NavLink to="/" style={{ textDecoration: "none", color: "white" }}>
+        <Button variant="contained" color="error" className="back">
           Back to homepage
-        </NavLink>
-      </button>
+        </Button>
+      </NavLink>
     </Container>
   );
 };

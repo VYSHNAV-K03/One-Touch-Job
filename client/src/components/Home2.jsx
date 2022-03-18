@@ -10,12 +10,17 @@ const Container = styled.div`
   padding: 10px 3px;
   background: #16384c;
   .container-services {
+    padding: 50px 30px;
     min-height: 600px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: 50px 30px;
+  }
+  @media screen and (max-width: 475px) {
+    .container-services {
+      padding: 10px 5px;
+    }
   }
 `;
 
@@ -23,8 +28,8 @@ const Box1 = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 265px;
   width: 330px;
+  height: 265px;
   background: #ffff;
   transition: 0.3s ease-in-out;
   padding: 20px 15px;
@@ -74,13 +79,14 @@ const Box1 = styled.div`
     -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
     text-align: center;
   }
+
   .image,
   .content {
     backface-visibility: hidden;
   }
   .title-services {
-    font-weight: bold;
     font-size: 2.2rem;
+    font-weight: bold;
   }
 
   .content .description {
@@ -88,6 +94,7 @@ const Box1 = styled.div`
   }
 
   .placement {
+    margin: 20px auto;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -98,9 +105,9 @@ const Box1 = styled.div`
     border-radius: 50px;
     background: teal;
     color: white;
-    margin: 20px auto;
   }
   button {
+    font-size: 1.3rem;
     text-align: center;
     border: none;
     display: flex;
@@ -108,7 +115,6 @@ const Box1 = styled.div`
     justify-content: center;
     text-decoration: none;
     background-color: transparent;
-    font-size: 1.3rem;
     margin-right: 10px;
     color: white;
   }
@@ -120,20 +126,31 @@ const Box1 = styled.div`
     justify-content: center;
     top: 2px;
   }
-  @media screen and (max-width: 481px) {
-    height: 165px;
-    width: 230px;
-    padding: 10px 5px;
-
-    :hover {
-      height: 320px;
-    }
+  @media screen and (max-width: 475px) {
+    height: 205px;
+    width: 280px;
+    padding: 20px 15px;
+    margin: 30px 0;
     .image {
-      position: relative;
-      width: 180px;
-      min-height: 160px;
-      top: -50px;
-      left: 20px;
+      width: 210px;
+      height: 210px;
+    }
+    .content {
+      width: 210px;
+      height: 210px;
+      padding: 5px 0;
+    }
+    .title-services {
+      font-size: 1.3rem;
+    }
+    button {
+      font-size: 1rem;
+    }
+    .placement {
+      margin: 5px auto;
+      width: 80px;
+      height: 30px;
+      border-radius: 15px;
     }
   }
 `;

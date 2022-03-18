@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import loginbg from "../assets/images/contactbg1.jpg";
+import loginbg from "../assets/images/progressbg1.png";
 import Navbar from "./Navbar";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,8 +8,7 @@ import { apiUrl } from "../data/api";
 
 const Container = styled.div`
   height: calc(100vh - 80px);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
-    url(${loginbg});
+  background-image: url(${loginbg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -122,6 +121,7 @@ const Register = () => {
               type="text"
               name="name"
               id="name"
+              className="form-control"
               value={user.name}
               onChange={handleInput}
               placeholder="Username"
@@ -130,6 +130,7 @@ const Register = () => {
             <input
               type="email"
               name="email"
+              className="form-control"
               id="email"
               value={user.email}
               onChange={handleInput}
@@ -137,6 +138,7 @@ const Register = () => {
               required="required"
             />
             <input
+              className="form-control"
               type="tel"
               name="phone"
               id="phone"
@@ -149,6 +151,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="work"
+              className="form-control"
               name="work"
               id="work"
               value={user.work}
@@ -159,6 +162,7 @@ const Register = () => {
               type="password"
               placeholder="password"
               name="password"
+              className="form-control"
               id="password"
               value={user.password}
               onChange={handleInput}
@@ -166,6 +170,7 @@ const Register = () => {
             />
             <input
               type="password"
+              className="form-control"
               placeholder="confirm password"
               name="cpassword"
               id="cpassword"

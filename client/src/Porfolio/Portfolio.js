@@ -6,24 +6,28 @@ import image from "../assets/images/book.png";
 import axios from "axios";
 import { apiUrl } from "../data/api";
 import { useSelector } from "react-redux";
+import PortfolioTemp1 from "./PortfolioTemp1";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
+  padding: 10px;
   #content {
-    width: 700px;
+    max-width: 630px;
     padding: 10px;
     text-align: center;
   }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
   }
 `;
 
 const Portfolio = () => {
   const [profile, setprofile] = useState();
   const [data, setdata] = useState([]);
+
+  const navigate = useNavigate();
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
 
@@ -69,10 +73,20 @@ const Portfolio = () => {
   };
   return (
     <Container>
-      <Button onClick={generatePdf}>Download</Button>
-      <div className="name">{data.first_name}</div>
+      <div className="buttons">
+        <Button onClick={() => navigate("/")} variant="outlined">
+          Back To HOME
+        </Button>
+
+        <Button onClick={generatePdf} variant="contained" color="secondary">
+          Download
+        </Button>
+        <Button variant="outlined" onClick={getPortfolio}>
+          Refresh
+        </Button>
+      </div>
       <div className="container" id="content">
-        <img src={profile} alt="" />
+        <PortfolioTemp1 data={data} />
       </div>
     </Container>
   );

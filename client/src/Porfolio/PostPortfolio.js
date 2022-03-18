@@ -134,7 +134,7 @@ const PostPortfolio = () => {
             />
           </div>
         </div>
-
+        <br />
         <div className="Location">
           <div className="col-6">
             <label htmlFor="inputAddress" className="form-label">
@@ -178,6 +178,7 @@ const PostPortfolio = () => {
         </div>
         <br />
         <div className="Conntact info">
+          <h3>Contact Details</h3>
           <div className="col-md-6">
             <label htmlFor="inputCity" className="form-label">
               Phone No
@@ -228,6 +229,8 @@ const PostPortfolio = () => {
         </div>
         <br />
         <div className="edu">
+          <h3>Educational Details</h3>
+
           <div className="col-6">
             <label htmlFor="inputAddress" className="form-label">
               Institution Name
@@ -311,8 +314,9 @@ const PostPortfolio = () => {
             ></textarea>
           </div>
         </div>
-
+        <br />
         <div className="certification">
+          <h3>Certification Details</h3>
           <div className="col-6">
             <label htmlFor="inputAddress" className="form-label">
               Course Name
@@ -376,7 +380,9 @@ const PostPortfolio = () => {
             />
           </div>
         </div>
+        <br />
         <div className="workexp">
+          <h3>Work Experience</h3>
           <div className="col-6">
             <label htmlFor="inputAddress" className="form-label">
               Organisation Name
@@ -447,7 +453,7 @@ const PostPortfolio = () => {
             />
           </div>
         </div>
-
+        <br />
         <div>
           <div className="col-6">
             <label htmlFor="inputAddress" className="form-label">
