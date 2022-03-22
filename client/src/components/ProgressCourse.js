@@ -36,6 +36,7 @@ const Container = styled.div`
     width: 300px;
     overflow: hidden;
     margin: 0 20px;
+    cursor: pointer;
   }
   .image {
     width: 100%;
@@ -83,7 +84,6 @@ const ProgressCourse = () => {
   ///////redux state ////
 
   const myState = useSelector((state) => state.changeMernCourse);
-  console.log(myState);
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
 
@@ -94,7 +94,6 @@ const ProgressCourse = () => {
   };
 
   const Filechange = (e) => {
-    // console.log(e.target.files);
     setfiles(e.target.files);
     setprogress(0);
   };
@@ -111,26 +110,21 @@ const ProgressCourse = () => {
 
   const CallReactProjectpage = async () => {
     try {
-      const res = await axios.get(apiUrl + `/${myState}/files`, {
+      const res = await axios.get(apiUrl + `/courses/${myState}/url/get`, {
         withCredentials: true,
       });
-      console.log(apiUrl + `/${myState}/files`);
       const data = await res.data;
-      console.log(data);
       setfilesList(data);
       setfileid(data._id);
       if (res.status !== 200) {
         throw new Error(res.error);
       }
     } catch (e) {
-      console.log("sumesh", e);
+      console.log("callprogress", e);
     }
   };
-  // console.log(filesList);
   // filesList.map((element, index) => {
-  //   // console.log(element._id);
   //   element.videos.map((file, index) => {
-  //     console.log(file.filepath);
   //   });
   // });
 
@@ -145,24 +139,27 @@ const ProgressCourse = () => {
         <div className="container-course">
           <div className="projects">
             {filesList.map((element, index) => (
-              <div className="imagecontainer" key={element._id}>
-                {element.videos.map((file, index) =>
-                  file.filetype === "video/mp4" ? (
-                    <video width="400" controls className="size">
-                      <source src={file.filepath} />
-                    </video>
-                  ) : (
-                    <img src={file.filepath} alt="" className="size" />
-                  )
-                )}
-                {element?.URL.map((file, index) => (
-                  <div className="imageandurl" key={index}>
-                    <div className="image">
-                      <img src={file.filepath} alt="" />
-                    </div>
-                    <a href={file.url}>{file.url}</a>
+              <div className="imagecontainer" key={index}>
+                <div
+                  href={element.url}
+                  target="_blank"
+                  className="imageandurl"
+                  key={index}
+                >
+                  <div className="image">
+                    <img
+                      src={`data:${
+                        element.image.contentType
+                      };base64, ${Buffer.from(element.image.data.data).toString(
+                        "base64"
+                      )}`}
+                      alt=""
+                    />
                   </div>
-                ))}
+                  <a href={element.url} target="_blank">
+                    {element.url}
+                  </a>
+                </div>
               </div>
             ))}
           </div>

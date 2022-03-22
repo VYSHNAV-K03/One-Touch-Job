@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   profile: {
-    type: String,
-    default: "",
+    data: Buffer,
+    contentType: String,
   },
   resetToken: {
     type: String,

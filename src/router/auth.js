@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const fs = require("fs");
 
 const nodemailer = require("nodemailer");
 const sendGridTransport = require("nodemailer-sendgrid-transport");
@@ -12,7 +13,6 @@ const formidable = require("formidable");
 const cookieParser = require("cookie-parser"); //this is used for getting req.cookies in middleware otherwise we dont get cookies in req in middleware
 
 router.use(cookieParser());
-
 
 require("../db/conn");
 require("dotenv").config({
@@ -86,6 +86,7 @@ const StartupOff = require("../models/Starupschemaoff");
 const StartupCoet = require("../models/StartupCoet");
 const InternshipOff = require("../models/InternshipOff");
 const InternshipCoet = require("../models/InternshipCoet");
+const ReactUrl = require("../models2/reactwithurl");
 
 // console.log(obj);
 // const directory_name = "../models";
@@ -93,14 +94,27 @@ const InternshipCoet = require("../models/InternshipCoet");
 // const filenames = fs.readdirSync(directory_name);
 
 //registration route
-router.post("/registe", async (req, res) => {
-  const { name, email, work, phone, password, cpassword, Role } = req.body.body;
-  // console.log(req.body);
+router.post("/registe", upload.single("file"), async (req, res) => {
+  const final_path = req.file.path;
 
-  if (!name || !email || !work || !phone || !password || !cpassword) {
-    res.send({ status: 422, error: "pls fill the field properly" });
-  }
+  const base64 = fs.readFileSync(final_path, "base64");
+  const buffer = Buffer.from(base64, "base64");
+
   try {
+    const { name, email, work, phone, password, cpassword, Role, file } =
+      req.body;
+
+    if (
+      !name ||
+      !email ||
+      !work ||
+      !phone ||
+      !password ||
+      !cpassword ||
+      !req.file
+    ) {
+      res.send("pls fill the field properly");
+    }
     const userExist = await User.findOne({ email: email });
 
     if (userExist) {
@@ -114,6 +128,10 @@ router.post("/registe", async (req, res) => {
         phone,
         cpassword,
         Role,
+        profile: {
+          data: buffer,
+          contentType: req.file.mimetype,
+        },
       });
 
       //here is hashing happening
@@ -179,40 +197,68 @@ router.post("/registe/coet", async (req, res) => {
 
 // login route
 
-router.post("/signin", async (req, res) => {
+router.post("/signin/off", async (req, res) => {
   try {
-    const { email, password } = req.body.body;
+    const { email, password } = req.body;
 
     if (!email || !password) {
-      res.send({ error: "pls fill properly", status: 400 });
-    }
-
-    const userExist = await User.findOne({ email: email });
-
-    if (userExist) {
-      const isMatch = await bcrypt.compare(password, userExist.password);
-
-      const token = await userExist.generateAuthToken();
-      // console.log("singin token", token);
-
-      res.cookie("jwt", token, {
-        sameSite: "strict",
-        expires: new Date(Date.now() + 300000000),
-        httpOnly: true,
-      });
-      // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-      // res.setHeader("Access-Control-Allow-Credentials", true);
-
-      if (!isMatch) {
-        res.send({ error: "Invalid Credentials", status: 400 });
-      } else {
-        res
-          .status(201)
-          .json({ message: "user login successfully", status: 201 });
-      }
+      res.send("pls fill properly");
     } else {
-      res.send({ error: "Invalid Credentials", status: 400 });
-      //hacker dont know the problem is email or password
+      const userExist = await User.findOne({ email: req.body.email });
+      if (userExist) {
+        const isMatch = await bcrypt.compare(password, userExist.password);
+        const token = await userExist.generateAuthToken();
+        // console.log("singin token", token);
+        res.cookie("jwt", token, {
+          sameSite: "strict",
+          expires: new Date(Date.now() + 300000000),
+          httpOnly: true,
+        });
+        // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        // res.setHeader("Access-Control-Allow-Credentials", true);
+        if (!isMatch) {
+          res.send("check password");
+        } else {
+          res.status(200).send("user login successfully");
+        }
+      } else {
+        res.status(404).send("Invalid Credentials");
+        //hacker dont know the problem is email or password
+      }
+    }
+  } catch (e) {
+    res.send("error");
+    console.log("error", e);
+  }
+});
+
+router.post("/signin/coet", async (req, res) => {
+  const { email, password, college } = req.body;
+  try {
+    if (!email || !password || !college) {
+      res.send("pls fill properly");
+    } else {
+      const userExist = await COET.findOne({ email: req.body.email });
+
+      if (userExist) {
+        const isMatch = await bcrypt.compare(password, userExist.password);
+
+        const token = await userExist.generateAuthToken();
+
+        res.cookie("jwt", token, {
+          sameSite: "strict",
+          expires: new Date(Date.now() + 300000000),
+          httpOnly: true,
+        });
+
+        if (!isMatch) {
+          res.send("pls check password");
+        } else {
+          res.status(200).send("user login successfully");
+        }
+      } else {
+        res.status(404).send("Invalid sumesh");
+      }
     }
   } catch (e) {
     console.log("error", e);
@@ -306,49 +352,6 @@ router.post("/new-password", async (req, res) => {
 });
 
 //collegeofthalassery singini
-
-router.post("/signin/coet", async (req, res) => {
-  try {
-    const { email, password, college } = req.body.body;
-
-    if (!email || !password || !college) {
-      res.send({ error: "pls fill properly", status: 400 });
-    }
-    // if (!college) {
-    //   res.send({ error: "select college", status: 400 });
-    // }
-
-    const userExist = await COET.findOne({ email: email });
-
-    if (userExist) {
-      const isMatch = await bcrypt.compare(password, userExist.password);
-
-      const token = await userExist.generateAuthToken();
-      // console.log("singin token", token);
-
-      res.cookie("jwt", token, {
-        sameSite: "strict",
-        expires: new Date(Date.now() + 300000000),
-        httpOnly: true,
-      });
-      // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-      // res.setHeader("Access-Control-Allow-Credentials", true);
-
-      if (!isMatch) {
-        res.send({ error: "Invalid Credentials", status: 400 });
-      } else {
-        res
-          .status(201)
-          .json({ message: "user login successfully", status: 201 });
-      }
-    } else {
-      res.send({ error: "Invalid Credentials", status: 400 });
-      //hacker dont know the problem is email or password
-    }
-  } catch (e) {
-    console.log("error", e);
-  }
-});
 
 router.get("/about/off", Authenticate, async (req, res) => {
   try {
@@ -602,27 +605,24 @@ router.delete("/javascript/delete/:id", async (req, res) => {
 
 //react
 
-router.post("/react", upload.array("files", 10), ReactFileUpload);
-router.get("/react/files", async (req, res) => {
-  try {
-    const reactFiles = await React.find();
-    res.status(200).send(reactFiles);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.delete("/react/delete/:id", async (req, res) => {
-  try {
-    const reactFiles = await React.findByIdAndDelete({ _id: req.params.id });
-    res.status(200).send(reactFiles);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
 //add react url
 router.post("/react/url", upload.single("file"), ReactURLUpload);
+router.get("/react/url/get", async (req, res) => {
+  try {
+    const react = await ReactUrl.find();
+    res.send(react);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.delete("/react/url/delete/:id", async (req, res) => {
+  try {
+    const reactFiles = await ReactUrl.findByIdAndDelete({ _id: req.params.id });
+    res.status(200).send(reactFiles);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 ///////////// For Angular //////////////////////////////////////
 

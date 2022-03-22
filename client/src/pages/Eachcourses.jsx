@@ -148,11 +148,7 @@ const Eachcourses = () => {
                 {element.id === 1 ? (
                   <BuildCircle />
                 ) : element.id === 2 ? (
-                  <Avatar
-                    alt=""
-                    src={profile ? profile : "/static/images/avatar/1.jpg"}
-                    sx={{ width: 30, height: 30 }}
-                  />
+                  <Avatar alt="" sx={{ width: 30, height: 30 }} />
                 ) : element.id === 3 && !login ? (
                   <Logout />
                 ) : (

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { apiUrl } from "../data/api";
 import logo from "../assets/images/onetouchjob2.png";
+import bg from "../assets/images/background.avif";
 
 const desktop = "1200px";
 const laptop = "1024px";
@@ -17,7 +18,8 @@ const Container = styled.div`
   /* background: url("https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1632&q=80"); */
   /* background: url("https://images.unsplash.com/photo-1646724586973-43f235fc7c22?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"); */
   /* background: url("https://images.unsplash.com/photo-1640622843377-6b5af9417e70?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"); */
-  background: url("https://images.unsplash.com/photo-1597742800947-e17e915b8d83?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80");
+  /* background: url("https://images.unsplash.com/photo-1597742800947-e17e915b8d83?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"); */
+  background: url(${bg});
 
   background-position: center;
   background-repeat: no-repeat;
@@ -145,8 +147,6 @@ const Home1 = () => {
       });
 
       const data = await res.data;
-      console.log(res);
-      console.log("get sumesh");
 
       setuser(data);
 
@@ -154,12 +154,9 @@ const Home1 = () => {
         throw new Error(res.error);
       }
     } catch (e) {
-      console.log("sumesh", e);
+      console.log("call home", e);
     }
   };
-  console.log(user);
-  console.log(window.innerWidth);
-  console.log(window.innerHeight);
 
   useEffect(() => {
     CallHomepage();

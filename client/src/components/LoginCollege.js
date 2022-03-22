@@ -111,31 +111,28 @@ const LoginCollege = () => {
   };
   const Postdata = async (e) => {
     e.preventDefault(); //????
-
-    dispatch(coet());
-
     const { email, password } = user;
-    const res = await axios.post(
-      apiUrl + `/signin/${college}`,
-      {
-        body: {
+    dispatch(coet());
+    try {
+      const res = await axios.post(
+        apiUrl + `/signin/coet`,
+        {
           email,
           password,
           college,
         },
-      },
-      {
-        withCredentials: true,
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.status === 200) {
+        window.alert(res.data);
+        navigate("/");
+      } else {
+        window.alert(res.data);
       }
-    );
-    const data = await res.data;
-    console.log(res);
-    if (data.status === 400 || !data) {
-      window.alert(data.error);
-      console.log("invalid credentials");
-    } else {
-      window.alert("login successfully");
-      navigate("/");
+    } catch (error) {
+      window.alert("invalid credentials");
     }
   };
 

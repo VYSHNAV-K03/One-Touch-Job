@@ -118,9 +118,8 @@ const Workshops = () => {
 
     try {
       const res = await axios.post(apiUrl + "/workshop/addworkshop", formData);
-      setdisplay(false);
     } catch (error) {
-      console.log(error);
+      console.log("upload error", error);
     }
   };
 
@@ -129,7 +128,7 @@ const Workshops = () => {
       const res = await axios.get(apiUrl + "/workshop/getworkshop");
       setdata(res.data);
     } catch (error) {
-      console.log("get work error", error);
+      console.log("get error", error);
     }
   };
 
@@ -139,7 +138,7 @@ const Workshops = () => {
       getWorkshop();
       window.alert("deleted succesfully");
     } catch (error) {
-      console.log(error);
+      console.log("delete error", error);
     }
   };
 
@@ -151,22 +150,17 @@ const Workshops = () => {
 
       const data = await res.data;
 
-      console.log("Role", data.Role);
       setRole(data.Role);
       if (res.status !== 200) {
         throw new Error(res.error);
       }
     } catch (e) {
-      console.log("sumesh", e);
-      navigate("/login");
+      console.log("callPro eror", e);
+      // navigate("/login");
     }
   };
 
-  console.log(Role);
-
-  data.map((element, index) => {
-    console.log(element.filepath);
-  });
+  data.map((element, index) => {});
 
   useEffect(() => {
     getWorkshop();
@@ -202,7 +196,7 @@ const Workshops = () => {
         )}
         <form className="formarea">
           <div className="mb-3">
-            <label for="exampleFormControlInput1" className="form-label">
+            <label htmlFor="exampleFormControlInput1" className="form-label">
               Title of workshop
             </label>
             <input
@@ -214,7 +208,7 @@ const Workshops = () => {
             />
           </div>
           <div className="mb-3">
-            <label for="exampleFormControlTextarea1" className="form-label">
+            <label htmlFor="exampleFormControlTextarea1" className="form-label">
               Description
             </label>
             <textarea
@@ -225,7 +219,7 @@ const Workshops = () => {
             ></textarea>
           </div>
           <div className="mb-3">
-            <label for="exampleFormControlInput1" className="form-label">
+            <label htmlFor="exampleFormControlInput1" className="form-label">
               Registration Url
             </label>
             <input
@@ -249,10 +243,13 @@ const Workshops = () => {
           </div>
           <div className="mb-3">
             <input
-              class="btn btn-primary"
+              className="btn btn-primary"
               type="submit"
               value="Submit"
-              onClick={uploadWorkshop}
+              onClick={() => {
+                uploadWorkshop();
+                setdisplay(false);
+              }}
             />
           </div>
         </form>
@@ -286,18 +283,18 @@ const Workshops = () => {
             </div>
             <div className="card-body">
               <h4 className="card-title">{element.title}</h4>
-              <p className="text">
+              <div className="text">
                 <p className="card-text">{element.description}</p>
                 Registration:{" "}
                 <a className="card-text" href={element.url}>
                   {element.url}
                 </a>
-              </p>
-              <p className="card-text">
+              </div>
+              <div className="card-text">
                 <a className="text-muted" href={element.url}>
                   {element.url}
                 </a>
-              </p>
+              </div>
             </div>
           </div>
         ))}

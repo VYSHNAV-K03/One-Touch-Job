@@ -31,6 +31,7 @@ const StartupCoet = require("../models/StartupCoet");
 const StartupOff = require("../models/Starupschemaoff");
 const InternshipOff = require("../models/InternshipOff");
 const InternshipCoet = require("../models/InternshipCoet");
+const ReactUrl = require("../models2/reactwithurl");
 
 const singleFileupload = async (req, res, next) => {
   try {
@@ -73,11 +74,18 @@ const singleFileupload = async (req, res, next) => {
 ////profile update
 
 const ProfileUpdate = async (req, res, next) => {
+  const final_path = req.file.path;
+
+  const base64 = fs.readFileSync(final_path, "base64");
+  const buffer = Buffer.from(base64, "base64");
+  console.log(req.body);
   try {
     const usercoet = await User.findByIdAndUpdate(req.userID, {
-      profile: req.file.path,
+      name: req.body.name,
+      work: req.body.profession,
+      profile: { data: buffer, contentType: req.file.mimetype },
     });
-    res.status(200).send(usercoet);
+    res.status(200).send("update successfully");
     next();
   } catch (err) {
     res.status(400).send(err.message);
@@ -85,14 +93,20 @@ const ProfileUpdate = async (req, res, next) => {
 };
 
 const ProfileUpdatecoet = async (req, res, next) => {
+  const final_path = req.file.path;
+
+  const base64 = fs.readFileSync(final_path, "base64");
+  const buffer = Buffer.from(base64, "base64");
   try {
     const files = {
       filepath: req.file.path,
     };
     const usercoet = await COET.findByIdAndUpdate(req.userID, {
-      profile: req.file.path,
+      name: req.body.name,
+      work: req.body.profession,
+      profile: { data: buffer, contentType: req.file.mimetype },
     });
-    res.status(200).send(usercoet);
+    res.status(200).send("update successfully");
     next();
   } catch (err) {
     res.status(400).send(err.message);
@@ -140,11 +154,13 @@ const singleFileuploadCoet = async (req, res, next) => {
 ////////////// React file upload //////////
 
 const ReactFileUpload = async (req, res, next) => {
+  // const final_path = req.files.path;
+
+  // const base64 = fs.readFileSync(final_path, "base64");
+  // const buffer = Buffer.from(base64, "base64");
   try {
     let filesArray = [];
     req.files.forEach((element) => {
-      //req.files is the database we want to upload
-
       const files = {
         filename: element.originalname,
         filetype: element.mimetype,
@@ -181,14 +197,17 @@ const ReactFileUpload = async (req, res, next) => {
 ///react url with image upload
 
 const ReactURLUpload = async (req, res, next) => {
-  try {
-    const files = {
-      url: req.body.url,
-      filepath: req.file.path,
-    };
+  const final_path = req.file.path;
 
-    const multipleFiles = new React({
-      URL: files,
+  const base64 = fs.readFileSync(final_path, "base64");
+  const buffer = Buffer.from(base64, "base64");
+  try {
+    const multipleFiles = new ReactUrl({
+      url: req.body.url,
+      image: {
+        data: buffer,
+        contentType: req.file.mimetype,
+      },
     });
     await multipleFiles.save();
     res.status(201).send(multipleFiles);

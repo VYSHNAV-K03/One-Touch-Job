@@ -25,7 +25,7 @@ const Container = styled.div`
 
 const Portfolio = () => {
   const [profile, setprofile] = useState();
-  const [data, setdata] = useState([]);
+  const [data, setdata] = useState();
 
   const navigate = useNavigate();
 
@@ -40,6 +40,7 @@ const Portfolio = () => {
         }
       );
       console.log(res);
+      setdata(res.data);
       setprofile(
         `data:${res.data?.photo?.contentType};base64, ${Buffer.from(
           res.data?.photo?.data.data
@@ -86,7 +87,7 @@ const Portfolio = () => {
         </Button>
       </div>
       <div className="container" id="content">
-        <PortfolioTemp1 data={data} />
+        {data ? <PortfolioTemp1 /> : <></>}
       </div>
     </Container>
   );

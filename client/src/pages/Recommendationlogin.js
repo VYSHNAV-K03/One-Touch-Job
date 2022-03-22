@@ -14,10 +14,10 @@ const Container = styled.div`
 const Recommendationlogin = () => {
   return (
     <Container>
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
+      <ul className="nav nav-tabs" id="myTab" role="tablist">
+        <li className="nav-item" role="presentation">
           <button
-            class="nav-link active"
+            className="nav-link active"
             id="home-tab"
             data-bs-toggle="tab"
             data-bs-target="#home"
@@ -29,9 +29,9 @@ const Recommendationlogin = () => {
             Paid Internships
           </button>
         </li>
-        <li class="nav-item" role="presentation">
+        <li className="nav-item" role="presentation">
           <button
-            class="nav-link"
+            className="nav-link"
             id="profile-tab"
             data-bs-toggle="tab"
             data-bs-target="#profile"
@@ -43,9 +43,9 @@ const Recommendationlogin = () => {
             Freelance Works
           </button>
         </li>
-        <li class="nav-item" role="presentation">
+        <li className="nav-item" role="presentation">
           <button
-            class="nav-link"
+            className="nav-link"
             id="contact-tab"
             data-bs-toggle="tab"
             data-bs-target="#contact"
@@ -58,9 +58,9 @@ const Recommendationlogin = () => {
           </button>
         </li>
       </ul>
-      <div class="tab-content" id="myTabContent">
+      <div className="tab-content" id="myTabContent">
         <div
-          class="tab-pane fade show active"
+          className="tab-pane fade show active"
           id="home"
           role="tabpanel"
           aria-labelledby="home-tab"
@@ -68,7 +68,7 @@ const Recommendationlogin = () => {
           Not available
         </div>
         <div
-          class="tab-pane fade"
+          className="tab-pane fade"
           id="profile"
           role="tabpanel"
           aria-labelledby="profile-tab"
@@ -76,7 +76,7 @@ const Recommendationlogin = () => {
           Not available
         </div>
         <div
-          class="tab-pane fade"
+          className="tab-pane fade"
           id="contact"
           role="tabpanel"
           aria-labelledby="contact-tab"

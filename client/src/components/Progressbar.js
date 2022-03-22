@@ -140,7 +140,6 @@ const Progressbar = () => {
   const [linecolor, setlinecolor] = useState(1);
 
   const myCourseState = useSelector((state) => state.changeMernCourse);
-  console.log(myCourseState);
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
 
@@ -151,8 +150,6 @@ const Progressbar = () => {
       });
 
       const data = await res.data;
-      console.log(res);
-      console.log("get sumesh");
       // if (res.status === 401) {
       //   navigate("/login");
       // }
@@ -163,10 +160,9 @@ const Progressbar = () => {
         throw new Error(res.error);
       }
     } catch (e) {
-      console.log("sumesh", e);
+      console.log("callprogress", e);
     }
   };
-  console.log(course);
 
   const handleClick = (selected, fn) => {
     setlinecolor(selected);
@@ -192,9 +188,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 1 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}
               </div>
               <p>HTML & CSS</p>
@@ -209,9 +205,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 2 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
 
@@ -227,9 +223,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 3 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
 
@@ -245,9 +241,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 4 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
 
@@ -263,9 +259,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 5 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
               <p>Node js</p>
@@ -280,9 +276,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 6 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
               <p>Express</p>
@@ -297,9 +293,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 7 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
 
@@ -315,9 +311,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 8 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
 
@@ -333,9 +329,9 @@ const Progressbar = () => {
               </div>
               <div className="line">
                 {linecolor == 9 ? (
-                  <i class="fas fa-check-circle"></i>
+                  <i className="fas fa-check-circle"></i>
                 ) : (
-                  <i class="fas fa-times-circle"></i>
+                  <i className="fas fa-times-circle"></i>
                 )}{" "}
               </div>
 
@@ -358,7 +354,7 @@ const Progressbar = () => {
                 <img src={htmlandcss} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-check-circle"></i>{" "}
+                <i className="fas fa-check-circle"></i>{" "}
               </div>
               <p>HTML & CSS</p>
             </li>
@@ -367,7 +363,7 @@ const Progressbar = () => {
                 <img src={js} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-check-circle"></i>{" "}
+                <i className="fas fa-check-circle"></i>{" "}
               </div>
 
               <p>JavaScript</p>
@@ -377,7 +373,7 @@ const Progressbar = () => {
                 <img src={angular} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>AngularJS</p>
@@ -387,7 +383,7 @@ const Progressbar = () => {
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>Frontend projects</p>
@@ -397,7 +393,7 @@ const Progressbar = () => {
                 <img src={node} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
               <p>Node js</p>
             </li>
@@ -406,7 +402,7 @@ const Progressbar = () => {
                 <img src={express} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
               <p>Express</p>
             </li>
@@ -415,7 +411,7 @@ const Progressbar = () => {
                 <img src={mongo} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>MongoDB</p>
@@ -425,7 +421,7 @@ const Progressbar = () => {
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>Backend projects</p>
@@ -435,7 +431,7 @@ const Progressbar = () => {
                 <img src={mean} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>MEAN projects</p>
@@ -457,7 +453,7 @@ const Progressbar = () => {
                 <img src={htmlandcss} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-check-circle"></i>{" "}
+                <i className="fas fa-check-circle"></i>{" "}
               </div>
               <p>HTML & CSS</p>
             </li>
@@ -466,7 +462,7 @@ const Progressbar = () => {
                 <img src={js} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-check-circle"></i>{" "}
+                <i className="fas fa-check-circle"></i>{" "}
               </div>
 
               <p>JavaScript</p>
@@ -476,7 +472,7 @@ const Progressbar = () => {
                 <img src={vue} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>Vue Js</p>
@@ -486,7 +482,7 @@ const Progressbar = () => {
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>Frontend projects</p>
@@ -496,7 +492,7 @@ const Progressbar = () => {
                 <img src={node} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
               <p>Node js</p>
             </li>
@@ -505,7 +501,7 @@ const Progressbar = () => {
                 <img src={express} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
               <p>Express</p>
             </li>
@@ -514,7 +510,7 @@ const Progressbar = () => {
                 <img src={mongo} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>MongoDB</p>
@@ -524,7 +520,7 @@ const Progressbar = () => {
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>Backend projects</p>
@@ -534,7 +530,7 @@ const Progressbar = () => {
                 <img src={mevn} alt="" />
               </div>
               <div className="line">
-                <i class="fas fa-times-circle"></i>
+                <i className="fas fa-times-circle"></i>
               </div>
 
               <p>MEVN projects</p>

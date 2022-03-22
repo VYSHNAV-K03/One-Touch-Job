@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const reactchema = new mongoose.Schema(
   {
     videos: [Object],
-    URL: [Object],
   },
   { timestamps: true }
 );

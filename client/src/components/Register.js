@@ -64,6 +64,9 @@ const Register = () => {
     password: "",
     cpassword: "",
   });
+  const [profileimg, setprofileimg] = useState([]);
+
+  console.log(profileimg);
 
   let name, value;
   const handleInput = (e) => {
@@ -79,21 +82,18 @@ const Register = () => {
     e.preventDefault(); //????
 
     const { name, email, work, password, phone, cpassword } = user;
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("work", work);
+    formData.append("password", password);
+    formData.append("phone", phone);
+    formData.append("cpassword", cpassword);
+    formData.append("file", profileimg);
 
-    const res = await axios.post(
-      apiUrl + "/registe",
-      {
-        body: {
-          name, //name :name  both are same
-          email,
-          work,
-          password,
-          phone,
-          cpassword,
-        },
-      },
-      { withCredentials: true }
-    );
+    const res = await axios.post(apiUrl + "/registe", formData, {
+      withCredentials: true,
+    });
     const data = await res.data;
     console.log(data.status);
 
@@ -178,11 +178,16 @@ const Register = () => {
               onChange={handleInput}
               required="required"
             />
+            <input
+              type="file"
+              onChange={(e) => setprofileimg(e.target.files[0])}
+            />
             <button type="submit" onClick={Postdata}>
               Register
             </button>
           </form>
         </div>
+        }
       </Container>
     </>
   );

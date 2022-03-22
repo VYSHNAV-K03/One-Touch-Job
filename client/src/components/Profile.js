@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import profilebg from "../assets/images/profilebg.jpg";
-import profile from "../assets/profile/profile1.jpg";
+import profileimg from "../assets/profile/profile1.jpg";
 import html from "../assets/images/html.png";
 import css from "../assets/images/css.png";
 import js from "../assets/images/js.png";
@@ -9,9 +9,17 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { apiUrl } from "../data/api";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import profileb from "../assets/images/profilebg.avif";
+import VanillaTilt from "vanilla-tilt";
+import { Button } from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const Container = styled.div`
-  background: url(${profilebg});
+  background: url(${profileb});
+
   background-size: cover;
   background-position: center;
   min-height: calc(100vh - 80px);
@@ -20,18 +28,44 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px 0;
+  position: relative;
+  .update {
+    position: absolute;
+    padding: 20px;
+    background: #ffffff;
+    font-size: 20px;
+    text-transform: capitalize;
+    display: ${(props) => (props.disp === true ? "none" : "block")};
+    border-radius: 10px;
+    box-shadow: 2px 0px 15px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 2px 0px 15px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 0px 15px 0px rgba(0, 0, 0, 0.75);
+  }
+  .update-icon {
+    margin-left: auto;
+    cursor: pointer;
+  }
+
   .left {
     width: 400px;
     min-height: 400px;
     border-radius: 10px;
     padding: 10px;
-    background: blue;
-    display: flex;
+    display: ${(props) => (props.disp === true ? "flex" : "none")};
     flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 15px 0px rgba(10, 2, 2, 0.75);
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(10, 2, 2, 0.75);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(10, 2, 2, 0.75);
+    text-transform: capitalize;
   }
   .image {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     margin: 20px auto 10px auto;
   }
   .image img {
@@ -39,26 +73,36 @@ const Container = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 5px solid white;
   }
 
   .name {
-    font-size: 1.5rem;
-    margin: 5px auto 2px auto;
+    font-size: 2rem;
+    margin-bottom: 5px;
     font-weight: 600;
   }
   .skill {
-    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  .social-links a {
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    height: 45px;
+    width: 45px;
+    margin: 0 10px 10px 0;
     text-align: center;
+    line-height: 45px;
+    border-radius: 50%;
+    color: #ffffffff;
+    transition: all 0.5s ease;
+    :hover {
+      color: #24262b;
+      background: #ffffff;
+    }
   }
 
   @media screen and (max-width: 790px) {
     .profilecontainer {
       flex-direction: column;
-    }
-    .left {
-      display: grid;
-      border-radius: 10px 10px 0 0;
     }
 
     .image {
@@ -69,45 +113,48 @@ const Container = styled.div`
     .name {
       font-size: 1rem;
     }
-    .skill {
-      font-size: 0.9rem;
-    }
   }
 `;
-const Progress = styled.div`
-  width: 100%;
-  height: 15px;
-  border-radius: 10px;
-  background: gray;
-  margin-top: 15px;
-  position: relative;
-  ::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: ${(props) => props.per};
-    border-radius: 10px;
-    background: ${(props) => props.color};
-  }
-`;
+
+function Tilt(props) {
+  const { options, ...rest } = props;
+  const tilt = useRef(null);
+
+  useEffect(() => {
+    VanillaTilt.init(tilt.current, options);
+  }, [options]);
+
+  return <div ref={tilt} {...rest} />;
+}
 
 const Profile = () => {
   const [userdata, setuserdata] = useState([]);
   const navigate = useNavigate();
+  const [name, setname] = useState("");
+  const [profession, setprofession] = useState("");
+  const [profile, setprofile] = useState([]);
+
+  const [profilepath, setprofilepath] = useState();
+  const [display, setdisplay] = useState(true);
+
+  console.log(name);
+  console.log(profession);
+  console.log(profile);
+
+  console.log(display);
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
 
   const CallAboutPage = async () => {
     try {
-      const res = await axios.get(apiUrl + `/about/${myLoginState}`, {
+      const res = await axios.get(apiUrl + `/getData/${myLoginState}`, {
         withCredentials: true,
       });
 
       const data = await res.data;
-      // console.log(res.status);
       setuserdata(data);
+      setprofilepath(data.profile);
+      // console.log(res.status);
       if (res.status !== 200) {
         throw new Error(res.error);
       }
@@ -118,18 +165,107 @@ const Profile = () => {
   };
   console.log(userdata);
 
+  const handleUpdate = async () => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("work", profession);
+    formData.append("file", profile);
+    try {
+      const res = await axios.post(
+        apiUrl + `/profileimage/${myLoginState}`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+      window.alert(res.data);
+      if (res.data) {
+        setdisplay(true);
+        CallAboutPage();
+      }
+    } catch (error) {
+      console.log("update img error", error);
+    }
+  };
+
   useEffect(() => {
     CallAboutPage();
   }, []);
   return (
-    <Container>
-      <div className="gradientbg"></div>
-      <div className="left">
-        <div className="image">
-          <img src={profile} alt="" />
+    <Container disp={display}>
+      {profilepath ? (
+        <Tilt className="left">
+          <div className="update-icon" onClick={() => setdisplay(false)}>
+            <SettingsIcon />
+          </div>
+          <div className="image">
+            <img
+              src={`data:${profilepath.contentType};base64, ${Buffer.from(
+                profilepath.data.data
+              ).toString("base64")}`}
+              alt=" image"
+              className="small"
+            />
+          </div>
+          <div className="name">{userdata?.name}</div>
+          <div className="skill">{userdata?.work}</div>
+          <div className="social-links">
+            <a href="https://www.linkedin.com/" target="_blank">
+              <LinkedInIcon />
+            </a>
+            <a href="https://github.com/" target="_blank">
+              <GitHubIcon />
+            </a>
+            <a href="https://twitter.com/" target="_blank">
+              <TwitterIcon />
+            </a>
+          </div>
+        </Tilt>
+      ) : (
+        <></>
+      )}
+      <div className="update">
+        <div class="mb-3">
+          <label htmlFor="formFileMultiple" class="form-label">
+            Enter your name
+          </label>
+          <input
+            class="form-control"
+            type="text"
+            id="formFileMultiple"
+            onChange={(e) => setname(e.target.value)}
+          />
         </div>
-        <div className="name">sasi sasi sasi</div>
-        <div className="skill">Full Stack Web Developer</div>
+        <div class="mb-3">
+          <label htmlFor="formFileMultiple" class="form-label">
+            Enter your Profession
+          </label>
+          <input
+            class="form-control"
+            type="text"
+            id="formFileMultiple"
+            onChange={(e) => setprofession(e.target.value)}
+          />
+        </div>
+        <div class="mb-3">
+          <label htmlFor="formFile" class="form-label">
+            Choose profile image
+          </label>
+          <input
+            class="form-control"
+            type="file"
+            id="formFile"
+            onChange={(e) => setprofile(e.target.files[0])}
+          />
+        </div>
+        <Button
+          variant="contained"
+          onClick={() => {
+            handleUpdate();
+          }}
+        >
+          Update
+        </Button>
       </div>
     </Container>
   );

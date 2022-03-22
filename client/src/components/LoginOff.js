@@ -101,26 +101,25 @@ const LoginOff = () => {
   const Postdata = async (e) => {
     e.preventDefault(); //????
     dispatch(offcampus());
-
     const { email, password } = user;
-    const res = await axios.post(
-      apiUrl + "/signin",
-      {
-        body: {
+    try {
+      const res = await axios.post(
+        apiUrl + "/signin/off",
+        {
           email,
           password,
         },
-      },
-      { withCredentials: true }
-    );
-    const data = await res.data;
-    console.log(res);
-    if (data.status === 400 || !data) {
-      window.alert(data.error);
-      console.log("invalid");
-    } else {
-      window.alert("login successfully");
-      navigate("/");
+        { withCredentials: true }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        window.alert(res.data);
+        navigate("/");
+      } else {
+        window.alert(res.data);
+      }
+    } catch (error) {
+      window.alert("invlaid credentials");
     }
   };
   const [state, setState] = React.useState({

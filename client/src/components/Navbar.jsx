@@ -130,7 +130,7 @@ const Navbar = (props) => {
   const [login, setlogin] = useState(true);
   const [user, setuser] = useState([]);
 
-  const [imageexpansion, setimageexpansion] = useState(false);
+  // const [imageexpansion, setimageexpansion] = useState(false);
 
   const [profilepath, setprofilepath] = useState();
 
@@ -147,17 +147,13 @@ const Navbar = (props) => {
       });
 
       const data = await res.data;
-      // console.log(res);
-      console.log(data);
       setprofilepath(data.profile);
       setuser(data);
       setlogin(data.name ? false : true);
       if (res.status !== 200) {
         throw new Error(res.error);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
   // if (user) {
   //   setlogin(false);
@@ -165,38 +161,37 @@ const Navbar = (props) => {
   //   setlogin(true);
   // }
 
-  const [profile, setprofile] = useState();
-  const [updatedimage, setupdatedimage] = useState([]);
+  // const [profile, setprofile] = useState();
+  // const [updatedimage, setupdatedimage] = useState([]);
 
-  const handleChange = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file.target.files[0]);
-    setupdatedimage(file.target.files[0]);
-    // console.log(reader.result);
-    reader.onload = () => {
-      if (reader.readyState == 2) {
-        setprofile(reader.result);
-      }
-    };
-  };
+  // const handleChange = (file) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file.target.files[0]);
+  //   setupdatedimage(file.target.files[0]);
+  //   reader.onload = () => {
+  //     if (reader.readyState == 2) {
+  //       setprofile(reader.result);
+  //     }
+  //   };
+  // };
 
-  const handleUpload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", updatedimage);
-      const res = await axios.post(
-        apiUrl + `/profileimage/${myLoginState}`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
-      callNavbar();
-      setimageexpansion(!imageexpansion);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleUpload = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("file", updatedimage);
+  //     const res = await axios.post(
+  //       apiUrl + `/profileimage/${myLoginState}`,
+  //       formData,
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     callNavbar();
+  //     setimageexpansion(!imageexpansion);
+  //   } catch (error) {
+  //     console.log("upload", error);
+  //   }
+  // };
 
   useEffect(() => {
     callNavbar();
@@ -246,7 +241,9 @@ const Navbar = (props) => {
           <li>
             <div className="profileimage-nav">
               <img
-                src={profilepath ? profilepath : profile1}
+                src={`data:${profilepath.contentType};base64, ${Buffer.from(
+                  profilepath.data.data
+                ).toString("base64")}`}
                 alt=""
                 className="small"
               />

@@ -151,7 +151,7 @@ const Profilepage = () => {
                 ) : element.id === 2 ? (
                   <Avatar
                     alt=""
-                    src={profile ? profile : "/static/images/avatar/1.jpg"}
+                    // src={profile ? profile : "/static/images/avatar/1.jpg"}
                     sx={{ width: 30, height: 30 }}
                   />
                 ) : element.id === 3 && !login ? (

@@ -172,7 +172,7 @@ const Home2 = () => {
               </div>
               <NavLink to="/placement" className="placement">
                 <button>click</button>
-                <i class="fal fa-angle-double-right"></i>{" "}
+                <i className="fal fa-angle-double-right"></i>{" "}
               </NavLink>{" "}
             </div>
           </div>
@@ -190,7 +190,7 @@ const Home2 = () => {
               </div>
               <NavLink to="/skill" className="placement">
                 <button>click</button>
-                <i class="fal fa-angle-double-right"></i>{" "}
+                <i className="fal fa-angle-double-right"></i>{" "}
               </NavLink>
             </div>
           </div>
@@ -208,7 +208,7 @@ const Home2 = () => {
               </div>
               <NavLink to="/projects" className="placement">
                 <button>click</button>
-                <i class="fal fa-angle-double-right"></i>{" "}
+                <i className="fal fa-angle-double-right"></i>{" "}
               </NavLink>{" "}
             </div>
           </div>
@@ -226,7 +226,7 @@ const Home2 = () => {
               </div>
               <NavLink to="/postportfolio" className="placement">
                 <button>click</button>
-                <i class="fal fa-angle-double-right"></i>{" "}
+                <i className="fal fa-angle-double-right"></i>{" "}
               </NavLink>{" "}
             </div>
           </div>

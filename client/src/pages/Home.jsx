@@ -79,20 +79,20 @@ const Home = () => {
       });
 
       const data = await res.data;
-      // console.log(res);
-      console.log(data);
+
       setprofile(data.profile);
       setlogin(data.name ? false : true);
+
       if (res.status !== 200) {
         throw new Error(res.error);
       }
     } catch (e) {
-      console.log(e);
+      console.log("call navbar", e);
     }
   };
-
-  console.log(login);
-
+  if (!login) {
+    window.scrollTo(0, 700);
+  }
   useEffect(() => {
     callNavbar();
   }, []);
@@ -116,10 +116,11 @@ const Home = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {sidebardata1.map((element) => (
+        {sidebardata1.map((element, index) => (
           <NavLink
             to={element.link}
             style={{ textDecoration: "none", color: "black" }}
+            key={index}
           >
             <ListItem button key={element.id}>
               <ListItemIcon>
@@ -140,10 +141,11 @@ const Home = () => {
       </List>
       <Divider />
       <List>
-        {sidebardata2.map((element) => (
+        {sidebardata2.map((element, index) => (
           <NavLink
             to={element.link}
             style={{ textDecoration: "none", color: "black" }}
+            key={index}
           >
             <ListItem button key={element.id}>
               <ListItemIcon>
@@ -164,21 +166,18 @@ const Home = () => {
       </List>
       <Divider />
       <List>
-        {sidebardata3.map((element) => (
+        {sidebardata3.map((element, index) => (
           <NavLink
             to={element.id === 3 && !login ? "/logout" : element.link}
             style={{ textDecoration: "none", color: "black" }}
+            key={index}
           >
             <ListItem button key={element.id}>
               <ListItemIcon>
                 {element.id === 1 ? (
                   <BuildCircle />
                 ) : element.id === 2 ? (
-                  <Avatar
-                    alt=""
-                    src={profile ? profile : "/static/images/avatar/1.jpg"}
-                    sx={{ width: 30, height: 30 }}
-                  />
+                  <Avatar alt="" sx={{ width: 30, height: 30 }} />
                 ) : element.id === 3 && !login ? (
                   <Logout />
                 ) : (

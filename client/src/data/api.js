@@ -25,7 +25,6 @@ export const deleteFile = async (fileid, id, loginState) => {
 
 export const ReactfileUpload = async (data, options, mystate) => {
   try {
-    // console.log("sumesh");
     const res = await axios.post(apiUrl + `/${mystate}`, data, options);
   } catch (error) {
     console.log("upload error", error);
@@ -34,7 +33,7 @@ export const ReactfileUpload = async (data, options, mystate) => {
 
 export const reactDeleteFile = async (url, fileid) => {
   try {
-    await axios.delete(apiUrl + `/${url}/delete/${fileid}`);
+    await axios.delete(apiUrl + `/courses/${url}/url/delete/${fileid}`);
   } catch (error) {
     console.log("delete error", error);
   }
@@ -49,7 +48,6 @@ export const updatePassion = async (passion, loginState) => {
         withCredentials: true,
       }
     );
-    console.log("passion", passion);
   } catch (error) {
     console.log("passion clienterror", error);
   }
