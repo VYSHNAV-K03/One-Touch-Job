@@ -98,9 +98,6 @@ const ProfileUpdatecoet = async (req, res, next) => {
   const base64 = fs.readFileSync(final_path, "base64");
   const buffer = Buffer.from(base64, "base64");
   try {
-    const files = {
-      filepath: req.file.path,
-    };
     const usercoet = await COET.findByIdAndUpdate(req.userID, {
       name: req.body.name,
       work: req.body.profession,

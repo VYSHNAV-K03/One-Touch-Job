@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import profilebg from "../assets/images/profilebg.jpg";
 import profileimg from "../assets/profile/profile1.jpg";
+import profile1 from "../assets/profile/profile1.png";
 import html from "../assets/images/html.png";
 import css from "../assets/images/css.png";
 import js from "../assets/images/js.png";
@@ -193,16 +194,20 @@ const Profile = () => {
   }, []);
   return (
     <Container disp={display}>
-      {profilepath ? (
+      {userdata ? (
         <Tilt className="left">
           <div className="update-icon" onClick={() => setdisplay(false)}>
             <SettingsIcon />
           </div>
           <div className="image">
             <img
-              src={`data:${profilepath.contentType};base64, ${Buffer.from(
-                profilepath.data.data
-              ).toString("base64")}`}
+              src={
+                profilepath
+                  ? `data:${profilepath.contentType};base64, ${Buffer.from(
+                      profilepath.data.data
+                    ).toString("base64")}`
+                  : profile1
+              }
               alt=" image"
               className="small"
             />

@@ -177,7 +177,12 @@ const Home1 = () => {
           nisi ipsam perspiciatis quo quidem alias atque mollitia
           exercitationem? Molestias?
         </div>
-        <Button className="start-btn" variant="contained" color="primary">
+        <Button
+          className="start-btn"
+          variant="contained"
+          color="primary"
+          onClick={() => window.scrollTo(0, 800)}
+        >
           Get Start
         </Button>
       </div>

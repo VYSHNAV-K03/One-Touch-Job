@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import profile1 from "../assets/profile/profile1.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { apiUrl } from "../data/api";
@@ -130,6 +130,8 @@ const Navbar = (props) => {
   const [login, setlogin] = useState(true);
   const [user, setuser] = useState([]);
 
+  const navigate = useNavigate();
+
   // const [imageexpansion, setimageexpansion] = useState(false);
 
   const [profilepath, setprofilepath] = useState();
@@ -239,12 +241,19 @@ const Navbar = (props) => {
         )}
         {!login && (
           <li>
-            <div className="profileimage-nav">
+            <div
+              className="profileimage-nav"
+              onClick={() => navigate("/profile")}
+            >
               <img
-                src={`data:${profilepath.contentType};base64, ${Buffer.from(
-                  profilepath.data.data
-                ).toString("base64")}`}
-                alt=""
+                src={
+                  profilepath
+                    ? `data:${profilepath.contentType};base64, ${Buffer.from(
+                        profilepath.data.data
+                      ).toString("base64")}`
+                    : profile1
+                }
+                alt="profile"
                 className="small"
               />
             </div>

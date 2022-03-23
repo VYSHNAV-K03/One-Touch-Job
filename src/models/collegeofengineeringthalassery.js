@@ -35,8 +35,8 @@ const collegeThalasseryschema = new mongoose.Schema({
     required: true,
   },
   profile: {
-    type: String,
-    default: "",
+    data: Buffer,
+    contentType: String,
   },
   Role: {
     type: Number,
