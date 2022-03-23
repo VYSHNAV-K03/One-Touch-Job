@@ -1,234 +1,212 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import {
   reactcourse,
   angularcourse,
   vuecourse,
-  wordpresscourse,
-  normalcourse,
+  htmlcourse,
+  javascriptcourse,
+  frontendprojects,
+  nodecourse,
+  mongocourse,
+  expresscourse,
+  backendprojects,
+  fullstackprojects,
 } from "../actions";
 
 import styled from "styled-components";
-import react from "../assets/images/react.png";
-import html from "../assets/images/html.png";
-import angular from "../assets/images/angular.png";
-import vue from "../assets/images/vue.png";
-import wordpress from "../assets/images/wordpress.png";
-import nomal from "../assets/images/nomal.png";
-import Courses from "./Courses";
+import { Button } from "@mui/material";
 
 const Container = styled.div`
-  .title {
-    text-align: center;
-    font-weight: bold;
-    font-size: clamp(2.2rem, 3vw, 4rem);
+  padding-top: 20px;
+  .font-size {
+    font-size: 1.8rem;
   }
-  .containertutorialsfrontend {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 96%;
-    height: 96%;
-    border-radius: 50%;
-    color: black;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
-    -webkit-box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
-    -moz-box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
-  }
-  .box1 {
-  }
-  @media screen and (max-width: 1600px) {
-    margin-bottom: 10px;
-  }
-  @media screen and (max-width: 704px) {
-    .title {
-      font-size: clamp(1rem, 3vw, 4rem);
-    }
-    .box1,
-    .box2,
-    .box3,
-    .box4 {
-      width: 95.5%;
-      height: 95.5%;
-      box-shadow: inset 5px 5px 5px #cbced1, inset -5px -5px 5px #ffffff;
-      -webkit-box-shadow: inset 5px 5px 5px #cbced1, inset -5px -5px 5px #ffffff;
-      -moz-box-shadow: inset 5px 5px 5px #cbced1, inset -5px -5px 5px #ffffff;
-    }
-    padding: 80px 3px;
-  }
-`;
-const Box = styled.div`
-  border-radius: 50%;
-  width: 250px;
-  height: 250px;
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  text-decoration: none;
-  background: url(${(props) => props.image});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
-  -webkit-box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
-  -moz-box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
-  :hover {
-    transform: translateY(-10px);
-    transition: all 0.2s ease;
-  }
-  @media screen and (max-width: 704px) {
-    width: 100px;
-    height: 100px;
-    font-size: 0.6rem;
-    font-weight: bold;
-    margin: 10px auto;
-    :hover {
-      transform: translateY(-5px);
-    }
-    box-shadow: 1px 1px 15px #cbced1, -1px -1px 15px #ffffff;
-    -webkit-box-shadow: 1px 1px 15px #cbced1, -1px -1px 15px #ffffff;
-    -moz-box-shadow: 1px 1px 15px #cbced1, -1px -1px 15px #ffffff;
+  Button {
+    margin-right: 10px;
   }
 `;
 
 const Frontend = () => {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <h4 className="title">MERN STACK</h4>
-      <div className="containertutorialsfrontend">
-        <Box image={html}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>{" "}
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>
-        <Box image={angular}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box2"
-            onClick={() => dispatch(angularcourse())}
-          >
-            Angular Js Web dev
-          </NavLink>
-        </Box>{" "}
-        <Box image={vue}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box3"
-            onClick={() => dispatch(vuecourse())}
-          >
-            Vue Js Web Dev
-          </NavLink>
-        </Box>{" "}
-      </div>
-      <h4 className="title">Backend Technologies</h4>
-      <div className="containertutorialsfrontend">
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>{" "}
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>{" "}
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>
-      </div>
-      <h4 className="title">Projects Section</h4>
-      <div className="containertutorialsfrontend">
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>{" "}
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>{" "}
-        <Box image={react}>
-          <NavLink
-            to="/courses"
-            style={{ textDecoration: "none" }}
-            className="box1"
-            onClick={() => dispatch(reactcourse())}
-          >
-            React Js Web dev
-          </NavLink>
-        </Box>
+      <div className="container">
+        <div className="accordion accordion-flush" id="accordionFlushExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingOne">
+              <button
+                className="accordion-button collapsed font-size"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne"
+                aria-expanded="false"
+                aria-controls="flush-collapseOne"
+              >
+                Frontend Web Development
+              </button>
+            </h2>
+            <div
+              id="flush-collapseOne"
+              className="accordion-collapse collapse"
+              aria-labelledby="flush-headingOne"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div className="accordion-body">
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(htmlcourse());
+                    navigate("/courses");
+                  }}
+                >
+                  HTML & CSS
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(javascriptcourse());
+                    navigate("/courses");
+                  }}
+                >
+                  JavaScript
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(reactcourse());
+                    navigate("/courses");
+                  }}
+                >
+                  React
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(angularcourse());
+                    navigate("/courses");
+                  }}
+                >
+                  angular js
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(vuecourse());
+                    navigate("/courses");
+                  }}
+                >
+                  Vue js
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(frontendprojects());
+                    navigate("/courses");
+                  }}
+                >
+                  Projects
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingTwo">
+              <button
+                className="accordion-button collapsed font-size"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseTwo"
+                aria-expanded="false"
+                aria-controls="flush-collapseTwo"
+              >
+                Backend Web Development
+              </button>
+            </h2>
+            <div
+              id="flush-collapseTwo"
+              className="accordion-collapse collapse"
+              aria-labelledby="flush-headingTwo"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div className="accordion-body">
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(nodecourse());
+                    navigate("/courses");
+                  }}
+                >
+                  Node js
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(mongocourse());
+                    navigate("/courses");
+                  }}
+                >
+                  mongodb
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(expresscourse());
+                    navigate("/courses");
+                  }}
+                >
+                  express js
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(backendprojects());
+                    navigate("/courses");
+                  }}
+                >
+                  Projects
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="flush-headingThree">
+              <button
+                className="accordion-button collapsed font-size"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseThree"
+                aria-expanded="false"
+                aria-controls="flush-collapseThree"
+              >
+                Full Stack Web Development
+              </button>
+            </h2>
+            <div
+              id="flush-collapseThree"
+              className="accordion-collapse collapse"
+              aria-labelledby="flush-headingThree"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div className="accordion-body">
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(fullstackprojects());
+                    navigate("/courses");
+                  }}
+                >
+                  Mern stack
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </Container>
   );

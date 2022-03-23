@@ -196,28 +196,6 @@ const ReactFileUpload = async (req, res, next) => {
 };
 ///react url with image upload
 
-const ReactURLUpload = async (req, res, next) => {
-  const final_path = req.file.path;
-
-  const base64 = fs.readFileSync(final_path, "base64");
-  const buffer = Buffer.from(base64, "base64");
-  try {
-    const multipleFiles = new ReactUrl({
-      url: req.body.url,
-      image: {
-        data: buffer,
-        contentType: req.file.mimetype,
-      },
-    });
-    await multipleFiles.save();
-    res.status(201).send(multipleFiles);
-
-    next();
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
-};
-
 //// Angular////////////
 const AngularFileUpload = async (req, res, next) => {
   try {
@@ -899,7 +877,6 @@ module.exports = {
   getFiles,
   deleteFiles,
   ReactFileUpload,
-  ReactURLUpload,
   AngularFileUpload,
   VueFileUpload,
   WordpressFileUpload,

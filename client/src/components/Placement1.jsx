@@ -6,7 +6,7 @@ import resume from "../assets/images/startup.png";
 import projects from "../assets/images/freelancer.png";
 import internships from "../assets/images/Internship.png";
 import govt from "../assets/images/placementtraining.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   product,
@@ -16,6 +16,7 @@ import {
   freelancing,
   placementTraining,
 } from "../actions";
+import { Button } from "@mui/material";
 
 const Container = styled.div`
   padding: 0 180px;
@@ -80,12 +81,47 @@ const Box = styled.div`
   font-size: clamp(2rem, 2.1vw, 4rem);
   background: url(${(props) => props.image});
   background-size: cover;
+  position: relative;
+  cursor: pointer;
   background-repeat: no-repeat;
   box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
   -webkit-box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
   -moz-box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
   :hover {
     transform: translateY(-15px);
+    transition: all 0.2s ease;
+  }
+  .details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 20px 8px;
+    background: #157dec;
+    transform: scaleY(0);
+    transition: all 0.2s ease;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 15px;
+  }
+  .details h3 {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  .details p {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .details button {
+    background: white;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 15px;
+  }
+  :hover .details {
+    transform: scaleY(1);
     transition: all 0.2s ease;
   }
   @media screen and (max-width: 704px) {
@@ -105,33 +141,112 @@ const Box = styled.div`
 
 const Placement1 = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Container>
       <div className="title">Choose The Company</div>
       <div className="container">
-        <Box image={placement} onClick={() => dispatch(service())}>
+        <Box
+          image={placement}
+          onClick={() => {
+            dispatch(service());
+            navigate("/placementeach");
+          }}
+        >
           <NavLink to="/placementeach" className="box1">
             Service Based
           </NavLink>
+          <div className="details">
+            <h3>Service Based</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Doloremque nobis fugit sapiente suscipit sed voluptates.
+            </p>
+          </div>
         </Box>
-        <Box image={skills} onClick={() => dispatch(product())}>
+        <Box
+          image={skills}
+          onClick={() => {
+            dispatch(product());
+            navigate("/placementeach");
+          }}
+        >
           <NavLink to="/placementeach" className="box2">
             Product Based
           </NavLink>
+          <div className="details">
+            <h3>Product Based</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Doloremque nobis fugit sapiente suscipit sed voluptates.
+            </p>
+          </div>
         </Box>{" "}
-        <Box image={projects} onClick={() => dispatch(startup())}>
+        <Box
+          image={projects}
+          onClick={() => {
+            dispatch(startup());
+            navigate("/placementeach");
+          }}
+        >
           <NavLink to="/placementeach" className="box3">
             Start Up
           </NavLink>{" "}
+          <div className="details">
+            <h3> Start Up</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Doloremque nobis fugit sapiente suscipit sed voluptates.
+            </p>
+          </div>
         </Box>{" "}
-        <Box image={internships} onClick={() => dispatch(internship())}>
+        <Box
+          image={internships}
+          onClick={() => {
+            dispatch(internship());
+            navigate("/placementeach");
+          }}
+        >
           <div className="box3">Internships</div>
+          <div className="details">
+            <h3>Internships</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Doloremque nobis fugit sapiente suscipit sed voluptates.
+            </p>
+          </div>
         </Box>{" "}
-        <Box image={resume} onClick={() => dispatch(freelancing())}>
+        <Box
+          image={resume}
+          onClick={() => {
+            dispatch(freelancing());
+            navigate("/placementeach");
+          }}
+        >
           <div className="box4">Freelancer</div>
+          <div className="details">
+            <h3>Freelancer</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Doloremque nobis fugit sapiente suscipit sed voluptates.
+            </p>
+          </div>
         </Box>
-        <Box image={govt} onClick={() => dispatch(placementTraining())}>
+        <Box
+          image={govt}
+          onClick={() => {
+            dispatch(placementTraining());
+            navigate("/placementeach");
+          }}
+        >
           <div className="box4">Placement Training</div>
+          <div className="details">
+            <h3>Placement Training</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Doloremque nobis fugit sapiente suscipit sed voluptates.
+            </p>
+          </div>
         </Box>
       </div>
     </Container>

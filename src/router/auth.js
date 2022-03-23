@@ -606,24 +606,6 @@ router.delete("/javascript/delete/:id", async (req, res) => {
 //react
 
 //add react url
-router.post("/react/url", upload.single("file"), ReactURLUpload);
-router.get("/react/url/get", async (req, res) => {
-  try {
-    const react = await ReactUrl.find();
-    res.send(react);
-  } catch (error) {
-    res.send(error);
-  }
-});
-router.delete("/react/url/delete/:id", async (req, res) => {
-  try {
-    const reactFiles = await ReactUrl.findByIdAndDelete({ _id: req.params.id });
-    res.status(200).send(reactFiles);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
 ///////////// For Angular //////////////////////////////////////
 
 router.post("/angular", upload.array("files", 10), AngularFileUpload);
