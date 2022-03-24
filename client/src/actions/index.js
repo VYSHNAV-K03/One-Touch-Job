@@ -28,9 +28,31 @@ export const reactcourseprogress = () => {
     type: "reactprog",
   };
 };
-export const frontendprojects = () => {
+
+export const angularcourse = () => {
   return {
-    type: "frontendprojects",
+    type: "angular",
+  };
+};
+export const angularcourseprogress = () => {
+  return {
+    type: "angularprog",
+  };
+};
+export const vuecourse = () => {
+  return {
+    type: "vue",
+  };
+};
+export const vuecourseprogress = () => {
+  return {
+    type: "vueprog",
+  };
+};
+
+export const frontendprojectsreact = () => {
+  return {
+    type: "frontendprojectsreact",
   };
 };
 export const frontendprojectsreactprogress = () => {
@@ -38,10 +60,21 @@ export const frontendprojectsreactprogress = () => {
     type: "frontendprojectsprogreact",
   };
 };
+export const frontendprojectsangular = () => {
+  return {
+    type: "frontendprojectsangular",
+  };
+};
 
 export const frontendprojectsangularprogress = () => {
   return {
     type: "frontendprojectsprogangular",
+  };
+};
+
+export const frontendprojectsvue = () => {
+  return {
+    type: "frontendprojectsvue",
   };
 };
 
@@ -90,9 +123,19 @@ export const backendprojectsprogress = () => {
     type: "backendprojectsprog",
   };
 };
-export const fullstackprojects = () => {
+export const fullstackprojectsmern = () => {
   return {
-    type: "fullstackprojects",
+    type: "fullstackprojectsmern",
+  };
+};
+export const fullstackprojectsmean = () => {
+  return {
+    type: "fullstackprojectsmean",
+  };
+};
+export const fullstackprojectsmevn = () => {
+  return {
+    type: "fullstackprojectsmevn",
   };
 };
 export const mernfullstackprojectsprogress = () => {
@@ -108,30 +151,6 @@ export const meanfullstackprojectsprogress = () => {
 export const mevnfullstackprojectsprogress = () => {
   return {
     type: "mevnfullstackprojectsprog",
-  };
-};
-
-export const angularcourse = () => {
-  return {
-    type: "angular",
-  };
-};
-
-export const vuecourse = () => {
-  return {
-    type: "vue",
-  };
-};
-
-export const wordpresscourse = () => {
-  return {
-    type: "wordpress",
-  };
-};
-
-export const normalcourse = () => {
-  return {
-    type: "normal",
   };
 };
 

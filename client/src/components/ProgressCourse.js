@@ -37,6 +37,7 @@ const Container = styled.div`
     overflow: hidden;
     margin: 0 20px;
     cursor: pointer;
+    text-decoration: none;
   }
   .image {
     width: 100%;
@@ -60,6 +61,10 @@ const Container = styled.div`
     margin-right: 5px;
     display: flex;
     flex-wrap: wrap;
+  }
+  .url {
+    text-align: center;
+    text-decoration: none;
   }
   @media screen and (max-width: 792px) {
     .size {
@@ -140,7 +145,7 @@ const ProgressCourse = () => {
           <div className="projects">
             {filesList.map((element, index) => (
               <div className="imagecontainer" key={index}>
-                <div
+                <a
                   href={element.url}
                   target="_blank"
                   className="imageandurl"
@@ -156,10 +161,8 @@ const ProgressCourse = () => {
                       alt=""
                     />
                   </div>
-                  <a href={element.url} target="_blank">
-                    {element.url}
-                  </a>
-                </div>
+                  <div className="url">{element.url}</div>
+                </a>
               </div>
             ))}
           </div>

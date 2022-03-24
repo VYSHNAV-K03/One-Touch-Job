@@ -12,8 +12,12 @@ const changeTheCourse = (state = initialCourse, action) => {
       return (state = "angular");
     case "vue":
       return (state = "vue");
-    case "frontendprojects":
-      return (state = "frontendprojects");
+    case "frontendprojectsreact":
+      return (state = "frontendprojectsreact");
+    case "frontendprojectsangular":
+      return (state = "frontendprojectsangular");
+    case "frontendprojectsvue":
+      return (state = "frontendprojectsvue");
     case "node":
       return (state = "node");
     case "express":
@@ -22,8 +26,12 @@ const changeTheCourse = (state = initialCourse, action) => {
       return (state = "mongo");
     case "backendprojects":
       return (state = "backendprojects");
-    case "fullstackprojects":
-      return (state = "fullstackprojects");
+    case "fullstackprojectsmern":
+      return (state = "fullstackprojectsmern");
+    case "fullstackprojectsmean":
+      return (state = "fullstackprojectsmean");
+    case "fullstackprojectsmevn":
+      return (state = "fullstackprojectsmevn");
     default:
       return state;
   }

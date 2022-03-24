@@ -65,10 +65,6 @@ const Ski = () => {
 
   console.log(login);
 
-  useEffect(() => {
-    callNavbar();
-  }, []);
-
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -185,6 +181,9 @@ const Ski = () => {
   const anchor = "right";
 
   const [id, setid] = useState(0);
+  useEffect(() => {
+    callNavbar();
+  }, []);
   return (
     <div>
       <Navbar

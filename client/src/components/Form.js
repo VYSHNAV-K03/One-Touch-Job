@@ -118,17 +118,9 @@ const Form = () => {
           <select className="form-select" onChange={handlePassionChange}>
             <option value="none">Select an Option</option>
             <option value="web">web development</option>
-            <option value="app">App development</option>
-            <option value="game">Game development</option>
-            <option value="ml">Machine Learning</option>
-            <option value="hack">Hacking</option>
-            <option value="other">Other software development</option>
+            {/* <option value="app">App development</option> */}
           </select>
-          {passion === "web" ||
-          passion === "app" ||
-          passion === "game" ||
-          passion === "ml" ||
-          passion === "hack" ? (
+          {passion === "web" || passion === "app" ? (
             <label>choose stack1:</label>
           ) : (
             <></>
@@ -139,86 +131,33 @@ const Form = () => {
               <option value="full">Full stack web development</option>
               <option value="front">Front end web development</option>
               <option value="back">Backend web development</option>
-              <option value="design">Web designer</option>
             </select>
           ) : passion === "app" ? (
-            <select className="form-select" onChange={handleappchange}>
-              <option value="none">Select an Option</option>
-              <option value="android">Android dev</option>
-              <option value="ios">ios dev</option>
-              <option value="cross">cross platform</option>
-            </select>
-          ) : passion === "game" ? (
             <select className="form-select" onChange={handleAppFinal}>
               <option value="none">Select an Option</option>
-              <option value="unity">unity 3d</option>
-              <option value="game1">game1</option>
-              <option value="game2">game2</option>
-            </select>
-          ) : passion === "ml" ? (
-            <select className="form-select" onChange={handleAppFinal}>
-              <option value="none">Select an Option</option>
-              <option value="ml1">ml1</option>
-              <option value="ml2">ml2</option>
-              <option value="ml3">ml3</option>
-            </select>
-          ) : passion === "hack" ? (
-            <select className="form-select" onChange={handleAppFinal}>
-              <option value="none">Select an Option</option>
-              <option value="hack1">hack1</option>
-              <option value="hack2">hack2</option>
+              <option value="flutter">Flutter</option>
+              <option value="react-native">React Native</option>
             </select>
           ) : (
             <></>
           )}
-          {passion === "web" || passion === "app" ? (
-            <label>choose stack2:</label>
-          ) : (
-            <></>
-          )}
+          {passion === "web" ? <label>choose stack2:</label> : <></>}
           {passion === "web" && web === "full" ? (
             <select className="form-select" onChange={handleAppFinal}>
               <option value="none">Select an Option</option>
               <option value="mern">MERN STACK</option>
               <option value="mean">MEAN STACK</option>
               <option value="mevn">MEVN STACK</option>
-              <option value="normal">Normal</option>
             </select>
           ) : passion === "web" && web === "front" ? (
             <select className="form-select" onChange={handleAppFinal}>
               <option value="none">Select an Option</option>
-              <option value="htmlfront">HTML,CSS,JS</option>
               <option value="reactfront">HTML,CSS,JS,React</option>
             </select>
           ) : passion === "web" && web === "back" ? (
             <select className="form-select" onChange={handleAppFinal}>
               <option value="none">Select an Option</option>
               <option value="nodejsback">Nodejs,Express,MongoDB</option>
-              <option value="phpback">php,sql</option>
-            </select>
-          ) : passion === "web" && web === "design" ? (
-            <select className="form-select" onChange={handleAppFinal}>
-              <option value="none">Select an Option</option>
-              <option value="figma">figma</option>
-              <option value="adobe">adobe</option>
-            </select>
-          ) : passion === "app" && app === "android" ? (
-            <select className="form-select" onChange={handleAppFinal}>
-              <option value="none">Select an Option</option>
-              <option value="kotlin">Kotlin</option>
-              <option value="java">JAVA</option>
-            </select>
-          ) : passion === "app" && app === "ios" ? (
-            <select className="form-select" onChange={handleAppFinal}>
-              <option value="none">Select an Option</option>
-              <option value="swift">swift</option>
-              <option value="c">c</option>
-            </select>
-          ) : passion === "app" && app === "cross" ? (
-            <select className="form-select" onChange={handleAppFinal}>
-              <option value="none">Select an Option</option>
-              <option value="reactnative">React Native</option>
-              <option value="flutter">Flutter</option>
             </select>
           ) : (
             <></>

@@ -20,7 +20,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 const Container = styled.div`
   background: url(${profileb});
-
   background-size: cover;
   background-position: center;
   min-height: calc(100vh - 80px);
@@ -100,19 +99,10 @@ const Container = styled.div`
       background: #ffffff;
     }
   }
-
-  @media screen and (max-width: 790px) {
-    .profilecontainer {
-      flex-direction: column;
-    }
-
-    .image {
-      width: 70px;
-      height: 70px;
-      margin: 15px auto 5px auto;
-    }
-    .name {
-      font-size: 1rem;
+  @media screen and (max-width: 478px) {
+    .left {
+      width: 250px;
+      min-height: 200px;
     }
   }
 `;

@@ -34,6 +34,7 @@ import {
 import { useSelector } from "react-redux";
 import { apiUrl } from "../data/api";
 import axios from "axios";
+import Preloader from "../components/preloader/Preloader";
 
 const Container = styled.div``;
 

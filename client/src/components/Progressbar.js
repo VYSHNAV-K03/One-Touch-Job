@@ -23,26 +23,32 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { apiUrl } from "../data/api";
 import {
+  angularcourseprogress,
   backendprojects,
   backendprojectsprogress,
   expresscourse,
   expresscourseprogress,
   frontendprojects,
+  frontendprojectsangularprogress,
   frontendprojectsprogress,
   frontendprojectsreactprogress,
+  frontendprojectsvueprogress,
   fullstackprojects,
   fullstackprojectsprogress,
   htmlcourse,
   htmlcourseprogress,
   javascriptcourse,
   javascriptcourseprogress,
+  meanfullstackprojectsprogress,
   mernfullstackprojectsprogress,
+  mevnfullstackprojectsprogress,
   mongocourse,
   mongocourseprogress,
   nodecourse,
   nodecourseprogress,
   reactcourse,
   reactcourseprogress,
+  vuecourseprogress,
 } from "../actions";
 
 const Container = styled.div`
@@ -150,12 +156,8 @@ const Progressbar = () => {
       });
 
       const data = await res.data;
-      // if (res.status === 401) {
-      //   navigate("/login");
-      // }
-      // setfilesList(data.files);
+
       setcourse(data.passion);
-      // setfileid(data._id);
       if (res.status !== 200) {
         throw new Error(res.error);
       }
@@ -163,6 +165,8 @@ const Progressbar = () => {
       console.log("callprogress", e);
     }
   };
+
+  console.log(course);
 
   const handleClick = (selected, fn) => {
     setlinecolor(selected);
@@ -347,91 +351,159 @@ const Progressbar = () => {
           </ul>
         </div>
       ) : course === "mean" ? (
-        <div className="container">
+        <div className="container-progress">
           <ul className="items">
-            <li onClick={() => setlinecolor("blue")}>
+            <li onClick={() => handleClick(1, htmlcourseprogress())}>
               <div className="image">
                 <img src={htmlandcss} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-check-circle"></i>{" "}
+                {linecolor == 1 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
               <p>HTML & CSS</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(2, javascriptcourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={js} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-check-circle"></i>{" "}
+                {linecolor == 2 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>JavaScript</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(3, angularcourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={angular} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 3 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>AngularJS</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(4, frontendprojectsangularprogress());
+              }}
+            >
               <div className="image">
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 4 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>Frontend projects</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(5, nodecourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={node} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 5 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
               <p>Node js</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(6, expresscourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={express} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 6 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
               <p>Express</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(7, mongocourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={mongo} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 7 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>MongoDB</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(8, backendprojectsprogress());
+              }}
+            >
               <div className="image">
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 8 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>Backend projects</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(9, meanfullstackprojectsprogress());
+              }}
+            >
               <div className="image">
                 <img src={mean} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 9 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>MEAN projects</p>
@@ -446,91 +518,159 @@ const Progressbar = () => {
           </ul>
         </div>
       ) : course === "mevn" ? (
-        <div className="container">
+        <div className="container-progress">
           <ul className="items">
-            <li>
+            <li onClick={() => handleClick(1, htmlcourseprogress())}>
               <div className="image">
                 <img src={htmlandcss} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-check-circle"></i>{" "}
+                {linecolor == 1 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
               <p>HTML & CSS</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(2, javascriptcourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={js} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-check-circle"></i>{" "}
+                {linecolor == 2 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>JavaScript</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(3, vuecourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={vue} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 3 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>Vue Js</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(4, frontendprojectsvueprogress());
+              }}
+            >
               <div className="image">
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 4 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>Frontend projects</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(5, nodecourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={node} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 5 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
               <p>Node js</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(6, expresscourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={express} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 6 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
               <p>Express</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(7, mongocourseprogress());
+              }}
+            >
               <div className="image">
                 <img src={mongo} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 7 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>MongoDB</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(8, backendprojectsprogress());
+              }}
+            >
               <div className="image">
                 <img src={project1} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 8 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>Backend projects</p>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleClick(9, mevnfullstackprojectsprogress());
+              }}
+            >
               <div className="image">
                 <img src={mevn} alt="" />
               </div>
               <div className="line">
-                <i className="fas fa-times-circle"></i>
+                {linecolor == 9 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
               </div>
 
               <p>MEVN projects</p>
@@ -541,6 +681,153 @@ const Progressbar = () => {
               </div>
 
               <p>FULL STACK WEB DEV</p>
+            </li>{" "}
+          </ul>
+        </div>
+      ) : course === "reactfront" ? (
+        <div className="container-progress">
+          <ul className="items">
+            <li
+              onClick={() => {
+                handleClick(1, htmlcourseprogress());
+              }}
+            >
+              <div className="image">
+                <img src={htmlandcss} alt="" />
+              </div>
+              <div className="line">
+                {linecolor == 1 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
+              </div>
+              <p>HTML & CSS</p>
+            </li>
+            <li
+              onClick={() => {
+                handleClick(2, javascriptcourseprogress());
+              }}
+            >
+              <div className="image">
+                <img src={js} alt="" />
+              </div>
+              <div className="line">
+                {linecolor == 2 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}{" "}
+              </div>
+
+              <p>JavaScript</p>
+            </li>
+            <li
+              onClick={() => {
+                handleClick(3, reactcourseprogress());
+              }}
+            >
+              <div className="image">
+                <img src={react} alt="" />
+              </div>
+              <div className="line">
+                {linecolor == 3 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}{" "}
+              </div>
+
+              <p>React Js</p>
+            </li>
+            <li>
+              <div className="image">
+                <img src={finish1} alt="" />
+              </div>
+
+              <p>FRONT END WEB DEV</p>
+            </li>{" "}
+          </ul>
+        </div>
+      ) : course === "nodejsback" ? (
+        <div className="container-progress">
+          <ul className="items">
+            <li
+              onClick={() => {
+                handleClick(5, nodecourseprogress());
+              }}
+            >
+              <div className="image">
+                <img src={node} alt="" />
+              </div>
+              <div className="line">
+                {linecolor == 5 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
+              </div>
+              <p>Node js</p>
+            </li>
+            <li
+              onClick={() => {
+                handleClick(6, expresscourseprogress());
+              }}
+            >
+              <div className="image">
+                <img src={express} alt="" />
+              </div>
+              <div className="line">
+                {linecolor == 6 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
+              </div>
+              <p>Express</p>
+            </li>
+            <li
+              onClick={() => {
+                handleClick(7, mongocourseprogress());
+              }}
+            >
+              <div className="image">
+                <img src={mongo} alt="" />
+              </div>
+              <div className="line">
+                {linecolor == 7 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
+              </div>
+
+              <p>MongoDB</p>
+            </li>
+            <li
+              onClick={() => {
+                handleClick(8, backendprojectsprogress());
+              }}
+            >
+              <div className="image">
+                <img src={project1} alt="" />
+              </div>
+              <div className="line">
+                {linecolor == 8 ? (
+                  <i className="fas fa-check-circle"></i>
+                ) : (
+                  <i className="fas fa-times-circle"></i>
+                )}
+              </div>
+
+              <p>Backend projects</p>
+            </li>
+            <li>
+              <div className="image">
+                <img src={finish1} alt="" />
+              </div>
+
+              <p>Back END WEB DEV</p>
             </li>{" "}
           </ul>
         </div>

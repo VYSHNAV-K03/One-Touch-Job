@@ -8,12 +8,16 @@ const changeMernCourse = (state = initalmern, action) => {
       return (state = "htmlandcss");
     case "javascriptprog":
       return (state = "javascript");
+    case "angularprog":
+      return (state = "angular");
+    case "vueprog":
+      return (state = "vue");
     case "frontendprojectsprogreact":
-      return (state = "frontendprojects");
+      return (state = "frontendprojectsprogreact");
     case "frontendprojectsprogangular":
-      return (state = "frontendprojects/angular");
+      return (state = "frontendprojectsangular");
     case "frontendprojectsprogvue":
-      return (state = "frontendprojects/vue");
+      return (state = "frontendprojectsvue");
     case "nodeprog":
       return (state = "node");
     case "expressprog":
@@ -23,11 +27,11 @@ const changeMernCourse = (state = initalmern, action) => {
     case "backendprojectsprog":
       return (state = "backendprojects");
     case "mernfullstackprojectsprog":
-      return (state = "fullstackprojects");
+      return (state = "fullstackprojectsmern");
     case "meanfullstackprojectsprog":
-      return (state = "fullstackprojects/mean");
+      return (state = "fullstackprojectsmean");
     case "mevnfullstackprojectsprog":
-      return (state = "fullstackprojects/mevn");
+      return (state = "fullstackprojectsmevn");
     default:
       return state;
   }

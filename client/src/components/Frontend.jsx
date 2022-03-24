@@ -8,12 +8,16 @@ import {
   vuecourse,
   htmlcourse,
   javascriptcourse,
-  frontendprojects,
   nodecourse,
   mongocourse,
   expresscourse,
   backendprojects,
-  fullstackprojects,
+  frontendprojectsreact,
+  frontendprojectsangular,
+  frontendprojectsvue,
+  fullstackprojectsmern,
+  fullstackprojectsmean,
+  fullstackprojectsmevn,
 } from "../actions";
 
 import styled from "styled-components";
@@ -26,6 +30,7 @@ const Container = styled.div`
   }
   Button {
     margin-right: 10px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -106,11 +111,29 @@ const Frontend = () => {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    dispatch(frontendprojects());
+                    dispatch(frontendprojectsreact());
                     navigate("/courses");
                   }}
                 >
-                  Projects
+                  Frontend React Projects
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(frontendprojectsangular());
+                    navigate("/courses");
+                  }}
+                >
+                  Frontend angular Projects
+                </Button>{" "}
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(frontendprojectsvue());
+                    navigate("/courses");
+                  }}
+                >
+                  Frontend Vue Projects
                 </Button>
               </div>
             </div>
@@ -197,11 +220,29 @@ const Frontend = () => {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    dispatch(fullstackprojects());
+                    dispatch(fullstackprojectsmern());
                     navigate("/courses");
                   }}
                 >
-                  Mern stack
+                  Mern stack Projects
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(fullstackprojectsmean());
+                    navigate("/courses");
+                  }}
+                >
+                  Mean stack Projects
+                </Button>{" "}
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    dispatch(fullstackprojectsmevn());
+                    navigate("/courses");
+                  }}
+                >
+                  Mean stack Projects
                 </Button>
               </div>
             </div>

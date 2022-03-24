@@ -16,6 +16,13 @@ const {
   ExpressURLUploadController,
   BackendProURLUploadController,
   FullProURLUploadController,
+  FrontendProAngularURLUploadController,
+  FrontendProVueURLUploadController,
+  AngularURLUploadController,
+  VueURLUploadController,
+  MernProURLUploadController,
+  MeanProURLUploadController,
+  MevnProURLUploadController,
 } = require("../controllers/coursesfileuploadcontroller");
 const JsUrl = require("../models2/jsurl");
 const FrontProUrl = require("../models2/frontprourl");
@@ -24,6 +31,12 @@ const MongoUrl = require("../models2/mongourl");
 const ExpressUrl = require("../models2/expressurl");
 const BackendUrl = require("../models2/backendprourl");
 const MernUrl = require("../models2/mernprourl");
+const FrontProVueUrl = require("../models2/frontendprovue");
+const FrontProAngularUrl = require("../models2/frontangularurl");
+const AngularUrl = require("../models2/angularwithurl");
+const VueUrl = require("../models2/vuewithurl");
+const MevnUrl = require("../models2/mevnprourl");
+const MeanUrl = require("../models2/meanprourl");
 
 //add react url
 router.post("/react/url", upload.single("file"), ReactURLUploadController);
@@ -81,51 +94,53 @@ router.delete("/javascript/url/delete/:id", async (req, res) => {
   }
 });
 
-//angular
-// router.post("/angular/url", upload.single("file"), ReactURLUploadController);
-// router.get("/angular/url/get", async (req, res) => {
-//   try {
-//     const react = await ReactUrl.find();
-//     res.send(react);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-// router.delete("/angular/url/delete/:id", async (req, res) => {
-//   try {
-//     const reactFiles = await ReactUrl.findByIdAndDelete({ _id: req.params.id });
-//     res.status(200).send(reactFiles);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
+// angular
+router.post("/angular/url", upload.single("file"), AngularURLUploadController);
+router.get("/angular/url/get", async (req, res) => {
+  try {
+    const react = await AngularUrl.find();
+    res.send(react);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.delete("/angular/url/delete/:id", async (req, res) => {
+  try {
+    const reactFiles = await AngularUrl.findByIdAndDelete({
+      _id: req.params.id,
+    });
+    res.status(200).send(reactFiles);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
-//vue
-// router.post("/vue/url", upload.single("file"), ReactURLUploadController);
-// router.get("/vue/url/get", async (req, res) => {
-//   try {
-//     const react = await ReactUrl.find();
-//     res.send(react);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-// router.delete("/vue/url/delete/:id", async (req, res) => {
-//   try {
-//     const reactFiles = await ReactUrl.findByIdAndDelete({ _id: req.params.id });
-//     res.status(200).send(reactFiles);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
+// vue
+router.post("/vue/url", upload.single("file"), VueURLUploadController);
+router.get("/vue/url/get", async (req, res) => {
+  try {
+    const react = await VueUrl.find();
+    res.send(react);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.delete("/vue/url/delete/:id", async (req, res) => {
+  try {
+    const reactFiles = await VueUrl.findByIdAndDelete({ _id: req.params.id });
+    res.status(200).send(reactFiles);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
-//frontendprojects
+//frontendprojectsreact
 router.post(
-  "/frontendprojects/url",
+  "/frontendprojectsreact/url",
   upload.single("file"),
   FrontendProURLUploadController
 );
-router.get("/frontendprojects/url/get", async (req, res) => {
+router.get("/frontendprojectsreact/url/get", async (req, res) => {
   try {
     const react = await FrontProUrl.find();
     res.send(react);
@@ -133,9 +148,61 @@ router.get("/frontendprojects/url/get", async (req, res) => {
     res.send(error);
   }
 });
-router.delete("/frontendprojects/url/delete/:id", async (req, res) => {
+router.delete("/frontendprojectsreact/url/delete/:id", async (req, res) => {
   try {
     const reactFiles = await FrontProUrl.findByIdAndDelete({
+      _id: req.params.id,
+    });
+    res.status(200).send(reactFiles);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//frontendprojectsangular
+
+router.post(
+  "/frontendprojectsangular/url",
+  upload.single("file"),
+  FrontendProAngularURLUploadController
+);
+router.get("/frontendprojectsangular/url/get", async (req, res) => {
+  try {
+    const react = await FrontProAngularUrl.find();
+    res.send(react);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.delete("/frontendprojectsangular/url/delete/:id", async (req, res) => {
+  try {
+    const reactFiles = await FrontProAngularUrl.findByIdAndDelete({
+      _id: req.params.id,
+    });
+    res.status(200).send(reactFiles);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//frontendprojectsvue
+
+router.post(
+  "/frontendprojectsvue/url",
+  upload.single("file"),
+  FrontendProVueURLUploadController
+);
+router.get("/frontendprojectsvue/url/get", async (req, res) => {
+  try {
+    const react = await FrontProVueUrl.find();
+    res.send(react);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.delete("/frontendprojectsvue/url/delete/:id", async (req, res) => {
+  try {
+    const reactFiles = await FrontProVueUrl.findByIdAndDelete({
       _id: req.params.id,
     });
     res.status(200).send(reactFiles);
@@ -228,13 +295,13 @@ router.delete("/backendprojects/url/delete/:id", async (req, res) => {
   }
 });
 
-//fullstackprojects
+//fullstackprojectsmern
 router.post(
-  "/fullstackprojects/url",
+  "/fullstackprojectsmern/url",
   upload.single("file"),
-  FullProURLUploadController
+  MernProURLUploadController
 );
-router.get("/fullstackprojects/url/get", async (req, res) => {
+router.get("/fullstackprojectsmern/url/get", async (req, res) => {
   try {
     const react = await MernUrl.find();
     res.send(react);
@@ -242,9 +309,55 @@ router.get("/fullstackprojects/url/get", async (req, res) => {
     res.send(error);
   }
 });
-router.delete("/fullstackprojects/url/delete/:id", async (req, res) => {
+router.delete("/fullstackprojectsmern/url/delete/:id", async (req, res) => {
   try {
     const reactFiles = await MernUrl.findByIdAndDelete({ _id: req.params.id });
+    res.status(200).send(reactFiles);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//fullstackprojectsmean
+router.post(
+  "/fullstackprojectsmean/url",
+  upload.single("file"),
+  MeanProURLUploadController
+);
+router.get("/fullstackprojectsmean/url/get", async (req, res) => {
+  try {
+    const react = await MeanUrl.find();
+    res.send(react);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.delete("/fullstackprojectsmean/url/delete/:id", async (req, res) => {
+  try {
+    const reactFiles = await MeanUrl.findByIdAndDelete({ _id: req.params.id });
+    res.status(200).send(reactFiles);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//fullstackprojectsmevn
+router.post(
+  "/fullstackprojectsmevn/url",
+  upload.single("file"),
+  MevnProURLUploadController
+);
+router.get("/fullstackprojectsmevn/url/get", async (req, res) => {
+  try {
+    const react = await MevnUrl.find();
+    res.send(react);
+  } catch (error) {
+    res.send(error);
+  }
+});
+router.delete("/fullstackprojectsmevn/url/delete/:id", async (req, res) => {
+  try {
+    const reactFiles = await MevnUrl.findByIdAndDelete({ _id: req.params.id });
     res.status(200).send(reactFiles);
   } catch (error) {
     res.send(error);
