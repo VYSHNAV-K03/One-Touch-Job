@@ -29,7 +29,7 @@ const ProductBasedOff = require("../models/ProductBasedOff");
 const ProductBasedCoet = require("../models/ProductBasedCoet");
 const StartupCoet = require("../models/StartupCoet");
 const StartupOff = require("../models/Starupschemaoff");
-const InternshipOff = require("../models/InternshipOff");
+const InternshipOff = require("../models/Internship");
 const InternshipCoet = require("../models/InternshipCoet");
 const ReactUrl = require("../models2/reactwithurl");
 

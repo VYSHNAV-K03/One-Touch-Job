@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Paidinternship from "../components/internship/paidinternship";
 
 const Container = styled.div`
   max-width: 1300px;
@@ -65,7 +66,7 @@ const Recommendationlogin = () => {
           role="tabpanel"
           aria-labelledby="home-tab"
         >
-          Not available
+          <Paidinternship />
         </div>
         <div
           className="tab-pane fade"

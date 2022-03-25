@@ -84,7 +84,7 @@ const ProductBasedOff = require("../models/ProductBasedOff");
 const ProductBasedCoet = require("../models/ProductBasedCoet");
 const StartupOff = require("../models/Starupschemaoff");
 const StartupCoet = require("../models/StartupCoet");
-const InternshipOff = require("../models/InternshipOff");
+const InternshipOff = require("../models/Internship");
 const InternshipCoet = require("../models/InternshipCoet");
 const ReactUrl = require("../models2/reactwithurl");
 
@@ -1059,55 +1059,5 @@ router.delete("/placement/startup/coet/:id", async (req, res) => {
     res.send(error);
   }
 });
-
-//placement Internship off campus//////////////////////
-router.post(
-  "/placement/internship/off",
-  upload.single("file"),
-  placementInternshipoffupload
-);
-router.get("/placement/internship/off", async (req, res) => {
-  try {
-    const servicebasedplacement = await InternshipOff.find();
-    res.send(servicebasedplacement);
-  } catch (error) {
-    res.send(error);
-  }
-});
-router.delete("/placement/internship/off/:id", async (req, res) => {
-  try {
-    await InternshipOff.findByIdAndDelete({ _id: req.params.id });
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-//placement Product coet//////////////////////
-router.post(
-  "/placement/internship/coet",
-  upload.single("file"),
-  placementInternshipcoetupload
-);
-router.get("/placement/internship/coet", async (req, res) => {
-  try {
-    const servicebasedplacement = await InternshipCoet.find();
-    res.send(servicebasedplacement);
-  } catch (error) {
-    res.send(error);
-  }
-});
-router.delete("/placement/internship/coet/:id", async (req, res) => {
-  try {
-    await InternshipCoet.findByIdAndDelete({ _id: req.params.id });
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-///////////// For Others //////////////////////////////////////
-
-/////////////////////////////////////////////////////////////
-
-////////// END COURSES //////////
 
 module.exports = router;

@@ -157,43 +157,7 @@ const Navbar = (props) => {
       }
     } catch (e) {}
   };
-  // if (user) {
-  //   setlogin(false);
-  // } else {
-  //   setlogin(true);
-  // }
-
-  // const [profile, setprofile] = useState();
-  // const [updatedimage, setupdatedimage] = useState([]);
-
-  // const handleChange = (file) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file.target.files[0]);
-  //   setupdatedimage(file.target.files[0]);
-  //   reader.onload = () => {
-  //     if (reader.readyState == 2) {
-  //       setprofile(reader.result);
-  //     }
-  //   };
-  // };
-
-  // const handleUpload = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("file", updatedimage);
-  //     const res = await axios.post(
-  //       apiUrl + `/profileimage/${myLoginState}`,
-  //       formData,
-  //       {
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     callNavbar();
-  //     setimageexpansion(!imageexpansion);
-  //   } catch (error) {
-  //     console.log("upload", error);
-  //   }
-  // };
+ 
 
   useEffect(() => {
     callNavbar();

@@ -203,8 +203,7 @@ const Placement1 = () => {
         <Box
           image={internships}
           onClick={() => {
-            dispatch(internship());
-            navigate("/placementeach");
+            navigate("/internship");
           }}
         >
           <div className="box3">Internships</div>
@@ -219,8 +218,7 @@ const Placement1 = () => {
         <Box
           image={resume}
           onClick={() => {
-            dispatch(freelancing());
-            navigate("/placementeach");
+            navigate("/freelance");
           }}
         >
           <div className="box4">Freelancer</div>
@@ -235,8 +233,7 @@ const Placement1 = () => {
         <Box
           image={govt}
           onClick={() => {
-            dispatch(placementTraining());
-            navigate("/placementeach");
+            navigate("/placementtraining");
           }}
         >
           <div className="box4">Placement Training</div>

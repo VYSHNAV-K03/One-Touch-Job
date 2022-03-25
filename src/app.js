@@ -26,6 +26,7 @@ const quizRoutes = require("./router/quiz");
 const workshopRoute = require("./router/workshoproute");
 const portfolioRoute = require("./router/portfolioroute");
 const coursesRoute = require("./router/coursesroute");
+const internshiRoute = require("./router/Internshiproute");
 
 app.use(bodyParser.json());
 
@@ -34,6 +35,7 @@ app.use("/api/quiz", quizRoutes);
 app.use("/api/workshop", workshopRoute);
 app.use("/api/portfolio", portfolioRoute);
 app.use("/api/courses", coursesRoute);
+app.use("/api/internship", internshiRoute);
 
 app.use("/uploads", express.static(path.join("uploads")));
 

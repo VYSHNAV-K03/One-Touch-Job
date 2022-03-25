@@ -80,7 +80,7 @@ const Container = styled.div`
     }
   }
   .text {
-    height: 130px;
+    height: 180px;
     overflow-y: scroll;
     ::-webkit-scrollbar {
       width: 6px;
@@ -89,7 +89,7 @@ const Container = styled.div`
       cursor: pointer;
     }
     ::-webkit-scrollbar-thumb {
-      background: #000;
+      background: blue;
     }
   }
   .box-shadow {
@@ -105,25 +105,30 @@ const Container = styled.div`
   }
 `;
 
-const Workshops = () => {
+const Internship = () => {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const [url, seturl] = useState("");
+  const [type, settype] = useState("");
+  const [domain, setdomain] = useState("");
+
+  const [error, seterror] = useState(false);
+
   const [file, setfile] = useState();
 
   const [display, setdisplay] = useState(false);
 
-  const [error, seterror] = useState(false);
-
-  const [data, setdata] = useState([]);
+  const [internship, setintern] = useState([]);
+  const [internshipPaid, setpaidintern] = useState([]);
+  const [internshipNotPaid, setnotpaidintern] = useState([]);
 
   const [Role, setRole] = useState();
   const navigate = useNavigate();
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
 
-  const uploadWorkshop = async () => {
-    if (!title || !description || !url || !file) {
+  const uploadInternship = async () => {
+    if (!title || !description || !url || !type || !domain || !file) {
       seterror(true);
     } else {
       seterror(false);
@@ -131,11 +136,13 @@ const Workshops = () => {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("url", url);
+      formData.append("type", type);
+      formData.append("domain", domain);
       formData.append("file", file);
 
       try {
         const res = await axios.post(
-          apiUrl + "/workshop/addworkshop",
+          apiUrl + "/internship/addinternship",
           formData
         );
       } catch (error) {
@@ -144,10 +151,27 @@ const Workshops = () => {
     }
   };
 
-  const getWorkshop = async () => {
+  const getInternship = async () => {
     try {
-      const res = await axios.get(apiUrl + "/workshop/getworkshop");
-      setdata(res.data);
+      const res = await axios.get(apiUrl + "/internship/getinternship");
+      setintern(res.data);
+    } catch (error) {
+      console.log("get error", error);
+    }
+  };
+
+  const getInternshipPaid = async () => {
+    try {
+      const res = await axios.get(apiUrl + "/internship/getinternship");
+      setpaidintern(res.data);
+    } catch (error) {
+      console.log("get error", error);
+    }
+  };
+  const getInternshipNotPaid = async () => {
+    try {
+      const res = await axios.get(apiUrl + "/internship/getinternship");
+      setnotpaidintern(res.data);
     } catch (error) {
       console.log("get error", error);
     }
@@ -155,8 +179,8 @@ const Workshops = () => {
 
   const deleteWorkshop = async (id) => {
     try {
-      const res = await axios.delete(apiUrl + `/workshop/delete/${id}`);
-      getWorkshop();
+      const res = await axios.delete(apiUrl + `/internship/delete/${id}`);
+      getInternship();
       window.alert("deleted succesfully");
     } catch (error) {
       console.log("delete error", error);
@@ -182,11 +206,13 @@ const Workshops = () => {
   };
 
   const handleUpload = () => {
-    uploadWorkshop();
+    uploadInternship();
   };
 
   useEffect(() => {
-    getWorkshop();
+    getInternship();
+    getInternshipPaid();
+    getInternshipNotPaid();
     CallProjectpage();
   }, []);
 
@@ -199,11 +225,12 @@ const Workshops = () => {
         <button
           type="button"
           className="btn btn-outline-primary"
-          onClick={getWorkshop}
+          onClick={getInternship}
         >
           Refresh
         </button>
       </div>
+
       <div className="container">
         {Role && (Role === 1 || Role === 5) ? (
           <Button
@@ -212,11 +239,12 @@ const Workshops = () => {
             color="secondary"
             onClick={() => setdisplay(true)}
           >
-            Add Workshop
+            Add Internship
           </Button>
         ) : (
           <></>
         )}
+
         <form className="formarea">
           {error && (
             <div class="alert alert-danger" role="alert">
@@ -248,6 +276,34 @@ const Workshops = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="exampleFormControlInput1" className="form-label">
+              Type
+            </label>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={(e) => settype(e.target.value)}
+            >
+              <option value="">select type of intenship</option>
+              <option value="paid">Salary Based</option>
+              <option value="notpaid">Course Based</option>
+            </select>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleFormControlInput1" className="form-label">
+              Domain
+            </label>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={(e) => setdomain(e.target.value)}
+            >
+              <option value="">select domain</option>
+              <option value="web">Web</option>
+              <option value="app">App</option>
+            </select>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleFormControlInput1" className="form-label">
               Registration Url
             </label>
             <input
@@ -273,14 +329,14 @@ const Workshops = () => {
             <input
               className="btn btn-primary"
               type={!error ? "submit" : "button"}
-              value="Submit"
+              value="Upload"
               onClick={handleUpload}
             />
           </div>
         </form>
       </div>
       <div className="container-workshop">
-        {data?.map((element, index) => (
+        {internship?.map((element, index) => (
           <div className="card mb-3 box-shadow" key={index}>
             <div className="image">
               <img
@@ -309,14 +365,24 @@ const Workshops = () => {
             <div className="card-body">
               <h4 className="card-title">{element.title}</h4>
               <div className="text">
+                <h6>
+                  Type:{" "}
+                  <span className="badge bg-secondary">
+                    {element.type === "paid" ? "Salary Based" : "Course Based"}
+                  </span>
+                </h6>
+                <h6>
+                  Domain:{" "}
+                  <span className="badge bg-secondary">{element.domain}</span>
+                </h6>
                 <p className="card-text">{element.description}</p>
                 Registration:{" "}
-                <a className="card-text" href={element.url}>
+                <a className="card-text" href={element.url} target="_blank">
                   {element.url}
                 </a>
               </div>
               <div className="card-text">
-                <a className="text-muted" href={element.url}>
+                <a href={element.url} target="_blank">
                   {element.url}
                 </a>
               </div>
@@ -328,4 +394,4 @@ const Workshops = () => {
   );
 };
 
-export default Workshops;
+export default Internship;

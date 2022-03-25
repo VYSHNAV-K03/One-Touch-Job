@@ -93,9 +93,6 @@ const Home = () => {
   if (!login) {
     window.scrollTo(0, 700);
   }
-  useEffect(() => {
-    callNavbar();
-  }, []);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -210,6 +207,9 @@ const Home = () => {
     </Box>
   );
   const anchor = "right";
+  useEffect(() => {
+    callNavbar();
+  }, []);
   return (
     <Container>
       <Navbar

@@ -10,7 +10,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
-import { Avatar, Box, Fab } from "@mui/material";
+import { Avatar, Box, Button, Fab } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import {
   AccountCircle,
@@ -37,15 +37,23 @@ import axios from "axios";
 
 const Container = styled.div`
   .addanddelete {
-    padding: 20px 50px;
+    max-width: 500px;
     display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.75);
   }
   .addanddelete input {
-    margin: 0 0 0 10px;
+    margin: 0 0 10px 0;
   }
+
   .placement1 {
-    background: #f0fff0;
     padding: 10px 100px;
+    background: #f0fff0;
     display: flex;
     border-bottom: 1px solid black;
   }
@@ -59,6 +67,19 @@ const Container = styled.div`
     height: 100%;
     object-fit: cover;
   }
+  @media screen and (max-width: 700px) {
+    .addanddelete {
+      padding: 10px 10px;
+      flex-direction: column;
+    }
+    .addanddelete input {
+      margin: 0 0 10px 0;
+    }
+    .placement1 {
+      padding: 10px 10px;
+    }
+  }
+
   .items {
     text-decoration: none;
     list-style: none;
@@ -70,8 +91,8 @@ const Container = styled.div`
     font-weight: bold;
   }
   button.delete {
-    margin-left: auto;
     font-size: 2rem;
+    margin-left: auto;
     background: transparent;
     border: none;
     outline: none;
@@ -83,8 +104,21 @@ const Container = styled.div`
       transition: all 0.2s;
     }
   }
-  .refresh {
-    margin-left: auto;
+  @media screen and (max-width: 472px) {
+    .placement1 {
+      padding: 5px 10px;
+    }
+    .image {
+      width: 100px;
+      height: 80px;
+      margin-right: 5px;
+    }
+    .items li {
+      font-size: 0.8rem;
+    }
+    button.delete {
+      font-size: 1.2rem;
+    }
   }
 `;
 ///styles end
@@ -343,33 +377,38 @@ const Placementdetails = () => {
             <input
               type="text"
               name="name"
+              className="form-control"
               onChange={(e) => handleChange(e)}
               placeholder="company name"
             />
             <input
               type="text"
+              className="form-control"
               name="salary"
               onChange={(e) => handleChange(e)}
               placeholder="salary"
             />
             <input
               type="text"
+              className="form-control"
               name="url"
               onChange={(e) => handleChange(e)}
               placeholder="url"
             />
             <input
               type="file"
+              className="form-control"
               name="file"
               onChange={(e) => handleChange(e)}
               placeholder="choose image"
             />
-            <button type="submit" onClick={() => handleClick()}>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => handleClick()}
+            >
               Submit
-            </button>
-            <button className="refresh" onClick={() => GetPlacementData()}>
-              refresh
-            </button>
+            </Button>
           </div>
         ) : (
           <></>
@@ -378,9 +417,15 @@ const Placementdetails = () => {
           <div className="placement1" key={index}>
             <div className="image">
               <img
-                src={`data:${element?.photo?.contentType};base64, ${Buffer.from(
-                  element?.photo?.data.data
-                ).toString("base64")}`}
+                src={
+                  element.photo.contentType
+                    ? `data:${
+                        element?.photo?.contentType
+                      };base64, ${Buffer.from(
+                        element?.photo?.data.data
+                      ).toString("base64")}`
+                    : profile
+                }
                 alt="placement img"
               />
             </div>
