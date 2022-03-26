@@ -91,9 +91,10 @@ const Placement = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {sidebardata1.map((element) => (
+        {sidebardata1.map((element, index) => (
           <NavLink
             to={element.link}
+            key={index}
             style={{ textDecoration: "none", color: "black" }}
           >
             <ListItem button key={element.id}>
@@ -115,8 +116,9 @@ const Placement = () => {
       </List>
       <Divider />
       <List>
-        {sidebardata2.map((element) => (
+        {sidebardata2.map((element, index) => (
           <NavLink
+            key={index}
             to={element.link}
             style={{ textDecoration: "none", color: "black" }}
           >
@@ -139,8 +141,9 @@ const Placement = () => {
       </List>
       <Divider />
       <List>
-        {sidebardata3.map((element) => (
+        {sidebardata3.map((element, index) => (
           <NavLink
+            key={index}
             to={element.id === 3 && !login ? "/logout" : element.link}
             style={{ textDecoration: "none", color: "black" }}
           >

@@ -85,9 +85,6 @@ const Container = styled.div`
 
 const SearchFilter = () => {
   const [query, setquery] = useState("");
-  console.log(
-    SearchItems.filter((item) => item.name.toLowerCase().includes("qu"))
-  );
 
   return (
     <Container>

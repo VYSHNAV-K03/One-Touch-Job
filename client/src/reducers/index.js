@@ -7,6 +7,7 @@ import changeThePlacementType from "./placementType";
 import changeTheLevelQuiz from "./changeTheLevelQuiz";
 import changeTheSkillQuiz from "./changeTheSkillQuiz";
 import changeTheScore from "./scoreChange";
+import changeTheBlur from "./toggleblurchange";
 
 import { combineReducers } from "redux";
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   changeTheSkillQuiz,
   changeTheLevelQuiz,
   changeTheScore,
+  changeTheBlur,
 });
 
 export default rootReducer;

@@ -17,6 +17,7 @@ import profileb from "../assets/images/profilebg.avif";
 import VanillaTilt from "vanilla-tilt";
 import { Button } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Preloader from "./preloader/Preloader";
 
 const Container = styled.div`
   background: url(${profileb});
@@ -123,14 +124,15 @@ const Profile = () => {
   const navigate = useNavigate();
   const [name, setname] = useState("");
   const [profession, setprofession] = useState("");
-  const [profile, setprofile] = useState([]);
+  const [profile, setprofile] = useState();
+
+  const [loader, setloader] = useState(false);
 
   const [profilepath, setprofilepath] = useState();
   const [display, setdisplay] = useState(true);
 
   console.log(name);
   console.log(profession);
-  console.log(profile);
 
   console.log(display);
 
@@ -138,9 +140,13 @@ const Profile = () => {
 
   const CallAboutPage = async () => {
     try {
+      setloader(true);
+
       const res = await axios.get(apiUrl + `/getData/${myLoginState}`, {
         withCredentials: true,
       });
+
+      setloader(false);
 
       const data = await res.data;
       setuserdata(data);
@@ -151,31 +157,36 @@ const Profile = () => {
       }
     } catch (e) {
       console.log(e);
-      // navigate("/login");
+      setloader(false);
+      navigate("/login");
     }
   };
   console.log(userdata);
 
   const handleUpdate = async () => {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("work", profession);
-    formData.append("file", profile);
-    try {
-      const res = await axios.post(
-        apiUrl + `/profileimage/${myLoginState}`,
-        formData,
-        {
-          withCredentials: true,
+    if (!name || !profession || !profile) {
+      window.alert("pls fill properly");
+    } else {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("work", profession);
+      formData.append("file", profile);
+      try {
+        const res = await axios.post(
+          apiUrl + `/profileimage/${myLoginState}`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        );
+        window.alert(res.data);
+        if (res.data) {
+          setdisplay(true);
+          CallAboutPage();
         }
-      );
-      window.alert(res.data);
-      if (res.data) {
-        setdisplay(true);
-        CallAboutPage();
+      } catch (error) {
+        console.log("update img error", error);
       }
-    } catch (error) {
-      console.log("update img error", error);
     }
   };
 
@@ -185,37 +196,41 @@ const Profile = () => {
   return (
     <Container disp={display}>
       {userdata ? (
-        <Tilt className="left">
-          <div className="update-icon" onClick={() => setdisplay(false)}>
-            <SettingsIcon />
-          </div>
-          <div className="image">
-            <img
-              src={
-                profilepath
-                  ? `data:${profilepath.contentType};base64, ${Buffer.from(
-                      profilepath.data.data
-                    ).toString("base64")}`
-                  : profile1
-              }
-              alt=" image"
-              className="small"
-            />
-          </div>
-          <div className="name">{userdata?.name}</div>
-          <div className="skill">{userdata?.work}</div>
-          <div className="social-links">
-            <a href="https://www.linkedin.com/" target="_blank">
-              <LinkedInIcon />
-            </a>
-            <a href="https://github.com/" target="_blank">
-              <GitHubIcon />
-            </a>
-            <a href="https://twitter.com/" target="_blank">
-              <TwitterIcon />
-            </a>
-          </div>
-        </Tilt>
+        loader ? (
+          <Preloader bg="transparent" />
+        ) : (
+          <Tilt className="left">
+            <div className="update-icon" onClick={() => setdisplay(false)}>
+              <SettingsIcon />
+            </div>
+            <div className="image">
+              <img
+                src={
+                  profilepath
+                    ? `data:${profilepath.contentType};base64, ${Buffer.from(
+                        profilepath.data.data
+                      ).toString("base64")}`
+                    : profile1
+                }
+                alt=" image"
+                className="small"
+              />
+            </div>
+            <div className="name">{userdata?.name}</div>
+            <div className="skill">{userdata?.work}</div>
+            <div className="social-links">
+              <a href="https://www.linkedin.com/" target="_blank">
+                <LinkedInIcon />
+              </a>
+              <a href="https://github.com/" target="_blank">
+                <GitHubIcon />
+              </a>
+              <a href="https://twitter.com/" target="_blank">
+                <TwitterIcon />
+              </a>
+            </div>
+          </Tilt>
+        )
       ) : (
         <></>
       )}

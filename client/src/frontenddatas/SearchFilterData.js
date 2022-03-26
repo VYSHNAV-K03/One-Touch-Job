@@ -8,6 +8,8 @@ import profile from "../assets/searchfilter/profile.png";
 import register from "../assets/searchfilter/register.png";
 import login from "../assets/searchfilter/login.png";
 import portfolio from "../assets/searchfilter/portfolio.png";
+import internship from "../assets/searchfilter/internship.png";
+import workshop from "../assets/searchfilter/workshop.png";
 
 export const SearchItems = [
   {
@@ -70,5 +72,17 @@ export const SearchItems = [
     name: "Portfolio",
     link: "/portfolio",
     imageURL: portfolio,
+  },
+  {
+    id: 11,
+    name: "Internship",
+    link: "/internship",
+    imageURL: internship,
+  },
+  {
+    id: 12,
+    name: "Workshop",
+    link: "/workshop",
+    imageURL: workshop,
   },
 ];

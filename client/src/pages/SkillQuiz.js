@@ -96,17 +96,17 @@ const Main = styled.div`
 `;
 
 const options = [
-  { label: "Python", id: 1 },
-  { label: "Javascript", id: 2 },
-  { label: "c", id: 3 },
-  { label: "c++", id: 4 },
+  // { label: "Python", id: 1 },
+  // { label: "Javascript", id: 2 },
+  // { label: "c", id: 3 },
+  // { label: "c++", id: 4 },
   { label: "react", id: 5 },
-  { label: "React Native", id: 6 },
-  { label: "Html", id: 7 },
-  { label: "Css", id: 8 },
-  { label: "NodeJs", id: 9 },
-  { label: "Express", id: 10 },
-  { label: "Mongodb", id: 11 },
+  // { label: "React Native", id: 6 },
+  // { label: "Html", id: 7 },
+  // { label: "Css", id: 8 },
+  // { label: "NodeJs", id: 9 },
+  // { label: "Express", id: 10 },
+  // { label: "Mongodb", id: 11 },
 ];
 const hardnessoptions = [
   { label: "easy", id: 1 },
@@ -155,7 +155,6 @@ const SkillQuiz = () => {
   };
 
   const myskillquizstate = useSelector((state) => state.changeTheSkillQuiz);
-
 
   return (
     <Main>

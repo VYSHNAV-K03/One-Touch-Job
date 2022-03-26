@@ -8,6 +8,7 @@ import axios from "axios";
 import { apiUrl } from "../data/api";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import Preloader from "../components/preloader/Preloader";
 
 const bootstrap = require("bootstrap");
 
@@ -117,6 +118,8 @@ const Workshops = () => {
 
   const [data, setdata] = useState([]);
 
+  const [loader, setloader] = useState(false);
+
   const [Role, setRole] = useState();
   const navigate = useNavigate();
 
@@ -146,9 +149,14 @@ const Workshops = () => {
 
   const getWorkshop = async () => {
     try {
+      setloader(true);
       const res = await axios.get(apiUrl + "/workshop/getworkshop");
+      setloader(false);
+
       setdata(res.data);
     } catch (error) {
+      setloader(false);
+
       console.log("get error", error);
     }
   };
@@ -279,51 +287,55 @@ const Workshops = () => {
           </div>
         </form>
       </div>
-      <div className="container-workshop">
-        {data?.map((element, index) => (
-          <div className="card mb-3 box-shadow" key={index}>
-            <div className="image">
-              <img
-                src={`data:${
-                  element?.filepath?.contentType
-                };base64, ${Buffer.from(element?.filepath?.data.data).toString(
-                  "base64"
-                )}`}
-                className="card-img-top"
-                alt="..."
-              />
-              {Role && Role === 1 ? (
-                <IconButton
-                  aria-label="delete"
-                  size="medium"
-                  className="deleteworkshopbtn"
-                  variant="outlined"
-                  onClick={() => deleteWorkshop(element._id)}
-                >
-                  <DeleteIcon color="primary" fontSize="inherit" />
-                </IconButton>
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="card-body">
-              <h4 className="card-title">{element.title}</h4>
-              <div className="text">
-                <p className="card-text">{element.description}</p>
-                Registration:{" "}
-                <a className="card-text" href={element.url}>
-                  {element.url}
-                </a>
+      {loader ? (
+        <Preloader bg="rgba(0,0,0,0.8)" />
+      ) : (
+        <div className="container-workshop">
+          {data?.map((element, index) => (
+            <div className="card mb-3 box-shadow" key={index}>
+              <div className="image">
+                <img
+                  src={`data:${
+                    element?.filepath?.contentType
+                  };base64, ${Buffer.from(
+                    element?.filepath?.data.data
+                  ).toString("base64")}`}
+                  className="card-img-top"
+                  alt="..."
+                />
+                {Role && Role === 1 ? (
+                  <IconButton
+                    aria-label="delete"
+                    size="medium"
+                    className="deleteworkshopbtn"
+                    variant="outlined"
+                    onClick={() => deleteWorkshop(element._id)}
+                  >
+                    <DeleteIcon color="primary" fontSize="inherit" />
+                  </IconButton>
+                ) : (
+                  <></>
+                )}
               </div>
-              <div className="card-text">
-                <a className="text-muted" href={element.url}>
-                  {element.url}
-                </a>
+              <div className="card-body">
+                <h4 className="card-title">{element.title}</h4>
+                <div className="text">
+                  <p className="card-text">{element.description}</p>
+                  Registration:{" "}
+                  <a className="card-text" href={element.url}>
+                    {element.url}
+                  </a>
+                </div>
+                <div className="card-text">
+                  <a className="text-muted" href={element.url}>
+                    {element.url}
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </Container>
   );
 };

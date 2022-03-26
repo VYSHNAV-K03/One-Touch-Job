@@ -8,6 +8,7 @@ import axios from "axios";
 import { apiUrl } from "../data/api";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import Preloader from "../components/preloader/Preloader";
 
 const bootstrap = require("bootstrap");
 
@@ -122,6 +123,8 @@ const Internship = () => {
   const [internshipPaid, setpaidintern] = useState([]);
   const [internshipNotPaid, setnotpaidintern] = useState([]);
 
+  const [loader, setloader] = useState(false);
+
   const [Role, setRole] = useState();
   const navigate = useNavigate();
 
@@ -153,10 +156,14 @@ const Internship = () => {
 
   const getInternship = async () => {
     try {
+      setloader(true);
       const res = await axios.get(apiUrl + "/internship/getinternship");
+      setloader(false);
+
       setintern(res.data);
     } catch (error) {
       console.log("get error", error);
+      setloader(false);
     }
   };
 
@@ -201,7 +208,7 @@ const Internship = () => {
       }
     } catch (e) {
       console.log("callPro eror", e);
-      // navigate("/login");
+      navigate("/login");
     }
   };
 
@@ -335,61 +342,67 @@ const Internship = () => {
           </div>
         </form>
       </div>
-      <div className="container-workshop">
-        {internship?.map((element, index) => (
-          <div className="card mb-3 box-shadow" key={index}>
-            <div className="image">
-              <img
-                src={`data:${
-                  element?.filepath?.contentType
-                };base64, ${Buffer.from(element?.filepath?.data.data).toString(
-                  "base64"
-                )}`}
-                className="card-img-top"
-                alt="..."
-              />
-              {Role && Role === 1 ? (
-                <IconButton
-                  aria-label="delete"
-                  size="medium"
-                  className="deleteworkshopbtn"
-                  variant="outlined"
-                  onClick={() => deleteWorkshop(element._id)}
-                >
-                  <DeleteIcon color="primary" fontSize="inherit" />
-                </IconButton>
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="card-body">
-              <h4 className="card-title">{element.title}</h4>
-              <div className="text">
-                <h6>
-                  Type:{" "}
-                  <span className="badge bg-secondary">
-                    {element.type === "paid" ? "Salary Based" : "Course Based"}
-                  </span>
-                </h6>
-                <h6>
-                  Domain:{" "}
-                  <span className="badge bg-secondary">{element.domain}</span>
-                </h6>
-                <p className="card-text">{element.description}</p>
-                Registration:{" "}
-                <a className="card-text" href={element.url} target="_blank">
-                  {element.url}
-                </a>
+      {loader ? (
+        <Preloader bg="rgba(0,0,0,0.8)" />
+      ) : (
+        <div className="container-workshop">
+          {internship?.map((element, index) => (
+            <div className="card mb-3 box-shadow" key={index}>
+              <div className="image">
+                <img
+                  src={`data:${
+                    element?.filepath?.contentType
+                  };base64, ${Buffer.from(
+                    element?.filepath?.data.data
+                  ).toString("base64")}`}
+                  className="card-img-top"
+                  alt="..."
+                />
+                {Role && Role === 1 ? (
+                  <IconButton
+                    aria-label="delete"
+                    size="medium"
+                    className="deleteworkshopbtn"
+                    variant="outlined"
+                    onClick={() => deleteWorkshop(element._id)}
+                  >
+                    <DeleteIcon color="primary" fontSize="inherit" />
+                  </IconButton>
+                ) : (
+                  <></>
+                )}
               </div>
-              <div className="card-text">
-                <a href={element.url} target="_blank">
-                  {element.url}
-                </a>
+              <div className="card-body">
+                <h4 className="card-title">{element.title}</h4>
+                <div className="text">
+                  <h6>
+                    Type:{" "}
+                    <span className="badge bg-secondary">
+                      {element.type === "paid"
+                        ? "Salary Based"
+                        : "Course Based"}
+                    </span>
+                  </h6>
+                  <h6>
+                    Domain:{" "}
+                    <span className="badge bg-secondary">{element.domain}</span>
+                  </h6>
+                  <p className="card-text">{element.description}</p>
+                  Registration:{" "}
+                  <a className="card-text" href={element.url} target="_blank">
+                    {element.url}
+                  </a>
+                </div>
+                <div className="card-text">
+                  <a href={element.url} target="_blank">
+                    {element.url}
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </Container>
   );
 };

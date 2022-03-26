@@ -10,6 +10,7 @@ import { apiUrl, reactDeleteFile, ReactfileUpload } from "../data/api";
 import axios from "axios";
 import { login } from "../actions";
 import { Button } from "@mui/material";
+import Preloader from "./preloader/Preloader";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -55,31 +56,39 @@ const Courses = () => {
   const navigate = useNavigate();
   const [role, setrole] = useState();
   const [url, seturl] = useState("");
-  const [urlimg, seturlimg] = useState([]);
+  const [urlimg, seturlimg] = useState();
 
   const myState = useSelector((state) => state.changeTheCourse);
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
 
+  const [loader, setloader] = useState(false);
+
   console.log(myState);
 
   const handleUrlwithimageupload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("url", url);
-      formData.append("file", urlimg);
-      const res = await axios.post(
-        apiUrl + `/courses/${myState}/url`,
-        formData
-      );
-      CallReactProjectpage();
-    } catch (error) {
-      console.log(error);
+    if (!url || !urlimg) {
+      window.alert("pls fill properly");
+    } else {
+      try {
+        const formData = new FormData();
+        formData.append("url", url);
+        formData.append("file", urlimg);
+        const res = await axios.post(
+          apiUrl + `/courses/${myState}/url`,
+          formData
+        );
+        CallReactProjectpage();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const CallReactProjectpage = async () => {
     try {
+      setloader(true);
+
       const res = await axios.get(apiUrl + `/courses/${myState}/url/get`, {
         withCredentials: true,
       });
@@ -88,11 +97,14 @@ const Courses = () => {
       console.log(data);
       setfilesList(data);
       setfileid(data._id);
+      setloader(false);
+
       if (res.status !== 200) {
         throw new Error(res.error);
       }
     } catch (e) {
       console.log("sumesh", e);
+      setloader(false);
     }
   };
 
@@ -134,79 +146,85 @@ const Courses = () => {
   }, []);
 
   return (
-    <Container>
-      <div className="name">
-        {role && role === 1 ? (
-          <div className="urlcontainer">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="URL"
-              onChange={(e) => seturl(e.target.value)}
-            />
-            <input
-              type="file"
-              className="form-control"
-              placeholder="image"
-              onChange={(e) => seturlimg(e.target.files[0])}
-            />
-            <Button
-              variant="outlined"
-              className="submiturl"
-              onClick={handleUrlwithimageupload}
-            >
-              Submit
-            </Button>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-
-      <div className="projects">
-        {filesList.map((element, index) => (
-          <div className="withurl" key={index}>
-            <div className="imagecontainer">
-              {element.url ? (
-                <div href={element.url} className="urlwithimagecontainer">
-                  {element.image.data ? (
-                    <div className="image">
-                      <img
-                        src={`data:${
-                          element.image.contentType
-                        };base64, ${Buffer.from(
-                          element.image.data.data
-                        ).toString("base64")}`}
-                        alt=""
-                      />
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                  <a href={element.url} target="_blank">
-                    {element.url}
-                  </a>
-                </div>
-              ) : (
-                <></>
-              )}
-            </div>
-            {role && role == 1 ? (
-              <button
-                className="delete"
-                onClick={() => handleDelete(element._id, element)}
-                type="delete"
-                // style={{ display: !element.file[0] ? "none" : "flex" }} //file[0] is only when it has single element.file
-              >
-                DELETE
-              </button>
+    <>
+      {loader ? (
+        <Preloader bg="black" />
+      ) : (
+        <Container>
+          <div className="name">
+            {role && role === 1 ? (
+              <div className="urlcontainer">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="URL"
+                  onChange={(e) => seturl(e.target.value)}
+                />
+                <input
+                  type="file"
+                  className="form-control"
+                  placeholder="image"
+                  onChange={(e) => seturlimg(e.target.files[0])}
+                />
+                <Button
+                  variant="outlined"
+                  className="submiturl"
+                  onClick={handleUrlwithimageupload}
+                >
+                  Submit
+                </Button>
+              </div>
             ) : (
               <></>
             )}
           </div>
-        ))}
-      </div>
-    </Container>
+
+          <div className="projects">
+            {filesList.map((element, index) => (
+              <div className="withurl" key={index}>
+                <div className="imagecontainer">
+                  {element.url ? (
+                    <div href={element.url} className="urlwithimagecontainer">
+                      {element.image.data ? (
+                        <div className="image">
+                          <img
+                            src={`data:${
+                              element.image.contentType
+                            };base64, ${Buffer.from(
+                              element.image.data.data
+                            ).toString("base64")}`}
+                            alt=""
+                          />
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      <a href={element.url} target="_blank">
+                        {element.url}
+                      </a>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                {role && role == 1 ? (
+                  <button
+                    className="delete"
+                    onClick={() => handleDelete(element._id, element)}
+                    type="delete"
+                    // style={{ display: !element.file[0] ? "none" : "flex" }} //file[0] is only when it has single element.file
+                  >
+                    DELETE
+                  </button>
+                ) : (
+                  <></>
+                )}
+              </div>
+            ))}
+          </div>
+        </Container>
+      )}
+    </>
   );
 };
 

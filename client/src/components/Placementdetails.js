@@ -34,6 +34,7 @@ import {
 import { useSelector } from "react-redux";
 import { apiUrl } from "../data/api";
 import axios from "axios";
+import Preloader from "./preloader/Preloader";
 
 const Container = styled.div`
   .addanddelete {
@@ -132,6 +133,8 @@ const Placementdetails = () => {
   });
   const [profile, setprofile] = useState();
 
+  const [loader, setloader] = useState(false);
+
   const [files, setfiles] = useState([]);
   const navigate = useNavigate();
 
@@ -148,30 +151,39 @@ const Placementdetails = () => {
   };
 
   const handleClick = async () => {
-    try {
-      console.log(values);
-      const form = new FormData();
-      form.append("name", values.name);
-      form.append("salary", values.salary);
-      form.append("url", values.url);
-      form.append("file", values.file);
-      await axios.post(
-        apiUrl + `/placement/${PlacementState}/${myLoginState}`,
-        form
-      );
-      GetPlacementData();
-    } catch (error) {
-      console.log("placement error");
+    if (!values.name || !values.salary || !values.url || !values.file) {
+      window.alert("please fill properly");
+    } else {
+      try {
+        console.log(values);
+        const form = new FormData();
+        form.append("name", values.name);
+        form.append("salary", values.salary);
+        form.append("url", values.url);
+        form.append("file", values.file);
+        await axios.post(
+          apiUrl + `/placement/${PlacementState}/${myLoginState}`,
+          form
+        );
+        GetPlacementData();
+      } catch (error) {
+        console.log("placement error");
+      }
     }
   };
   const GetPlacementData = async () => {
     try {
+      setloader(true);
+
       const res = await axios.get(
         apiUrl + `/placement/${PlacementState}/${myLoginState}`
       );
 
       setfiles(res.data);
+      setloader(false);
     } catch (error) {
+      setloader(false);
+
       console.log("getPlacement error", error);
     }
   };
@@ -182,9 +194,10 @@ const Placementdetails = () => {
 
   const deletePlacement = async (id) => {
     try {
-      await axios.delete(
+      const res = await axios.delete(
         apiUrl + `/placement/${PlacementState}/${myLoginState}/${id}`
       );
+      window.alert("deleted successfully");
       GetPlacementData();
     } catch (error) {
       console.log("delete placement error", error);
@@ -199,9 +212,7 @@ const Placementdetails = () => {
       const data = await res.data;
       console.log(res);
       console.log("get sumesh");
-      if (res.status === 401) {
-        // navigate("/login");
-      }
+
       console.log("Role", data.Role);
       setRole(data.Role);
       if (res.status !== 200) {
@@ -209,7 +220,7 @@ const Placementdetails = () => {
       }
     } catch (e) {
       console.log("sumesh", e);
-      // navigate("/login");
+      navigate("/login");
     }
   };
 
@@ -268,9 +279,10 @@ const Placementdetails = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {sidebardata1.map((element) => (
+        {sidebardata1.map((element, index) => (
           <NavLink
             to={element.link}
+            key={index}
             style={{ textDecoration: "none", color: "black" }}
           >
             <ListItem button key={element.id}>
@@ -292,9 +304,10 @@ const Placementdetails = () => {
       </List>
       <Divider />
       <List>
-        {sidebardata2.map((element) => (
+        {sidebardata2.map((element, index) => (
           <NavLink
             to={element.link}
+            key={index}
             style={{ textDecoration: "none", color: "black" }}
           >
             <ListItem button key={element.id}>
@@ -316,9 +329,10 @@ const Placementdetails = () => {
       </List>
       <Divider />
       <List>
-        {sidebardata3.map((element) => (
+        {sidebardata3.map((element, index) => (
           <NavLink
             to={element.id === 3 && !login ? "/logout" : element.link}
+            key={index}
             style={{ textDecoration: "none", color: "black" }}
           >
             <ListItem button key={element.id}>
@@ -371,100 +385,104 @@ const Placementdetails = () => {
         position="realtive"
         toggleDrawer={(state, bool) => toggleDrawer(state, bool)}
       />
-      <Container>
-        {Role && Role === 1 ? (
-          <div className="addanddelete">
-            <input
-              type="text"
-              name="name"
-              className="form-control"
-              onChange={(e) => handleChange(e)}
-              placeholder="company name"
-            />
-            <input
-              type="text"
-              className="form-control"
-              name="salary"
-              onChange={(e) => handleChange(e)}
-              placeholder="salary"
-            />
-            <input
-              type="text"
-              className="form-control"
-              name="url"
-              onChange={(e) => handleChange(e)}
-              placeholder="url"
-            />
-            <input
-              type="file"
-              className="form-control"
-              name="file"
-              onChange={(e) => handleChange(e)}
-              placeholder="choose image"
-            />
-            <Button
-              variant="contained"
-              type="submit"
-              onClick={() => handleClick()}
-            >
-              Submit
-            </Button>
-          </div>
-        ) : (
-          <></>
-        )}
-        {files.map((element, index) => (
-          <div className="placement1" key={index}>
-            <div className="image">
-              <img
-                src={
-                  element.photo.contentType
-                    ? `data:${
-                        element?.photo?.contentType
-                      };base64, ${Buffer.from(
-                        element?.photo?.data.data
-                      ).toString("base64")}`
-                    : profile
-                }
-                alt="placement img"
+      {loader ? (
+        <Preloader bg="black" />
+      ) : (
+        <Container>
+          {Role && Role === 1 ? (
+            <div className="addanddelete">
+              <input
+                type="text"
+                name="name"
+                className="form-control"
+                onChange={(e) => handleChange(e)}
+                placeholder="company name"
               />
+              <input
+                type="text"
+                className="form-control"
+                name="salary"
+                onChange={(e) => handleChange(e)}
+                placeholder="salary"
+              />
+              <input
+                type="text"
+                className="form-control"
+                name="url"
+                onChange={(e) => handleChange(e)}
+                placeholder="url"
+              />
+              <input
+                type="file"
+                className="form-control"
+                name="file"
+                onChange={(e) => handleChange(e)}
+                placeholder="choose image"
+              />
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={() => handleClick()}
+              >
+                Submit
+              </Button>
             </div>
-            <div className="details">
-              <ul className="items">
-                <li>Company Name: {element.name}</li>
-                <li>salary: {element.salary}</li>
-                <li>
-                  Reg Link:
-                  <a href={element.url} target="_blank">
-                    {element.url}
-                  </a>
-                </li>
-              </ul>
+          ) : (
+            <></>
+          )}
+          {files.map((element, index) => (
+            <div className="placement1" key={index}>
+              <div className="image">
+                <img
+                  src={
+                    element.photo.contentType
+                      ? `data:${
+                          element?.photo?.contentType
+                        };base64, ${Buffer.from(
+                          element?.photo?.data.data
+                        ).toString("base64")}`
+                      : profile
+                  }
+                  alt="placement img"
+                />
+              </div>
+              <div className="details">
+                <ul className="items">
+                  <li>Company Name: {element.name}</li>
+                  <li>salary: {element.salary}</li>
+                  <li>
+                    Reg Link:
+                    <a href={element.url} target="_blank">
+                      {element.url}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              {Role && Role === 1 ? (
+                <button className="delete">
+                  <i
+                    class="far fa-trash-alt"
+                    onClick={() => {
+                      deletePlacement(element._id);
+                      GetPlacementData();
+                    }}
+                  ></i>{" "}
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
-            {Role && Role === 1 ? (
-              <button className="delete">
-                <i
-                  class="far fa-trash-alt"
-                  onClick={() => {
-                    deletePlacement(element._id);
-                    GetPlacementData();
-                  }}
-                ></i>{" "}
-              </button>
-            ) : (
-              <></>
-            )}
-          </div>
-        ))}
-        <Drawer
-          style={{ backgroundColor: "" }}
-          anchor={anchor}
-          open={state[anchor]}
-          onClose={toggleDrawer(anchor, false)}
-        >
-          {list(anchor)}
-        </Drawer>
-      </Container>
+          ))}
+          <Drawer
+            style={{ backgroundColor: "" }}
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
+        </Container>
+      )}
     </>
   );
 };

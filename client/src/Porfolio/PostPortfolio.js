@@ -52,6 +52,24 @@ const PostPortfolio = () => {
   });
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
+  const CallProjectpage = async () => {
+    try {
+      const res = await axios.get(apiUrl + `/getData/${myLoginState}`, {
+        withCredentials: true,
+      });
+
+      const data = await res.data;
+      console.log(res);
+      console.log("get sumesh");
+
+      if (res.status !== 200) {
+        throw new Error(res.error);
+      }
+    } catch (e) {
+      console.log("sumesh", e);
+      navigate("/login");
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -103,6 +121,10 @@ const PostPortfolio = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    CallProjectpage();
+  }, []);
 
   return (
     <Container>

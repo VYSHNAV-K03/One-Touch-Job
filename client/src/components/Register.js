@@ -13,11 +13,16 @@ const Container = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
+  padding: 10px;
   .logincontainer {
-    margin: 6% auto auto auto;
+    margin: auto;
     background: white;
-    padding: 20px;
-    width: 500px;
+    padding: 10px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 7px 1px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 1px 7px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 7px 1px rgba(0, 0, 0, 0.75);
   }
   .login {
     display: flex;
@@ -26,7 +31,7 @@ const Container = styled.div`
   .title {
     font-size: 2rem;
     font-weight: 500;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   .login input {
     font-size: 1.3rem;
@@ -64,7 +69,7 @@ const Register = () => {
     password: "",
     cpassword: "",
   });
-  const [profileimg, setprofileimg] = useState([]);
+  const [profileimg, setprofileimg] = useState();
 
   console.log(profileimg);
 
@@ -80,32 +85,44 @@ const Register = () => {
 
   const Postdata = async (e) => {
     e.preventDefault(); //????
-
     const { name, email, work, password, phone, cpassword } = user;
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("work", work);
-    formData.append("password", password);
-    formData.append("phone", phone);
-    formData.append("cpassword", cpassword);
-    formData.append("file", profileimg);
 
-    const res = await axios.post(apiUrl + "/registe", formData, {
-      withCredentials: true,
-    });
-    const data = await res.data;
-    console.log(data.status);
-
-    if (data.status === 422) {
-      window.alert(data.error);
-      // console.log(res);
-      console.log("invalid registration");
+    if (
+      !name ||
+      !email ||
+      !work ||
+      !password ||
+      !phone ||
+      !cpassword ||
+      !profileimg
+    ) {
+      window.alert("please fill properly");
     } else {
-      window.alert("registration successful");
-      console.log("registration successful");
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("work", work);
+      formData.append("password", password);
+      formData.append("phone", phone);
+      formData.append("cpassword", cpassword);
+      formData.append("file", profileimg);
 
-      navigate("/login");
+      const res = await axios.post(apiUrl + "/registe", formData, {
+        withCredentials: true,
+      });
+      const data = await res.data;
+      console.log(data.status);
+
+      if (data.status === 422) {
+        window.alert(data.error);
+        // console.log(res);
+        console.log("invalid registration");
+      } else {
+        window.alert("registration successful");
+        console.log("registration successful");
+
+        navigate("/login");
+      }
     }
   };
   console.log("sumesh");
@@ -187,7 +204,6 @@ const Register = () => {
             </button>
           </form>
         </div>
-        }
       </Container>
     </>
   );

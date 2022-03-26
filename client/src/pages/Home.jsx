@@ -1,6 +1,7 @@
 import { Avatar, Box, Fab } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Form from "../components/Form";
@@ -23,6 +24,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import IconButton from "@mui/material/IconButton";
+import { blur, notblur } from "../actions/index2";
+import Preloader from "../components/preloader/Preloader";
 
 import {
   AccountCircle,
@@ -50,6 +53,16 @@ import Formandprogress from "../Notlogin/formandprogress";
 import Recommendationlogin from "./Recommendationlogin";
 
 const Container = styled.div`
+  position: relative;
+  .toggleblur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    backdrop-filter: blur(5px);
+    display: ${(props) => (props.blur ? "flex" : "none")};
+  }
   .skillquiz {
     display: flex;
     align-items: center;
@@ -68,15 +81,24 @@ const Home = () => {
   const [state, setState] = React.useState({
     right: false,
   });
+
+  const blurstate = useSelector((state) => state.changeTheBlur);
+
   const [profile, setprofile] = useState();
   const [login, setlogin] = useState(true);
+
+  const [loader, setloader] = useState(false);
+
+  const dispatch = useDispatch();
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
   const callNavbar = async () => {
     try {
+      setloader(true);
       const res = await axios.get(apiUrl + `/getData/${myLoginState}`, {
         withCredentials: true,
       });
+      setloader(false);
 
       const data = await res.data;
 
@@ -88,11 +110,13 @@ const Home = () => {
       }
     } catch (e) {
       console.log("call navbar", e);
+      setloader(false);
     }
   };
-  if (!login) {
-    window.scrollTo(0, 700);
-  }
+  // if (!login) {
+  //   window.scrollTo(0, 700);
+  // }
+  console.log(loader);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -211,41 +235,53 @@ const Home = () => {
     callNavbar();
   }, []);
   return (
-    <Container>
-      <Navbar
-        color="transparent"
-        position="fixed"
-        toggleDrawer={(state, bool) => toggleDrawer(state, bool)}
-      />
-      <Home1 />
-      {!login ? (
-        <div className="formcontainer">
-          <Form />
-          <Progressbar />
-          <ProgressCourse />
-        </div>
+    <Container blur={blurstate}>
+      {loader ? (
+        <Preloader bg="rgba(0,0,0,0.8)" />
       ) : (
-        <Formandprogress />
+        <>
+          <Navbar
+            color="transparent"
+            position="fixed"
+            toggleDrawer={(state, bool) => toggleDrawer(state, bool)}
+          />
+          <Home1 />
+          {!login ? (
+            <div className="formcontainer">
+              <Form />
+              <Progressbar />
+              <ProgressCourse />
+            </div>
+          ) : (
+            <Formandprogress />
+          )}
+          <Box sx={{ "& > :not(style)": { m: 1 } }} className="skillquiz">
+            <Fab variant="extended" href="/skillquiz" className="skillquizbtn">
+              Take a skill Quiz
+            </Fab>
+          </Box>
+          {login ? <Recommendation /> : <Recommendationlogin />}
+          <div className="home2" id="home">
+            <Home2 />
+          </div>
+          <Home3 />
+          <Footer />
+          <Drawer
+            style={{ backgroundColor: "" }}
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
+          <div
+            className="toggleblur"
+            onClick={() => {
+              dispatch(notblur());
+            }}
+          ></div>
+        </>
       )}
-      <Box sx={{ "& > :not(style)": { m: 1 } }} className="skillquiz">
-        <Fab variant="extended" href="/skillquiz" className="skillquizbtn">
-          Take a skill Quiz
-        </Fab>
-      </Box>
-      {login ? <Recommendation /> : <Recommendationlogin />}
-      <div className="home2" id="home">
-        <Home2 />
-      </div>
-      <Home3 />
-      <Footer />
-      <Drawer
-        style={{ backgroundColor: "" }}
-        anchor={anchor}
-        open={state[anchor]}
-        onClose={toggleDrawer(anchor, false)}
-      >
-        {list(anchor)}
-      </Drawer>
     </Container>
   );
 };

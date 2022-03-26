@@ -19,7 +19,6 @@ import {
 import { Button } from "@mui/material";
 
 const Container = styled.div`
-  padding: 0 180px;
   .title {
     font-size: clamp(2rem, 3vw, 4rem);
     text-align: center;
@@ -64,10 +63,6 @@ const Container = styled.div`
       -webkit-box-shadow: inset 5px 5px 5px #cbced1, inset -5px -5px 5px #ffffff;
       -moz-box-shadow: inset 5px 5px 5px #cbced1, inset -5px -5px 5px #ffffff;
     }
-    padding: 80px 3px;
-    .title {
-      font-size: clamp(1rem, 3vw, 4rem);
-    }
   }
 `;
 const Box = styled.div`
@@ -91,6 +86,7 @@ const Box = styled.div`
     transform: translateY(-15px);
     transition: all 0.2s ease;
   }
+
   .details {
     position: absolute;
     top: 0;
@@ -106,8 +102,8 @@ const Box = styled.div`
     border-radius: 15px;
   }
   .details h3 {
-    font-weight: bold;
     font-size: 2rem;
+    font-weight: bold;
   }
   .details p {
     font-size: 1.2rem;
@@ -120,22 +116,24 @@ const Box = styled.div`
     border: none;
     border-radius: 15px;
   }
+  @media screen and (max-width: 450px) {
+    width: 200px;
+    height: 200px;
+    font-size: 1.2rem;
+
+    .details {
+      padding: 10px 5px;
+    }
+    .details h3 {
+      font-size: 1.2rem;
+    }
+    .details p {
+      font-size: 1rem;
+    }
+  }
   :hover .details {
     transform: scaleY(1);
     transition: all 0.2s ease;
-  }
-  @media screen and (max-width: 704px) {
-    margin: 10px auto;
-    width: min(100px, 98%);
-    height: 80px;
-    font-size: 0.5rem;
-    font-weight: bold;
-    box-shadow: 1px 1px 15px #cbced1, -1px -1px 15px #ffffff;
-    -webkit-box-shadow: 1px 1px 15px #cbced1, -1px -1px 15px #ffffff;
-    -moz-box-shadow: 1px 1px 15px #cbced1, -1px -1px 15px #ffffff;
-    :hover {
-      transform: translateY(-5px);
-    }
   }
 `;
 
