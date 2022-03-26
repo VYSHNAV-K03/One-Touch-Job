@@ -66,6 +66,12 @@ const Container = styled.div`
     width: 40%;
     display: ${(props) => (props.popupdisplay ? "flex" : "none")};
   }
+  @media screen and (max-width: 656px) {
+    .card {
+      left: 10%;
+      width: 80%;
+    }
+  }
   .popupimage {
     width: 100%;
     height: 250px;
@@ -79,14 +85,13 @@ const Container = styled.div`
       height: 200px;
     }
     .popupimage {
-      width: 150px;
-      height: 100px;
+      height: 150px;
     }
   }
   .popupimage img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fit;
   }
   .backicon {
     position: absolute;

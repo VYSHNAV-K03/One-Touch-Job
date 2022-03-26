@@ -32,12 +32,18 @@ const Container = styled.div`
   .imageandurl {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
     width: 300px;
     overflow: hidden;
     margin: 0 20px;
     cursor: pointer;
     text-decoration: none;
+    box-shadow: -1px 0px 14px -1px rgba(0, 0, 0, 0.47);
+    -webkit-box-shadow: -1px 0px 14px -1px rgba(0, 0, 0, 0.47);
+    -moz-box-shadow: -1px 0px 14px -1px rgba(0, 0, 0, 0.47);
+    transition: all 0.5s ease-in-out;
+    :hover {
+      transform: scale(1.03);
+    }
   }
   .image {
     width: 100%;
