@@ -119,7 +119,7 @@ const Footer = () => {
                 <a href="#">FAQ</a>
               </li>
               <li>
-                <a href="#">contact us</a>
+                <a href="/contact">contact us</a>
               </li>
             </ul>
           </div>
@@ -127,32 +127,35 @@ const Footer = () => {
             <h4>our services</h4>
             <ul>
               <li>
-                <a href="#">workshops</a>
+                <a href="/workshop">workshops</a>
               </li>
               <li>
-                <a href="#">internships</a>
+                <a href="/internship">internships</a>
               </li>{" "}
               <li>
                 <a href="#">freelance</a>
               </li>{" "}
               <li>
-                <a href="#">placement</a>
+                <a href="/placement">placement</a>
               </li>
             </ul>
           </div>
           <div className="footer-col">
             <h4>follow us</h4>
             <div className="social-links">
-              <a href="#">
+              <a
+                href="https://www.linkedin.com/in/vyshnav-k-270099192/"
+                target="_blank"
+              >
                 <LinkedInIcon />
               </a>
-              <a href="#">
+              <a href="https://github.com/vyshnav-chikku" target="_blank">
                 <GitHubIcon />
               </a>
-              <a href="#">
+              <a href="https://twitter.com/" target="_blank">
                 <TwitterIcon />
               </a>
-              <a href="#">
+              <a href="https://www.youtube.com/" target="_blank">
                 <YouTubeIcon />
               </a>
             </div>

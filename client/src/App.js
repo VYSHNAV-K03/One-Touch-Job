@@ -65,7 +65,6 @@ function App() {
         <Route path="/result" exact element={<QuizResult />} />
         <Route path="/right" exact element={<TemporaryDrawer />} />
         <Route path="/workshop" exact element={<Workshops />} />
-        <Route path="/workshop" exact element={<Workshops />} />
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/quiz" exact element={<Quiz />} />
         <Route path="*" element={<Errorpage />} />

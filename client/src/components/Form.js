@@ -14,12 +14,16 @@ const Container = styled.div`
   .container-form {
     background: #f8f8ff;
     max-width: 500px;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 5px;
     font-size: 1.2rem;
-    box-shadow: -2px 0px 14px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: -2px 0px 14px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -2px 0px 14px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 0px 8px 1px rgba(0, 0, 0, 0.64);
+    -webkit-box-shadow: -1px 0px 8px 1px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: -1px 0px 8px 1px rgba(0, 0, 0, 0.64);
+    transition: all 0.5s ease;
+    :hover {
+      transform: scale(1.05);
+    }
   }
   .formclick {
     background: transparent;
@@ -111,7 +115,8 @@ const Form = () => {
           className="formclick"
           onClick={() => setbutton(true)}
         >
-          Choose the stack <i className="fal fa-play-circle"></i>
+          Choose the stack you want to learn
+          <i className="fal fa-play-circle"></i>
         </button>
         <form style={{ display: button ? "flex" : "none" }} className="form">
           <label>choose your passion:</label>
