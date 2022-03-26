@@ -8,6 +8,7 @@ import { apiUrl } from "../data/api";
 import { useSelector } from "react-redux";
 import PortfolioTemp1 from "./PortfolioTemp1";
 import { useNavigate } from "react-router-dom";
+import Preloader from "../components/preloader/Preloader";
 
 const Container = styled.div`
   padding: 10px;
@@ -27,12 +28,15 @@ const Portfolio = () => {
   const [profile, setprofile] = useState();
   const [data, setdata] = useState();
 
+  const [loader, setloader] = useState(false);
+
   const navigate = useNavigate();
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
 
   const getPortfolio = async () => {
     try {
+      setloader(true);
       const res = await axios.get(
         apiUrl + `/portfolio/getportfoliodata/${myLoginState}`,
         {
@@ -47,8 +51,10 @@ const Portfolio = () => {
         ).toString("base64")}`
       );
       setdata(res.data);
+      setloader(false);
     } catch (error) {
       console.error(error);
+      setloader(false);
     }
   };
 
@@ -78,17 +84,23 @@ const Portfolio = () => {
         <Button onClick={() => navigate("/")} variant="outlined">
           Back To HOME
         </Button>
-
         <Button onClick={generatePdf} variant="contained" color="secondary">
           Download
+        </Button>
+        <Button variant="outlined" onClick={() => navigate("/postportfolio")}>
+          New Portfolio
         </Button>
         <Button variant="outlined" onClick={getPortfolio}>
           Refresh
         </Button>
       </div>
-      <div className="container" id="content">
-        {data ? <PortfolioTemp1 /> : <></>}
-      </div>
+      {loader ? (
+        <Preloader bg="black" />
+      ) : (
+        <div className="container" id="content">
+          {data ? <PortfolioTemp1 /> : <></>}
+        </div>
+      )}
     </Container>
   );
 };
