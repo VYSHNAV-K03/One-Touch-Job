@@ -4,6 +4,7 @@ import styled from "styled-components";
 import profile1 from "../../assets/profile/profile1.png";
 import { apiUrl } from "../../data/api";
 import CancelIcon from "@mui/icons-material/Cancel";
+import CloseIcon from "@mui/icons-material/Close";
 import { blur, notblur } from "../../actions/index2";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
@@ -60,7 +61,7 @@ const Container = styled.div`
 
   .card {
     position: absolute;
-    z-index: 100;
+    z-index: 1;
     top: 0;
     left: 30%;
     width: 40%;
@@ -97,7 +98,7 @@ const Container = styled.div`
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: white;
+    background-color: orangered;
     width: 50px;
     cursor: pointer;
   }
@@ -213,15 +214,17 @@ const Paidinternship = () => {
               </a>
             </div>
           </div>
-          <button
-            type="button"
-            className="btn-close backicon"
-            aria-label="Close"
+          <Button
+            className="backicon"
+            variant="contained"
+            color="error"
             onClick={() => {
               setpopup(false);
               dispatch(notblur());
             }}
-          ></button>
+          >
+            <CloseIcon />
+          </Button>
           {/* <div
             className="backicon"
             onClick={() => {
