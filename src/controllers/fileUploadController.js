@@ -82,7 +82,7 @@ const ProfileUpdate = async (req, res, next) => {
   try {
     const usercoet = await User.findByIdAndUpdate(req.userID, {
       name: req.body.name,
-      work: req.body.profession,
+      work: req.body.work,
       profile: { data: buffer, contentType: req.file.mimetype },
     });
     res.status(200).send("update successfully");

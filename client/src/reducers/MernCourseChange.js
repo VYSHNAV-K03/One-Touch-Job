@@ -13,7 +13,7 @@ const changeMernCourse = (state = initalmern, action) => {
     case "vueprog":
       return (state = "vue");
     case "frontendprojectsprogreact":
-      return (state = "frontendprojectsprogreact");
+      return (state = "frontendprojectsreact");
     case "frontendprojectsprogangular":
       return (state = "frontendprojectsangular");
     case "frontendprojectsprogvue":

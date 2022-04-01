@@ -19,8 +19,17 @@ const Container = styled.div`
   }
   .buttons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin: 20px 0;
+  }
+  Button {
+    margin: 5px;
+  }
+  @media screen and (max-width: 436px) {
+    Button {
+      font-size: 0.8rem;
+    }
   }
 `;
 

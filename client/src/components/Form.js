@@ -43,6 +43,15 @@ const Container = styled.div`
     animation-duration: 1s;
     animation-iteration-count: infinite;
   }
+  @media screen and (max-width: 520px) {
+    .formclick {
+      font-size: 1rem;
+    }
+    .formclick i {
+      bottom: -6px;
+      right: -6px;
+    }
+  }
   @keyframes animate {
     0% {
       transform: scale(1);

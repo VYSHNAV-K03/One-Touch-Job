@@ -67,11 +67,13 @@ const Container = styled.div`
   .image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fit;
   }
   @media screen and (max-width: 494px) {
-    padding: 20px 10px;
-
+    padding: 20px;
+    .btn {
+      font-size: 0.8rem;
+    }
     .image {
       width: 100%;
       height: 200px;
@@ -185,7 +187,7 @@ const Workshops = () => {
       }
     } catch (e) {
       console.log("callPro eror", e);
-      // navigate("/login");
+      navigate("/login");
     }
   };
 

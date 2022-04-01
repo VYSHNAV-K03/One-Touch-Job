@@ -31,10 +31,10 @@ const Container = styled.div`
     text-decoration: none;
     line-height: 40px;
   }
-  @media screen and (max-width: 495px){
+  @media screen and (max-width: 495px) {
     .titlecontainer-nav {
-    font-size: 1.6rem;
-  }
+      font-size: 1.6rem;
+    }
   }
   .searchbar-nav {
     display: flex;
@@ -84,22 +84,16 @@ const Container = styled.div`
       font-size: 0.8rem;
     }
   }
-  @media screen and (max-width: 530px) {
-    .items-nav{
-      display:none;
-    }
-  }
   .items-nav li {
+    margin: auto 10px;
     display: flex;
     cursor: pointer;
     font-weight: bold;
-    margin:auto 10px;
   }
- 
 
   .items-nav p {
     color: #fff;
-    margin:auto;
+    margin: auto;
     :hover {
       color: #ff5f1f;
     }
@@ -111,14 +105,34 @@ const Container = styled.div`
     position: relative;
   }
   .profileimage-nav img {
+    border: 3px solid white;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border: 3px solid white;
     border-radius: 50%;
   }
-  
+  @media screen and (max-width: 530px) {
+    padding: 15px 0px 15px 15px;
 
+    .items-nav li:not(:last-child) {
+      display: none;
+    }
+    .items-nav li {
+      margin: auto 0px;
+    }
+    .profileimage-nav {
+      width: 40px;
+      height: 40px;
+    }
+    .profileimage-nav img {
+      border: 2px solid white;
+    }
+  }
+  @media screen and (max-width: 354px) {
+    padding: 5px 0px 5px 5px;
+    .items-nav li {
+      display: none;
+    }
   }
 `;
 
@@ -157,7 +171,6 @@ const Navbar = (props) => {
       }
     } catch (e) {}
   };
- 
 
   useEffect(() => {
     callNavbar();

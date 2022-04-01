@@ -10,6 +10,9 @@ const Container = styled.div`
   -webkit-box-shadow: 0px 0px 21px 0px rgba(174, 210, 235, 0.86);
   -moz-box-shadow: 0px 0px 21px 0px rgba(174, 210, 235, 0.86);
   padding: 10px;
+  @media screen and (max-width: 500px) {
+    margin: 10px auto;
+  }
 `;
 
 const Recommendationlogin = () => {

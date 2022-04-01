@@ -52,7 +52,7 @@ import {
 } from "../actions";
 
 const Container = styled.div`
-  padding: ${(props) => props.padding} clamp(3px, 1.1vw, 20px);
+  padding: ${(props) => props.padding};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,7 +117,7 @@ const Container = styled.div`
   @media screen and (max-width: 1037px) {
     position: relative;
     overflow-x: scroll;
-    padding: 80px 0;
+    padding: 80px 100px;
     ::-webkit-scrollbar {
       height: 3px;
       background-color: #fff;
@@ -131,7 +131,6 @@ const Container = styled.div`
       top: 0;
       left: 0;
       bottom: 0;
-      width: 1037px;
     }
     .items li {
       width: 100px;
@@ -745,6 +744,23 @@ const Progressbar = () => {
                   </div>
 
                   <p>React Js</p>
+                </li>
+                <li
+                  onClick={() => {
+                    handleClick(4, frontendprojectsreactprogress());
+                  }}
+                >
+                  <div className="image">
+                    <img src={project1} alt="" />
+                  </div>
+                  <div className="line">
+                    {linecolor == 4 ? (
+                      <i className="fas fa-check-circle"></i>
+                    ) : (
+                      <i className="fas fa-times-circle"></i>
+                    )}{" "}
+                  </div>
+                  <p>Frontend projects</p>
                 </li>
                 <li>
                   <div className="image">

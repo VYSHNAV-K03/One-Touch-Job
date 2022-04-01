@@ -30,9 +30,9 @@ const Container = styled.div`
   }
 
   .imageandurl {
+    width: 300px;
     display: flex;
     flex-direction: column;
-    width: 300px;
     overflow: hidden;
     margin: 0 20px;
     cursor: pointer;
@@ -72,10 +72,15 @@ const Container = styled.div`
     text-align: center;
     text-decoration: none;
   }
-  @media screen and (max-width: 792px) {
-    .size {
-      width: 250px;
-      height: 150px;
+  @media screen and (max-width: 610px) {
+    .image {
+      height: 118px;
+    }
+    .container-course {
+      min-height: 200px;
+    }
+    .imageandurl {
+      width: 220px;
     }
   }
 `;
