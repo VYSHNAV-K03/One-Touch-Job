@@ -136,31 +136,6 @@ const Container = styled.div`
 `;
 
 const Home1 = () => {
-  const [user, setuser] = useState([]);
-
-  const myLoginState = useSelector((state) => state.changeTheLogin);
-
-  const CallHomepage = async () => {
-    try {
-      const res = await axios.get(apiUrl + `/getData/${myLoginState}`, {
-        withCredentials: true,
-      });
-
-      const data = await res.data;
-
-      setuser(data);
-
-      if (res.status !== 200) {
-        throw new Error(res.error);
-      }
-    } catch (e) {
-      console.log("call home", e);
-    }
-  };
-
-  useEffect(() => {
-    CallHomepage();
-  }, []);
   return (
     <Container>
       <div className="leftcontainer">

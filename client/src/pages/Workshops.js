@@ -153,9 +153,9 @@ const Workshops = () => {
     try {
       setloader(true);
       const res = await axios.get(apiUrl + "/workshop/getworkshop");
-      setloader(false);
-
+      
       setdata(res.data);
+      setloader(false);
     } catch (error) {
       setloader(false);
 
@@ -196,8 +196,8 @@ const Workshops = () => {
   };
 
   useEffect(() => {
-    getWorkshop();
     CallProjectpage();
+    getWorkshop();
   }, []);
 
   return (

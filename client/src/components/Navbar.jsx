@@ -169,7 +169,9 @@ const Navbar = (props) => {
       if (res.status !== 200) {
         throw new Error(res.error);
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {

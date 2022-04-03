@@ -27,6 +27,7 @@ const workshopRoute = require("./router/workshoproute");
 const portfolioRoute = require("./router/portfolioroute");
 const coursesRoute = require("./router/coursesroute");
 const internshiRoute = require("./router/Internshiproute");
+const placedstudentsroute = require("./router/placedStudentroute");
 
 app.use(bodyParser.json());
 
@@ -36,6 +37,7 @@ app.use("/api/workshop", workshopRoute);
 app.use("/api/portfolio", portfolioRoute);
 app.use("/api/courses", coursesRoute);
 app.use("/api/internship", internshiRoute);
+app.use("/api/placedstudents", placedstudentsroute);
 
 app.use("/uploads", express.static(path.join("uploads")));
 

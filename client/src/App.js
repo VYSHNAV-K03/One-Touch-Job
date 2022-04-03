@@ -35,6 +35,7 @@ import Workshops from "./pages/Workshops";
 import PostPortfolio from "./Porfolio/PostPortfolio";
 import Signin from "./components/Login";
 import Internship from "./pages/Internship";
+import PlacedStudents from "./pages/PlacedStudents";
 
 const Container = styled.div``;
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/" exact element={<Home />} />
         <Route path="/placement" exact element={<Placement />} />
         <Route path="/placementeach" exact element={<Placementdetails />} />
+        <Route path="/placedstudents" exact element={<PlacedStudents />} />
         <Route path="/projects" exact element={<Projects />} />
         <Route path="/postportfolio" exact element={<PostPortfolio />} />
         <Route path="/portfolio" exact element={<Portfolio />} />
@@ -66,6 +68,7 @@ function App() {
         <Route path="/right" exact element={<TemporaryDrawer />} />
         <Route path="/workshop" exact element={<Workshops />} />
         <Route path="/internship" exact element={<Internship />} />
+        <Route path="/freelance" exact element={<Projects />} />
         <Route path="/quiz" exact element={<Quiz />} />
         <Route path="*" element={<Errorpage />} />
       </Routes>

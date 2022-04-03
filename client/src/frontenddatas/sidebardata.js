@@ -41,19 +41,19 @@ export const sidebardata2 = [
   },
   {
     id: 2,
+    name: "Placed Students",
+    link: "/placedstudents",
+  },
+  {
+    id: 3,
     name: "Quiz",
     link: "/skillquiz",
   },
 
   {
-    id: 3,
+    id: 4,
     name: "Projects",
     link: "/projects",
-  },
-  {
-    id: 4,
-    name: "Contact Us",
-    link: "/contact",
   },
 ];
 
