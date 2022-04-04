@@ -202,23 +202,21 @@ router.post("/signin/off", async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      res.send("pls fill properly");
+      res.status(404).send("pls fill properly");
     } else {
       const userExist = await User.findOne({ email: req.body.email });
       if (userExist) {
         const isMatch = await bcrypt.compare(password, userExist.password);
-        const token = await userExist.generateAuthToken();
-        // console.log("singin token", token);
-        res.cookie("jwt", token, {
-          sameSite: "strict",
-          expires: new Date(Date.now() + 300000000),
-          httpOnly: true,
-        });
-        // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-        // res.setHeader("Access-Control-Allow-Credentials", true);
         if (!isMatch) {
-          res.send("check password");
+          res.status(404).send("check password");
         } else {
+          const token = await userExist.generateAuthToken();
+          res.cookie("jwt", token, {
+            sameSite: "strict",
+            expires: new Date(Date.now() + 300000000),
+            httpOnly: true,
+          });
+
           res.status(200).send("user login successfully");
         }
       } else {
@@ -236,28 +234,27 @@ router.post("/signin/coet", async (req, res) => {
   const { email, password, college } = req.body;
   try {
     if (!email || !password || !college) {
-      res.send("pls fill properly");
+      res.status(404).send("pls fill properly");
     } else {
       const userExist = await COET.findOne({ email: req.body.email });
 
       if (userExist) {
         const isMatch = await bcrypt.compare(password, userExist.password);
 
-        const token = await userExist.generateAuthToken();
-
-        res.cookie("jwt", token, {
-          sameSite: "strict",
-          expires: new Date(Date.now() + 300000000),
-          httpOnly: true,
-        });
-
         if (!isMatch) {
-          res.send("pls check password");
+          res.status(404).send("check password");
         } else {
+          const token = await userExist.generateAuthToken();
+
+          res.cookie("jwt", token, {
+            sameSite: "strict",
+            expires: new Date(Date.now() + 300000000),
+            httpOnly: true,
+          });
           res.status(200).send("user login successfully");
         }
       } else {
-        res.status(404).send("Invalid sumesh");
+        res.status(404).send("Invalid credentials");
       }
     }
   } catch (e) {

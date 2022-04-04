@@ -91,15 +91,15 @@ const LoginCollege = () => {
 
   const [college, setcollege] = useState("");
 
-  const handleCollegeChange = (e) => {
-    setcollege(e.target.value);
-  };
-
   const navigate = useNavigate();
   const [user, setuser] = useState({
     email: "",
     password: "",
   });
+
+  const handleCollegeChange = (e) => {
+    setcollege(e.target.value);
+  };
 
   let name, value;
   const handleLogin = (e) => {
@@ -125,12 +125,10 @@ const LoginCollege = () => {
           withCredentials: true,
         }
       );
-      if (res.status === 200) {
-        window.alert(res.data);
-        navigate("/");
-      } else {
-        window.alert(res.data);
+      if (res.status !== 200) {
+        throw new Error(res.error);
       }
+      navigate("/");
     } catch (error) {
       window.alert("invalid credentials");
     }
@@ -297,10 +295,10 @@ const LoginCollege = () => {
           <form method="POST" className="login">
             <div className="title">SignIn</div>
             <select className="form-select" onChange={handleCollegeChange}>
-              <option value="not select">Select Your College</option>
+              <option value="not select" hidden>
+                Select Your College
+              </option>
               <option value="coet">College Of Eng Thalassery</option>
-              <option value="coev">College Of Eng Vadakara</option>
-              <option value="coetr">College Of Eng Thrissur</option>
             </select>
             <input
               type="text"

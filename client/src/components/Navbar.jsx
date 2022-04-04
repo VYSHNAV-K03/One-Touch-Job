@@ -113,7 +113,9 @@ const Container = styled.div`
   }
   @media screen and (max-width: 530px) {
     padding: 15px 0px 15px 15px;
-
+    .register-toggle {
+      display: none;
+    }
     .items-nav li:not(:last-child) {
       display: none;
     }
@@ -203,6 +205,7 @@ const Navbar = (props) => {
           <li>
             <NavLink
               to="/register"
+              className="register-toggle"
               style={{ textDecoration: "none", color: "white" }}
             >
               <p>Register</p>

@@ -9,6 +9,7 @@ const fs = require("fs");
 
 const corsOptions = {
   origin: "https://onetouchjob-app.herokuapp.com/",
+  // origin: "http://localhost:3000",
   credentials: true,
 };
 app.use(cors(corsOptions));
