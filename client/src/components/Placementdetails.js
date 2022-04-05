@@ -10,7 +10,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
-import { Avatar, Box, Button, Fab } from "@mui/material";
+import { Avatar, Box, Button, CircularProgress, Fab } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import {
   AccountCircle,
@@ -135,6 +135,8 @@ const Placementdetails = () => {
 
   const [loader, setloader] = useState(false);
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const [files, setfiles] = useState([]);
   const navigate = useNavigate();
 
@@ -161,13 +163,20 @@ const Placementdetails = () => {
         form.append("salary", values.salary);
         form.append("url", values.url);
         form.append("file", values.file);
-        await axios.post(
+
+        setloader_addbtn(true);
+
+        const res = await axios.post(
           apiUrl + `/placement/${PlacementState}/${myLoginState}`,
           form
         );
-        GetPlacementData();
+        if (res) {
+          GetPlacementData();
+        }
+        setloader_addbtn(false);
       } catch (error) {
         console.log("placement error");
+        setloader_addbtn(false);
       }
     }
   };
@@ -187,18 +196,16 @@ const Placementdetails = () => {
       console.log("getPlacement error", error);
     }
   };
-  console.log(files);
-  files.forEach((element, index) => {
-    console.log(element.photo);
-  });
-
+ 
   const deletePlacement = async (id) => {
     try {
       const res = await axios.delete(
         apiUrl + `/placement/${PlacementState}/${myLoginState}/${id}`
       );
-      window.alert("deleted successfully");
-      GetPlacementData();
+      if (res) {
+        window.alert("deleted successfully");
+        GetPlacementData();
+      }
     } catch (error) {
       console.log("delete placement error", error);
     }
@@ -225,8 +232,8 @@ const Placementdetails = () => {
   };
 
   useEffect(() => {
-    GetPlacementData();
     CallProjectpage();
+    GetPlacementData();
   }, []);
 
   const [state, setState] = React.useState({
@@ -419,13 +426,17 @@ const Placementdetails = () => {
                 onChange={(e) => handleChange(e)}
                 placeholder="choose image"
               />
-              <Button
-                variant="contained"
-                type="submit"
-                onClick={() => handleClick()}
-              >
-                Submit
-              </Button>
+              {loader_addbtn ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  variant="contained"
+                  type="submit"
+                  onClick={() => handleClick()}
+                >
+                  Submit
+                </Button>
+              )}
             </div>
           ) : (
             <></>

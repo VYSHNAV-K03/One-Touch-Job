@@ -15,7 +15,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import profileb from "../assets/images/profilebg.avif";
 import VanillaTilt from "vanilla-tilt";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Preloader from "./preloader/Preloader";
 
@@ -128,6 +128,8 @@ const Profile = () => {
 
   const [loader, setloader] = useState(false);
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const [profilepath, setprofilepath] = useState();
   const [display, setdisplay] = useState(true);
 
@@ -172,6 +174,8 @@ const Profile = () => {
       formData.append("work", profession);
       formData.append("file", profile);
       try {
+        setloader_addbtn(true);
+
         const res = await axios.post(
           apiUrl + `/profileimage/${myLoginState}`,
           formData,
@@ -184,8 +188,10 @@ const Profile = () => {
           setdisplay(true);
           CallAboutPage();
         }
+        setloader_addbtn(false);
       } catch (error) {
         console.log("update img error", error);
+        setloader_addbtn(false);
       }
     }
   };
@@ -268,14 +274,18 @@ const Profile = () => {
             onChange={(e) => setprofile(e.target.files[0])}
           />
         </div>
-        <Button
-          variant="contained"
-          onClick={() => {
-            handleUpdate();
-          }}
-        >
-          Update
-        </Button>
+        {loader_addbtn ? (
+          <CircularProgress />
+        ) : (
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleUpdate();
+            }}
+          >
+            Update
+          </Button>
+        )}
       </div>
     </Container>
   );

@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@mui/material";
+import { Button, CircularProgress, IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import image from "../assets/images/progressbackground.png";
@@ -128,6 +128,8 @@ const Internship = () => {
 
   const [loader, setloader] = useState(false);
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const [Role, setRole] = useState();
   const navigate = useNavigate();
 
@@ -147,12 +149,20 @@ const Internship = () => {
       formData.append("file", file);
 
       try {
+        setloader_addbtn(true);
+
         const res = await axios.post(
           apiUrl + "/internship/addinternship",
           formData
         );
+        if (res) {
+          getInternship();
+          setdisplay(false);
+        }
+        setloader_addbtn(false);
       } catch (error) {
         console.log("upload error", error);
+        setloader_addbtn(false);
       }
     }
   };
@@ -336,12 +346,16 @@ const Internship = () => {
             />
           </div>
           <div className="mb-3">
-            <input
-              className="btn btn-primary"
-              type={!error ? "submit" : "button"}
-              value="Upload"
-              onClick={handleUpload}
-            />
+            {loader_addbtn ? (
+              <CircularProgress />
+            ) : (
+              <input
+                className="btn btn-primary"
+                type={!error ? "submit" : "button"}
+                value="Upload"
+                onClick={handleUpload}
+              />
+            )}
           </div>
         </form>
       </div>

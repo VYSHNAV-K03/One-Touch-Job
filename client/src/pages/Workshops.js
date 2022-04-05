@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@mui/material";
+import { Button, CircularProgress, IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import image from "../assets/images/progressbackground.png";
@@ -122,6 +122,8 @@ const Workshops = () => {
 
   const [loader, setloader] = useState(false);
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const [Role, setRole] = useState();
   const navigate = useNavigate();
 
@@ -139,12 +141,20 @@ const Workshops = () => {
       formData.append("file", file);
 
       try {
+        setloader_addbtn(true);
+
         const res = await axios.post(
           apiUrl + "/workshop/addworkshop",
           formData
         );
+        if (res) {
+          getWorkshop();
+          setdisplay(false);
+        }
+        setloader_addbtn(false);
       } catch (error) {
         console.log("upload error", error);
+        setloader_addbtn(false);
       }
     }
   };
@@ -153,7 +163,7 @@ const Workshops = () => {
     try {
       setloader(true);
       const res = await axios.get(apiUrl + "/workshop/getworkshop");
-      
+
       setdata(res.data);
       setloader(false);
     } catch (error) {
@@ -280,12 +290,16 @@ const Workshops = () => {
             />
           </div>
           <div className="mb-3">
-            <input
-              className="btn btn-primary"
-              type={!error ? "submit" : "button"}
-              value="Submit"
-              onClick={handleUpload}
-            />
+            {loader_addbtn ? (
+              <CircularProgress />
+            ) : (
+              <input
+                className="btn btn-primary"
+                type={!error ? "submit" : "button"}
+                value="Submit"
+                onClick={handleUpload}
+              />
+            )}
           </div>
         </form>
       </div>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import profile from "../assets/profile/profile2.jpg";
 import placed from "../assets/placement/placed-student.jpeg";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -180,6 +180,8 @@ const PlacedStudents = () => {
 
   const [Role, setRole] = useState();
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const [data, setdata] = useState();
 
   const [loader, setloader] = useState(false);
@@ -209,7 +211,7 @@ const PlacedStudents = () => {
         formData.append("dept", dept);
         formData.append("profile", profileimage);
         formData.append("poster", posterimage);
-
+        setloader_addbtn(true);
         const res = await axios.post(
           apiUrl + `/placedstudents/addplacedstudent/${myLoginState}`,
           formData,
@@ -221,8 +223,10 @@ const PlacedStudents = () => {
           getPlacedStudents();
           setdisplay(false);
         }
+        setloader_addbtn(false);
       } catch (error) {
         console.log(error);
+        setloader_addbtn(false);
       }
     }
   };
@@ -396,9 +400,13 @@ const PlacedStudents = () => {
             />
           </div>
           <div className="mb-3">
-            <Button variant="outlined" onClick={() => handleUpload()}>
-              Submit
-            </Button>
+            {loader_addbtn ? (
+              <CircularProgress />
+            ) : (
+              <Button variant="outlined" onClick={() => handleUpload()}>
+                Submit
+              </Button>
+            )}
           </div>
         </form>
       </div>

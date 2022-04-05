@@ -85,4 +85,10 @@ export const SearchItems = [
     link: "/workshop",
     imageURL: workshop,
   },
+  {
+    id: 13,
+    name: "Placed Students",
+    link: "/placedstudents",
+    imageURL: portfolio,
+  },
 ];

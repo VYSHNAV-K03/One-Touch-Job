@@ -11,7 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
-import { Avatar, Box, Button, Fab } from "@mui/material";
+import { Avatar, Box, Button, CircularProgress, Fab } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import {
   AccountCircle,
@@ -91,6 +91,8 @@ const LoginCollege = () => {
 
   const [college, setcollege] = useState("");
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const navigate = useNavigate();
   const [user, setuser] = useState({
     email: "",
@@ -114,6 +116,8 @@ const LoginCollege = () => {
     const { email, password } = user;
     dispatch(coet());
     try {
+      setloader_addbtn(true);
+
       const res = await axios.post(
         apiUrl + `/signin/coet`,
         {
@@ -128,9 +132,12 @@ const LoginCollege = () => {
       if (res.status !== 200) {
         throw new Error(res.error);
       }
+      setloader_addbtn(false);
+
       navigate("/");
     } catch (error) {
       window.alert("invalid credentials");
+      setloader_addbtn(false);
     }
   };
 
@@ -320,15 +327,13 @@ const LoginCollege = () => {
               required="required"
               onChange={handleLogin}
             />
-            {/* <NavLink
-              to="/register"
-              style={{ textDecoration: "none", color: "transparent" }}
-            >
-              <a href="">Create Account</a>
-            </NavLink> */}
-            <Button type="submit" onClick={Postdata}>
-              Login
-            </Button>
+            {loader_addbtn ? (
+              <CircularProgress />
+            ) : (
+              <Button type="submit" onClick={Postdata}>
+                Login
+              </Button>
+            )}
           </form>
         </div>
         <Drawer
