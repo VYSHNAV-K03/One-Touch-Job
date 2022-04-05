@@ -3,7 +3,7 @@ import styled from "styled-components";
 import loginbg from "../assets/images/progressbg1.png";
 import Navbar from "./Navbar";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Drawer } from "@mui/material";
+import { CircularProgress, Drawer } from "@mui/material";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -121,6 +121,8 @@ const Register = () => {
   });
   const [profileimg, setprofileimg] = useState();
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   console.log(profileimg);
 
   let name, value;
@@ -178,6 +180,8 @@ const Register = () => {
       formData.append("cpassword", cpassword);
       formData.append("file", profileimg);
 
+      setloader_addbtn(true);
+
       const res = await axios.post(apiUrl + "/registe", formData, {
         withCredentials: true,
       });
@@ -194,6 +198,7 @@ const Register = () => {
 
         navigate("/login");
       }
+      setloader_addbtn(false);
     }
   };
   console.log("sumesh");
@@ -390,9 +395,13 @@ const Register = () => {
               type="file"
               onChange={(e) => setprofileimg(e.target.files[0])}
             />
-            <button type="submit" onClick={Postdata}>
-              Register
-            </button>
+            {loader_addbtn ? (
+              <CircularProgress />
+            ) : (
+              <button type="submit" onClick={Postdata}>
+                Register
+              </button>
+            )}
           </form>
         </div>
         <Drawer
