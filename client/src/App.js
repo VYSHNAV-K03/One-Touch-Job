@@ -62,7 +62,11 @@ function App() {
         <Route path="/logincollege" exact element={<LoginCollege />} />
         <Route path="/logout" exact element={<Logout />} />
         <Route path="/resetpassword" exact element={<ResetPass />} />
-        <Route path="/reset/:token" exact element={<NewPassword />} />
+        <Route
+          path="https://onetouchjob-app.herokuapp.com/reset/:token"
+          exact
+          element={<NewPassword />}
+        />
         <Route path="/register" exact element={<Register />} />
         <Route path="/result" exact element={<QuizResult />} />
         <Route path="/right" exact element={<TemporaryDrawer />} />
