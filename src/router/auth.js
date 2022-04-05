@@ -292,7 +292,7 @@ router.post("/reset-password", async (req, res) => {
         console.log(err);
       }
       const token = buffer.toString("hex");
-      const userExist = await User.findOne({ email: req.body.body.email });
+      const userExist = await User.findOne({ email: req.body.email });
 
       if (!userExist) {
         res.status(402).send("User not exist with that email");
@@ -308,7 +308,7 @@ router.post("/reset-password", async (req, res) => {
           to: user.email,
           subject: "reset password",
           html: `
-              <p> Tap the <a href="https://one-touch-job-app.herokuapp.com/reset/${token}">link</a> to reset password </p>
+              <p> Tap the <a href="https://onetouchjob-app.herokuapp.com/reset/${token}">link</a> to reset password </p>
           `,
         });
         res.send("check mail");
@@ -324,8 +324,8 @@ router.post("/reset-password", async (req, res) => {
 
 router.post("/new-password", async (req, res) => {
   try {
-    const token = req.body.body.token;
-    const password = req.body.body.password;
+    const token = req.body.token;
+    const password = req.body.password;
 
     const user = await User.findOne({
       resetToken: token,

@@ -70,10 +70,8 @@ const NewPassword = () => {
       const res = await axios.post(
         apiUrl + "/new-password",
         {
-          body: {
-            password,
-            token,
-          },
+          password,
+          token,
         },
         { withCredentials: true }
       );

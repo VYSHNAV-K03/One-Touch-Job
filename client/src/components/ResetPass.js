@@ -92,9 +92,7 @@ const ResetPass = () => {
     const res = await axios.post(
       apiUrl + `/reset-password`,
       {
-        body: {
-          email,
-        },
+        email,
       },
       { withCredentials: true }
     );
