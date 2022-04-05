@@ -308,7 +308,7 @@ router.post("/reset-password", async (req, res) => {
           to: user.email,
           subject: "reset password",
           html: `
-              <p> Tap the <a href="/reset/${token}">link</a> to reset password </p>
+              <p> Tap the <a href="https://onetouchjob-app.herokuapp.com/reset/${token}">link</a> to reset password </p>
           `,
         });
         res.send("check mail");
