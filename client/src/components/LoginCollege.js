@@ -35,54 +35,240 @@ import {
 import { apiUrl } from "../data/api";
 import axios from "axios";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 const Container = styled.div`
-  height: calc(100vh - 80px);
-  background-image: url(${loginbg});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  height: 100vh;
+  background: linear-gradient(270deg, #005db3 0%, rgba(0, 52, 236, 0) 81.56%);
   display: flex;
-  .logincontainer {
-    margin: 6% auto auto auto;
-    width: 500px;
-    background: white;
-    padding: 20px;
+  position: relative;
+  .backtohomeicon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
   }
-  .login select {
-    margin-bottom: 20px;
+  .logincontainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
   .login {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
-  .login .title {
-    font-size: 2rem;
-    font-weight: 500;
-    margin-bottom: 30px;
+  .left_title {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 91px;
+    text-align: center;
+
+    color: #000000;
   }
-  .login input {
-    font-size: 1.3rem;
-    outline: none;
-    border: none;
-    border: 1px solid #ccc;
-    padding: 10px;
+  .left_info {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 40px;
+    text-align: center;
+
+    color: #000000;
+  }
+  .left_icons img {
+    width: 55px;
+    height: 55px;
+    margin: 0 10px;
+  }
+  .or {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 32px;
+    text-align: center;
+
+    color: #000000;
+  }
+  input,
+  select {
+    width: 500px;
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 44px;
+
+    color: #000000;
+    border-radius: 20px;
     margin-bottom: 20px;
-    border-radius: 10px;
   }
-  .login a {
-    margin-bottom: 15px;
-    text-decoration: none;
+  .forgot_link {
+    display: none;
   }
-  .login button {
-    padding: 5px;
-    cursor: pointer;
-    font-size: 1.3rem;
-    color: white;
-    background: teal;
+  .forgot_pass {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5rem;
+
+    color: #000000;
+  }
+  .loginbtn_container {
+    background: #ffffff;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+    border-radius: 33px;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loginbtn_container button {
     border: none;
     outline: none;
-    border-radius: 10px;
-    width: 100px;
+    background: transparent;
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 44px;
+
+    color: #000000;
+  }
+  .right {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .title2 {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 46px;
+    line-height: 73px;
+    text-align: center;
+
+    color: #ffffff;
+  }
+  .right_info {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 28px;
+    text-align: center;
+
+    color: #ffffff;
+  }
+  .right_btn {
+    width: 200px;
+    height: 50px;
+    background: #ffffff;
+    border-radius: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 35px;
+    text-align: center;
+    text-decoration: none;
+
+    color: #000000;
+  }
+  @media screen and (max-width: 1036px) {
+    .right {
+      display: none;
+    }
+    .forgot_link {
+      display: flex;
+    }
+  }
+  @media screen and (max-width: 624px) {
+    .left_title {
+      font-size: 40px;
+      line-height: 40px;
+    }
+    .left_info {
+      font-size: 19px;
+      line-height: 30px;
+    }
+    .left_icons img {
+      width: 35px;
+      height: 35px;
+      margin: 0 10px;
+    }
+    .or {
+      line-height: 25px;
+    }
+    input,
+    select {
+      width: 300px;
+      font-size: 1rem;
+      line-height: 22px;
+      margin-bottom: 10px;
+    }
+    .forgot_pass {
+      font-size: 1rem;
+    }
+    .loginbtn_container {
+      box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+      border-radius: 33px;
+      width: 100px;
+      height: 40px;
+    }
+    .loginbtn_container button {
+      font-size: 1rem;
+      line-height: 14px;
+    }
+  }
+
+  @media screen and (max-width: 406px) {
+    .left_title {
+      font-size: 25px;
+      line-height: 28px;
+    }
+    .left_info {
+      font-size: 15px;
+      line-height: 18px;
+    }
+    .left_icons img {
+      width: 30px;
+      height: 30px;
+      margin: 0 10px;
+    }
+    .or {
+      line-height: 20px;
+    }
+    input,
+    select {
+      width: 250px;
+      font-size: 1rem;
+      line-height: 22px;
+      margin-bottom: 10px;
+    }
+    .forgot_pass {
+      font-size: 1rem;
+      line-height: 12px;
+    }
+    .loginbtn_container {
+      box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+      border-radius: 33px;
+      transform: scale(0.8);
+    }
+    .loginbtn_container button {
+      font-size: 1rem;
+      line-height: 14px;
+    }
   }
 `;
 
@@ -292,15 +478,14 @@ const LoginCollege = () => {
 
   return (
     <>
-      <Navbar
-        color="black"
-        position="relative"
-        toggleDrawer={(state, bool) => toggleDrawer(state, bool)}
-      />
       <Container>
+        <div className="backtohomeicon" onClick={() => navigate("/login")}>
+          <ArrowBackIcon />
+        </div>
         <div className="logincontainer">
           <form method="POST" className="login">
-            <div className="title">SignIn</div>
+            <div className="left_title">Login to your account</div>
+            <p className="left_info">login using college id and password</p>
             <select className="form-select" onChange={handleCollegeChange}>
               <option value="not select" hidden>
                 Select Your College
@@ -327,13 +512,15 @@ const LoginCollege = () => {
               required="required"
               onChange={handleLogin}
             />
-            {loader_addbtn ? (
-              <CircularProgress />
-            ) : (
-              <Button type="submit" onClick={Postdata}>
-                Login
-              </Button>
-            )}
+            <div className="loginbtn_container">
+              {loader_addbtn ? (
+                <CircularProgress />
+              ) : (
+                <button type="submit" onClick={Postdata}>
+                  Login
+                </button>
+              )}
+            </div>
           </form>
         </div>
         <Drawer
