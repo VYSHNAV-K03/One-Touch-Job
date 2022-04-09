@@ -43,6 +43,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import getGoogleUrl from "../utils/getGoogleUrl";
 
 import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 
 const Container = styled.div`
   height: 100vh;
@@ -359,9 +360,8 @@ const LoginOff = () => {
           withCredentials: true,
         }
       );
-      // window.localStorage.setItem("jwt", res.data);
       if (res.status === 200) {
-        window.alert("user login successfull");
+        window.alert("Google login successfull");
         navigate("/");
       }
     } catch (error) {
@@ -370,6 +370,10 @@ const LoginOff = () => {
   };
 
   const responseErrorGoogle = (response) => {
+    console.log(response);
+  };
+
+  const responseFacebook = (response) => {
     console.log(response);
   };
 
@@ -395,6 +399,11 @@ const LoginOff = () => {
                 onFailure={responseErrorGoogle}
                 cookiePolicy={"single_host_origin"}
               />
+              {/* <FacebookLogin
+                appId="1181943819010325"
+                autoLoad={false}
+                callback={responseFacebook}
+              /> */}
             </div>
             <p className="or">OR</p>
             <input

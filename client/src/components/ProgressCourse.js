@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { apiUrl, reactDeleteFile, ReactfileUpload } from "../data/api";
+import Preloader from "./preloader/Preloader";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -72,7 +73,17 @@ const Container = styled.div`
     text-align: center;
     text-decoration: none;
   }
+  .preloader {
+    text-align: center;
+    margin: auto;
+    font-size: 3rem;
+  }
   @media screen and (max-width: 610px) {
+    .preloader {
+      text-align: center;
+      margin: auto;
+      font-size: 1.5rem;
+    }
     .image {
       height: 118px;
     }
@@ -105,6 +116,8 @@ const ProgressCourse = () => {
 
   /////////////////////////////////////////////////////
 
+  const [loader, setloader] = useState(false);
+
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages({ numPages });
   };
@@ -126,6 +139,7 @@ const ProgressCourse = () => {
 
   const CallReactProjectpage = async () => {
     try {
+      setloader(true);
       const res = await axios.get(apiUrl + `/courses/${myState}/url/get`, {
         withCredentials: true,
       });
@@ -135,7 +149,9 @@ const ProgressCourse = () => {
       if (res.status !== 200) {
         throw new Error(res.error);
       }
+      setloader(false);
     } catch (e) {
+      setloader(false);
       console.log("callprogress", e);
     }
   };
@@ -153,30 +169,34 @@ const ProgressCourse = () => {
     <>
       <Container>
         <div className="container-course">
-          <div className="projects">
-            {filesList.map((element, index) => (
-              <div className="imagecontainer" key={index}>
-                <a
-                  href={element.url}
-                  target="_blank"
-                  className="imageandurl"
-                  key={index}
-                >
-                  <div className="image">
-                    <img
-                      src={`data:${
-                        element.image.contentType
-                      };base64, ${Buffer.from(element.image.data.data).toString(
-                        "base64"
-                      )}`}
-                      alt=""
-                    />
-                  </div>
-                  <div className="url">{element.url}</div>
-                </a>
-              </div>
-            ))}
-          </div>
+          {loader ? (
+            <div className="preloader">Loading....</div>
+          ) : (
+            <div className="projects">
+              {filesList.map((element, index) => (
+                <div className="imagecontainer" key={index}>
+                  <a
+                    href={element.url}
+                    target="_blank"
+                    className="imageandurl"
+                    key={index}
+                  >
+                    <div className="image">
+                      <img
+                        src={`data:${
+                          element.image.contentType
+                        };base64, ${Buffer.from(
+                          element.image.data.data
+                        ).toString("base64")}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="url">{element.url}</div>
+                  </a>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </Container>
     </>

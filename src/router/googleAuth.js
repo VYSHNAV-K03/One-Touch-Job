@@ -10,18 +10,20 @@ const { OAuth2Client } = require("google-auth-library");
 const User = require("../models/userSchema");
 const jwt = require("jsonwebtoken");
 
-
 const CLIENT_ID =
+  "181670074172-3vbenn2fkul089ttou6fp54pm24t6ogj.apps.googleusercontent.com";
+
+const Heroku_CLIENT_ID =
   "181670074172-vc2fa6775ofksgu4tu47mgf4darh941e.apps.googleusercontent.com";
 
-const client = new OAuth2Client(CLIENT_ID);
+const client = new OAuth2Client(Heroku_CLIENT_ID);
 
 router.post("/googlelogin", async (req, res) => {
   const { tokenId } = req.body;
 
   const response = await client.verifyIdToken({
     idToken: tokenId,
-    audience: CLIENT_ID,
+    audience: Heroku_CLIENT_ID,
   });
   const { email_verified, name, email } = response.payload;
   console.log(response.payload);
