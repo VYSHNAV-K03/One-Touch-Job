@@ -131,6 +131,9 @@ const Profile = () => {
   const [loader_addbtn, setloader_addbtn] = useState(false);
 
   const [profilepath, setprofilepath] = useState();
+
+  const [socialprofile, setsocialprofile] = useState();
+
   const [display, setdisplay] = useState(true);
 
   console.log(name);
@@ -152,6 +155,7 @@ const Profile = () => {
 
       const data = await res.data;
       setuserdata(data);
+      setsocialprofile(data.socialProfile);
       setprofilepath(data.profile);
       // console.log(res.status);
       if (res.status !== 200) {
@@ -216,6 +220,8 @@ const Profile = () => {
                     ? `data:${profilepath.contentType};base64, ${Buffer.from(
                         profilepath.data.data
                       ).toString("base64")}`
+                    : socialprofile
+                    ? socialprofile
                     : profile1
                 }
                 alt=" image"

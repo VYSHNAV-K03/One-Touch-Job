@@ -31,9 +31,10 @@ import {
   sidebardata2,
   sidebardata3,
 } from "../frontenddatas/sidebardata";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apiUrl } from "../data/api";
 import axios from "axios";
+import { coet, offcampus } from "../actions";
 
 const Container = styled.div`
   height: calc(100vh - 80px);
@@ -112,6 +113,8 @@ const Signin = () => {
   const [profile, setprofile] = useState();
 
   const [login, setlogin] = useState(true);
+
+  const dispatch = useDispatch();
 
   const myLoginState = useSelector((state) => state.changeTheLogin);
   const callNavbar = async () => {
@@ -268,7 +271,11 @@ const Signin = () => {
             style={{ textDecoration: "none", color: "transparent" }}
             className="loginc"
           >
-            <Button variant="contained" className="loginc">
+            <Button
+              variant="contained"
+              className="loginc"
+              onClick={() => dispatch(coet())}
+            >
               Login with college
             </Button>
           </NavLink>
@@ -277,7 +284,12 @@ const Signin = () => {
             style={{ textDecoration: "none", color: "transparent" }}
             className="loginc"
           >
-            <Button variant="outlined" color="secondary" className="loginc">
+            <Button
+              variant="outlined"
+              color="secondary"
+              className="loginc"
+              onClick={() => dispatch(offcampus())}
+            >
               Off campus login
             </Button>
           </NavLink>

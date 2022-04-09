@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const apiUrl = "https://onetouchjob-app.herokuapp.com/api";
-// export const apiUrl = "http://localhost:5000/api";
+// export const apiUrl = "https://onetouchjob-app.herokuapp.com/api";
+export const apiUrl = "http://localhost:5000/api";
 
 export const fileUpload = async (data, options, loginState) => {
   try {

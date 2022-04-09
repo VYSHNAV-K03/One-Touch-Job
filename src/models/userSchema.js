@@ -17,11 +17,9 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true,
   },
   work: {
     type: String,
-    required: true,
   },
   passion: {
     type: String,
@@ -32,11 +30,13 @@ const userSchema = new mongoose.Schema({
   },
   cpassword: {
     type: String,
-    required: true,
   },
   profile: {
     data: Buffer,
     contentType: String,
+  },
+  socialProfile: {
+    type: String,
   },
   resetToken: {
     type: String,
@@ -204,7 +204,9 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.generateAuthToken = async function () {
   try {
-    let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
+    let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY, {
+      expiresIn: "15m",
+    });
     console.log(token);
     this.tokens = this.tokens.concat({ token: token });
     await this.save();

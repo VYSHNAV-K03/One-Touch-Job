@@ -40,6 +40,9 @@ import google from "../assets/Loginpage/googleicon.png";
 import linkedin from "../assets/Loginpage/linkedinicon.png";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import getGoogleUrl from "../utils/getGoogleUrl";
+
+import { GoogleLogin } from "react-google-login";
 
 const Container = styled.div`
   height: 100vh;
@@ -292,7 +295,6 @@ const LoginOff = () => {
   };
   const Postdata = async (e) => {
     e.preventDefault(); //????
-    dispatch(offcampus());
     const { email, password } = user;
     try {
       setloader_addbtn(true);
@@ -346,126 +348,34 @@ const LoginOff = () => {
     }
   };
 
-  console.log(login);
+  const responseSuccessGoogle = async (response) => {
+    try {
+      const res = await axios.post(
+        apiUrl + "/social/googlelogin",
+        {
+          tokenId: response.tokenId,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      // window.localStorage.setItem("jwt", res.data);
+      if (res.status === 200) {
+        window.alert("user login successfull");
+        navigate("/");
+      }
+    } catch (error) {
+      window.alert("check your system time is correct or not");
+    }
+  };
+
+  const responseErrorGoogle = (response) => {
+    console.log(response);
+  };
 
   useEffect(() => {
     callNavbar();
   }, []);
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {sidebardata1.map((element) => (
-          <NavLink
-            to={element.link}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem button key={element.id}>
-              <ListItemIcon>
-                {element.id === 1 ? (
-                  <HomeIcon />
-                ) : element.id === 2 ? (
-                  <Work />
-                ) : element.id === 3 ? (
-                  <Construction />
-                ) : (
-                  <HomeRepairService />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={element.name} />
-            </ListItem>
-          </NavLink>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {sidebardata2.map((element) => (
-          <NavLink
-            to={element.link}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem button key={element.id}>
-              <ListItemIcon>
-                {element.id === 1 ? (
-                  <AirplanemodeActive />
-                ) : element.id === 4 ? (
-                  <AlternateEmail />
-                ) : element.id === 3 ? (
-                  <AutoAwesomeMotion />
-                ) : (
-                  <Help />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={element.name} />
-            </ListItem>
-          </NavLink>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {sidebardata3.map((element) => (
-          <NavLink
-            to={element.id === 3 && !login ? "/logout" : element.link}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem button key={element.id}>
-              <ListItemIcon>
-                {element.id === 1 ? (
-                  <BuildCircle />
-                ) : element.id === 2 ? (
-                  <Avatar
-                    alt=""
-                    src={profile ? profile : "/static/images/avatar/1.jpg"}
-                    sx={{ width: 30, height: 30 }}
-                  />
-                ) : element.id === 3 && !login ? (
-                  <Logout />
-                ) : (
-                  <Login />
-                )}
-              </ListItemIcon>
-              <ListItemText
-                primary={element.id === 3 && !login ? "Sign Out" : element.name}
-              />
-            </ListItem>
-          </NavLink>
-        ))}
-      </List>
-      <Divider />
-      {login && (
-        <List>
-          <NavLink
-            to={"/register"}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <AppRegistration />
-              </ListItemIcon>
-              <ListItemText primary={"Register"} />
-            </ListItem>
-          </NavLink>
-        </List>
-      )}
-    </Box>
-  );
-  const anchor = "right";
 
   return (
     <>
@@ -478,9 +388,13 @@ const LoginOff = () => {
             <div className="left_title">Login to your account</div>
             <p className="left_info">login using social network</p>
             <div className="left_icons">
-              <img src={facebook} alt="" className="facebook" />
-              <img src={google} alt="" className="google" />
-              <img src={linkedin} alt="" className="linkedin" />
+              <GoogleLogin
+                clientId="181670074172-3vbenn2fkul089ttou6fp54pm24t6ogj.apps.googleusercontent.com"
+                buttonText="Login with Google"
+                onSuccess={responseSuccessGoogle}
+                onFailure={responseErrorGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
             </div>
             <p className="or">OR</p>
             <input

@@ -300,7 +300,6 @@ const LoginCollege = () => {
   const Postdata = async (e) => {
     e.preventDefault(); //????
     const { email, password } = user;
-    dispatch(coet());
     try {
       setloader_addbtn(true);
 

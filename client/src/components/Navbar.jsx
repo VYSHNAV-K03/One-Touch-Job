@@ -152,6 +152,8 @@ const Navbar = (props) => {
 
   const [profilepath, setprofilepath] = useState();
 
+  const [socialprofile, setsocialprofile] = useState();
+
   window.addEventListener("scroll", () =>
     window.scrollY <= 10 ? setcolor(props.color) : setcolor("black")
   );
@@ -165,7 +167,9 @@ const Navbar = (props) => {
       });
 
       const data = await res.data;
+
       setprofilepath(data.profile);
+      setsocialprofile(data.socialProfile);
       setuser(data);
       setlogin(data.name ? false : true);
       if (res.status !== 200) {
@@ -176,8 +180,27 @@ const Navbar = (props) => {
     }
   };
 
+  // const getSocialUser = async () => {
+  //   try {
+  //     const res = await axios.get(apiUrl + "/social/login/success", {
+  //       withCredentials: true,
+  //     });
+  //     // if (res.status === 200) {
+  //     //   setlogin(false);
+  //     //   setsocialprofile(res);
+  //     // } else {
+  //     //   throw new Error("authentication failed");
+  //     // }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  console.log(login);
+
   useEffect(() => {
     callNavbar();
+    // getSocialUser();
   }, []);
 
   return (
@@ -233,6 +256,8 @@ const Navbar = (props) => {
                     ? `data:${profilepath.contentType};base64, ${Buffer.from(
                         profilepath.data.data
                       ).toString("base64")}`
+                    : socialprofile
+                    ? socialprofile
                     : profile1
                 }
                 alt="profile"

@@ -7,9 +7,16 @@ const cors = require("cors");
 const reader = require("xlsx");
 const fs = require("fs");
 
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+const cookieSession = require("cookie-session");
+
 const corsOptions = {
-  origin: "https://onetouchjob-app.herokuapp.com/",
-  // origin: "http://localhost:3000",
+  // origin: "https://onetouchjob-app.herokuapp.com/",
+  origin: "http://localhost:3000",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -28,6 +35,7 @@ const portfolioRoute = require("./router/portfolioroute");
 const coursesRoute = require("./router/coursesroute");
 const internshiRoute = require("./router/Internshiproute");
 const placedstudentsroute = require("./router/placedStudentroute");
+const socialRoute = require("./router/googleAuth");
 
 app.use(bodyParser.json());
 
@@ -38,11 +46,15 @@ app.use("/api/portfolio", portfolioRoute);
 app.use("/api/courses", coursesRoute);
 app.use("/api/internship", internshiRoute);
 app.use("/api/placedstudents", placedstudentsroute);
+app.use("/api/social", socialRoute);
 
 app.use("/uploads", express.static(path.join("uploads")));
 
 require("./db/conn");
-const User = require("./models/userSchema");
+
+//google authentication
+
+const GOOGLE_USER = require("./models/googleAuthUserSchema");
 
 const port = process.env.PORT || 5000;
 
