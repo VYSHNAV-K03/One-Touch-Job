@@ -15,8 +15,8 @@ const findOrCreate = require("mongoose-findorcreate");
 const cookieSession = require("cookie-session");
 
 const corsOptions = {
-  // origin: "https://onetouchjob-app.herokuapp.com/",
-  origin: "http://localhost:3000",
+  origin: "https://onetouchjob-app.herokuapp.com/",
+  // origin: "http://localhost:3000",
   credentials: true,
 };
 app.use(cors(corsOptions));

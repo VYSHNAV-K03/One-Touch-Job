@@ -65,60 +65,6 @@ router.post("/googlelogin", async (req, res) => {
       // res.status(200).send(token);
     }
   }
-
-  // .then((response) => {
-  //   console.log(response.payload);
-  //   const { email_verified, name, email } = response.payload;
-  //   if (email_verified) {
-  //     User.findOne({ email }).exec((err, user) => {
-  //       if (err) {
-  //         return res.status(400).json({
-  //           error: "Something went wrong...",
-  //         });
-  //       } else {
-  //         if (user) {
-  //           const token = jwt.sign(
-  //             { _id: user._id },
-  //             process.env.SECRET_KEY,
-  //             { expiresIn: "7d" }
-  //           );
-  //           const { _id, name, email } = user;
-  //           res.json({
-  //             token,
-  //             user: { _id, name, email },
-  //           });
-  //         } else {
-  //           let password = email + process.env.SECRET_KEY;
-  //           const newUser = new User({
-  //             name,
-  //             email,
-  //             password,
-  //           });
-  //           newUser.save((err, data) => {
-  //             if (err) {
-  //               return res.status(400).json({
-  //                 error: err,
-  //               });
-  //             }
-  //             const token = jwt.sign(
-  //               { _id: data._id },
-  //               process.env.SECRET_KEY,
-  //               { expiresIn: "7d" }
-  //             );
-  //             const { _id, name, email } = newUser;
-  //             res.json({
-  //               token,
-  //               user: { _id, name, email },
-  //             });
-  //           });
-  //         }
-  //       }
-  //     });
-  //   }
-  // });
-  // const payload = ticket.getPayload();
-
-  // console.log(ticket);
 });
 
 module.exports = router;
