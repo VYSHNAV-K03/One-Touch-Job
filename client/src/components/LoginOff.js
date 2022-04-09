@@ -389,7 +389,7 @@ const LoginOff = () => {
             <p className="left_info">login using social network</p>
             <div className="left_icons">
               <GoogleLogin
-                clientId="181670074172-3vbenn2fkul089ttou6fp54pm24t6ogj.apps.googleusercontent.com"
+                clientId="181670074172-vc2fa6775ofksgu4tu47mgf4darh941e.apps.googleusercontent.com"
                 buttonText="Login with Google"
                 onSuccess={responseSuccessGoogle}
                 onFailure={responseErrorGoogle}

@@ -10,10 +10,9 @@ const { OAuth2Client } = require("google-auth-library");
 const User = require("../models/userSchema");
 const jwt = require("jsonwebtoken");
 
-const Client_Url = "http://localhost:3000/";
 
 const CLIENT_ID =
-  "181670074172-3vbenn2fkul089ttou6fp54pm24t6ogj.apps.googleusercontent.com";
+  "181670074172-vc2fa6775ofksgu4tu47mgf4darh941e.apps.googleusercontent.com";
 
 const client = new OAuth2Client(CLIENT_ID);
 
