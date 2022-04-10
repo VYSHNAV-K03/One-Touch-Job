@@ -373,8 +373,26 @@ const LoginOff = () => {
     console.log(response);
   };
 
-  const responseFacebook = (response) => {
+  const responseFacebook = async (response) => {
     console.log(response);
+    try {
+      const res = await axios.post(
+        apiUrl + "/social/facebooklogin",
+        {
+          accessToken: response.accessToken,
+          userID: response.userID,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.status === 200) {
+        window.alert("Facebook login successfull");
+        navigate("/");
+      }
+    } catch (error) {
+      window.alert("Something went wrong..");
+    }
   };
 
   useEffect(() => {
@@ -399,11 +417,11 @@ const LoginOff = () => {
                 onFailure={responseErrorGoogle}
                 cookiePolicy={"single_host_origin"}
               />
-              {/* <FacebookLogin
+              <FacebookLogin
                 appId="1181943819010325"
                 autoLoad={false}
                 callback={responseFacebook}
-              /> */}
+              />
             </div>
             <p className="or">OR</p>
             <input

@@ -94,10 +94,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
   }
-  /* li:nth-of-type(${(props) => props.lineColor}) .line {
-    transition: all 0.5s;
-    background: coral;
-  } */
+
   .line i {
     position: absolute;
     display: flex;
@@ -117,7 +114,7 @@ const Container = styled.div`
   @media screen and (max-width: 1037px) {
     position: relative;
     overflow-x: scroll;
-    padding: 80px 100px;
+    padding: ${(props) => props.padding2};
     ::-webkit-scrollbar {
       height: 3px;
       background-color: #fff;
@@ -182,6 +179,7 @@ const Progressbar = () => {
         <Container
           prog={progress}
           padding={!course ? "0px" : "50px"}
+          padding2={!course ? "0px" : "80px 100px"}
           lineColor={linecolor}
         >
           {course === "mern" ? (
