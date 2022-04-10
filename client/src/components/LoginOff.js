@@ -92,6 +92,10 @@ const Container = styled.div`
     width: 55px;
     height: 55px;
     margin: 0 10px;
+    cursor: pointer;
+  }
+  label {
+    background: coral;
   }
   .or {
     font-family: "Sarabun";
@@ -192,6 +196,13 @@ const Container = styled.div`
 
     color: #000000;
   }
+  .google {
+    display: none;
+  }
+  .kep-login-facebook.metro {
+    display: none;
+  }
+
   @media screen and (max-width: 1036px) {
     .right {
       display: none;
@@ -395,6 +406,17 @@ const LoginOff = () => {
     }
   };
 
+  const handleClickGoogle = () => {
+    const googleelement = document.querySelector(".google_btn");
+
+    googleelement.click();
+  };
+
+  const handleClickFacebook = () => {
+    const facebookelement = document.querySelector(".kep-login-facebook.metro");
+    facebookelement.click();
+  };
+
   useEffect(() => {
     callNavbar();
   }, []);
@@ -410,14 +432,20 @@ const LoginOff = () => {
             <div className="left_title">Login to your account</div>
             <p className="left_info">login using social network</p>
             <div className="left_icons">
-              <GoogleLogin
-                clientId="181670074172-vc2fa6775ofksgu4tu47mgf4darh941e.apps.googleusercontent.com"
-                buttonText="Login with Google"
-                onSuccess={responseSuccessGoogle}
-                onFailure={responseErrorGoogle}
-                cookiePolicy={"single_host_origin"}
-              />
+              <img src={google} alt="" onClick={handleClickGoogle} />
+              <img src={facebook} alt="" onClick={handleClickFacebook} />
+              <div className="google">
+                <GoogleLogin
+                  className="google_btn"
+                  clientId="181670074172-vc2fa6775ofksgu4tu47mgf4darh941e.apps.googleusercontent.com"
+                  buttonText="Login with Google"
+                  onSuccess={responseSuccessGoogle}
+                  onFailure={responseErrorGoogle}
+                  cookiePolicy={"single_host_origin"}
+                />
+              </div>
               <FacebookLogin
+                //it has predefined class
                 appId="1181943819010325"
                 autoLoad={false}
                 callback={responseFacebook}
