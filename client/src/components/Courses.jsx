@@ -9,7 +9,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { apiUrl, reactDeleteFile, ReactfileUpload } from "../data/api";
 import axios from "axios";
 import { login } from "../actions";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import Preloader from "./preloader/Preloader";
 
 const Container = styled.div`
@@ -64,6 +64,8 @@ const Courses = () => {
 
   const [loader, setloader] = useState(false);
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   console.log(myState);
 
   const handleUrlwithimageupload = async () => {
@@ -74,13 +76,18 @@ const Courses = () => {
         const formData = new FormData();
         formData.append("url", url);
         formData.append("file", urlimg);
+        setloader_addbtn(true);
+
         const res = await axios.post(
           apiUrl + `/courses/${myState}/url`,
           formData
         );
+        setloader_addbtn(false);
+
         CallReactProjectpage();
       } catch (error) {
         console.log(error);
+        setloader_addbtn(false);
       }
     }
   };
@@ -166,13 +173,17 @@ const Courses = () => {
                   placeholder="image"
                   onChange={(e) => seturlimg(e.target.files[0])}
                 />
-                <Button
-                  variant="outlined"
-                  className="submiturl"
-                  onClick={handleUrlwithimageupload}
-                >
-                  Submit
-                </Button>
+                {loader_addbtn ? (
+                  <CircularProgress />
+                ) : (
+                  <Button
+                    variant="outlined"
+                    className="submiturl"
+                    onClick={handleUrlwithimageupload}
+                  >
+                    Submit
+                  </Button>
+                )}
               </div>
             ) : (
               <></>

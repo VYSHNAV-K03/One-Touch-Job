@@ -41,6 +41,8 @@ const Eachcourses = () => {
     right: false,
   });
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const [profile, setprofile] = useState();
 
   const [login, setlogin] = useState(true);
