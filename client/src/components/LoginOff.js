@@ -45,6 +45,8 @@ import getGoogleUrl from "../utils/getGoogleUrl";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login";
 
+// import linkedin from "react-linkedin-login-oauth2";
+
 const Container = styled.div`
   height: 100vh;
   background: linear-gradient(270deg, #005db3 0%, rgba(0, 52, 236, 0) 81.56%);

@@ -291,32 +291,36 @@ router.post("/reset-password", async (req, res) => {
       if (err) {
         console.log(err);
       }
-      const token = buffer.toString("hex");
-      const userExist = await User.findOne({ email: req.body.email });
+      if (req.body.email) {
+        const token = buffer.toString("hex");
+        const userExist = await User.findOne({ email: req.body.email });
 
-      if (!userExist) {
-        res.status(402).send("User not exist with that email");
+        if (!userExist) {
+          res.status(402).send("User not exist with that email");
+        } else {
+          userExist.resetToken = token;
+          userExist.expireToken = Date.now() + 360000000000;
+
+          const user = await userExist.save();
+          if (user) {
+            transporter.sendMail({
+              from: "vyshnavk891@gmail.com",
+              to: user.email,
+              subject: "reset password",
+              html: `
+            <p> Tap the <a href="https://onetouchjob-app.herokuapp.com/reset/${token}">link</a> to reset password </p>
+            `,
+            });
+            res.status(200).send("check mail");
+          }
+          console.log("reset password", user);
+        }
+      } else {
+        res.status(400).send("pls fill mail id");
       }
-
-      userExist.resetToken = token;
-      userExist.expireToken = Date.now() + 360000000000;
-
-      const user = await userExist.save();
-      if (user) {
-        transporter.sendMail({
-          from: "vyshnavk891@gmail.com",
-          to: user.email,
-          subject: "reset password",
-          html: `
-              <p> Tap the <a href="https://onetouchjob-app.herokuapp.com/reset/${token}">link</a> to reset password </p>
-          `,
-        });
-        res.send("check mail");
-      }
-      console.log("reset password", user);
     });
   } catch (error) {
-    res.send("reset password error", error);
+    res.status(400).send("reset password error", error);
   }
 });
 

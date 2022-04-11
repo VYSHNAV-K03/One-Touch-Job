@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { coet } from "../actions";
 import axios from "axios";
 import { apiUrl } from "../data/api";
+import { CircularProgress } from "@mui/material";
 
 const Container = styled.div`
   height: calc(100vh - 80px);
@@ -44,16 +45,27 @@ const Container = styled.div`
     margin-bottom: 15px;
     text-decoration: none;
   }
-  .login button {
-    padding: 5px;
-    cursor: pointer;
-    font-size: 1.3rem;
-    color: white;
-    background: teal;
+  .loginbtn_container {
+    background: #ffffff;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+    border-radius: 33px;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loginbtn_container button {
     border: none;
     outline: none;
-    border-radius: 10px;
-    width: 100px;
+    background: transparent;
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 44px;
+
+    color: #000000;
   }
 `;
 
@@ -61,11 +73,14 @@ const NewPassword = () => {
   const [password, setpass] = useState("");
   const navigate = useNavigate();
 
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
   const { token } = useParams();
   console.log(token);
   const Postdata = async (e) => {
     try {
       e.preventDefault(); //????
+      setloader_addbtn(true);
 
       const res = await axios.post(
         apiUrl + "/new-password",
@@ -80,8 +95,10 @@ const NewPassword = () => {
         window.alert("Your password update successfully");
         navigate("/login");
       }
+      setloader_addbtn(false);
     } catch (error) {
       window.alert("something went wrong");
+      setloader_addbtn(false);
     }
   };
 
@@ -104,9 +121,15 @@ const NewPassword = () => {
               required="required"
               onChange={handleLogin}
             />
-            <button type="submit" onClick={Postdata}>
-              Reset Password
-            </button>
+            <div className="loginbtn_container">
+              {loader_addbtn ? (
+                <CircularProgress />
+              ) : (
+                <button type="submit" onClick={Postdata}>
+                  Send
+                </button>
+              )}
+            </div>
           </form>
         </div>
       </Container>
