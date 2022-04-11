@@ -47,7 +47,7 @@ const Container = styled.div`
   }
   .loginbtn_container {
     background: #ffffff;
-    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+    border: 1px solid grey;
     border-radius: 33px;
     width: 200px;
     height: 50px;
