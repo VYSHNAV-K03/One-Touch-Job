@@ -198,15 +198,50 @@ const Home2 = () => {
         <Box1>
           <div className="flipper">
             <div className="image">
-              <img src={projects} alt="" />
+              <img src={resume} alt="" />
             </div>
             <div className="content">
-              <h1 className="title-services"> Projects</h1>
+              <h1 className="title-services">Workshops</h1>
               <div className="description">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Asperiores, possimus repellat? Sequi numquam enim ex?
               </div>
-              <NavLink to="/projects" className="placement">
+              <NavLink to="/workshop" className="placement">
+                <button>click</button>
+                <i className="fal fa-angle-double-right"></i>{" "}
+              </NavLink>{" "}
+            </div>
+          </div>
+        </Box1>
+        <Box1>
+          <div className="flipper">
+            <div className="image">
+              <img src={resume} alt="" />
+            </div>
+            <div className="content">
+              <h1 className="title-services">Internship</h1>
+              <div className="description">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Asperiores, possimus repellat? Sequi numquam enim ex?
+              </div>
+              <NavLink to="/internship" className="placement">
+                <button>click</button>
+                <i className="fal fa-angle-double-right"></i>{" "}
+              </NavLink>{" "}
+            </div>
+          </div>
+        </Box1>{" "}
+        <Box1>
+          <div className="flipper">
+            <div className="image">
+              <img src={resume} alt="" />
+            </div>
+            <div className="content">
+              <h1 className="title-services">Placed Students</h1>
+              <div className="description">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              </div>
+              <NavLink to="/placedstudents" className="placement">
                 <button>click</button>
                 <i className="fal fa-angle-double-right"></i>{" "}
               </NavLink>{" "}
@@ -225,6 +260,24 @@ const Home2 = () => {
                 Asperiores, possimus repellat? Sequi numquam enim ex?
               </div>
               <NavLink to="/postportfolio" className="placement">
+                <button>click</button>
+                <i className="fal fa-angle-double-right"></i>{" "}
+              </NavLink>{" "}
+            </div>
+          </div>
+        </Box1>
+        <Box1>
+          <div className="flipper">
+            <div className="image">
+              <img src={projects} alt="" />
+            </div>
+            <div className="content">
+              <h1 className="title-services"> Projects</h1>
+              <div className="description">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Asperiores, possimus repellat? Sequi numquam enim ex?
+              </div>
+              <NavLink to="/projects" className="placement">
                 <button>click</button>
                 <i className="fal fa-angle-double-right"></i>{" "}
               </NavLink>{" "}

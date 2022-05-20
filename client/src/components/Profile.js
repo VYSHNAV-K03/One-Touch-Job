@@ -292,6 +292,15 @@ const Profile = () => {
             Update
           </Button>
         )}
+        <Button
+          style={{ marginLeft: "10px" }}
+          variant="contained"
+          onClick={() => {
+            setdisplay(true);
+          }}
+        >
+          Close
+        </Button>
       </div>
     </Container>
   );

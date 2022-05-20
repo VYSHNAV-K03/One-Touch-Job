@@ -225,14 +225,6 @@ const Paidinternship = () => {
           >
             <CloseIcon />
           </Button>
-          {/* <div
-            className="backicon"
-            onClick={() => {
-              setpopup(false);
-            }}
-          >
-            <CancelIcon />
-          </div> */}
         </div>
       )}
     </Container>

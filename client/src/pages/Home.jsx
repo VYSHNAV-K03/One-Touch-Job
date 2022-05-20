@@ -253,18 +253,19 @@ const Home = () => {
               <ProgressCourse />
             </div>
           ) : (
-            <Formandprogress />
+            // <Formandprogress />
+            <></>
           )}
-          <Box sx={{ "& > :not(style)": { m: 1 } }} className="skillquiz">
+          {/* <Box sx={{ "& > :not(style)": { m: 1 } }} className="skillquiz">
             <Fab variant="extended" href="/skillquiz" className="skillquizbtn">
               Take a skill Quiz
             </Fab>
-          </Box>
-          {login ? <Recommendation /> : <Recommendationlogin />}
+          </Box> */}
+          {login ? <></> : <Recommendationlogin />}
           <div className="home2" id="home">
             <Home2 />
           </div>
-          <Home3 />
+          {/* <Home3 /> */}
           <Footer />
           <Drawer
             style={{ backgroundColor: "" }}
