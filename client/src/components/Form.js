@@ -21,9 +21,6 @@ const Container = styled.div`
     -webkit-box-shadow: -1px 0px 8px 1px rgba(0, 0, 0, 0.64);
     -moz-box-shadow: -1px 0px 8px 1px rgba(0, 0, 0, 0.64);
     transition: all 0.5s ease;
-    :hover {
-      transform: scale(1.05);
-    }
   }
   .formclick {
     background: transparent;
@@ -67,6 +64,11 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
   }
+  @media screen and (max-width: 420px) {
+    .container-form {
+      transform: scale(0.75);
+    }
+  }
   .form label {
     font-size: 1.2rem;
     margin-bottom: 5px;
@@ -77,6 +79,10 @@ const Container = styled.div`
     padding: 5px;
     font-size: 1.1rem;
     width: 350px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
   }
 `;
 
@@ -176,16 +182,26 @@ const Form = () => {
           ) : (
             <></>
           )}
-          <Button
-            variant="contained"
-            type="submit"
-            onClick={() => {
-              handleUpdateFinalPassion();
-              setbutton(false);
-            }}
-          >
-            Submit
-          </Button>
+          <div className="buttons">
+            <Button
+              variant="contained"
+              onClick={() => {
+                setbutton(false);
+              }}
+            >
+              Close
+            </Button>
+            <Button
+              variant="contained"
+              // type="submit"
+              onClick={() => {
+                handleUpdateFinalPassion();
+                setbutton(false);
+              }}
+            >
+              Submit
+            </Button>
+          </div>
         </form>
       </div>
     </Container>
