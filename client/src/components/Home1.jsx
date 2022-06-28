@@ -141,7 +141,6 @@ const Home1 = () => {
       <div className="leftcontainer">
         <div className="title-info">Create Your Future With Us</div>
         <div className="desc">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum hic
         </div>
         <div className="desc">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum hic

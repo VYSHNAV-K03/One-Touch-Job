@@ -36,7 +36,7 @@ const Container = styled.div`
   .box4 {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     width: 96%;
     height: 96%;
     border-radius: 15px;
@@ -157,8 +157,9 @@ const Placement1 = () => {
           <div className="details">
             <h3>Service Based</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Doloremque nobis fugit sapiente suscipit sed voluptates.
+              A service based company is the one that provides customers,clients
+              the ultimate solution to their requirements or a sevice to another
+              company.
             </p>
           </div>
         </Box>
@@ -175,8 +176,9 @@ const Placement1 = () => {
           <div className="details">
             <h3>Product Based</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Doloremque nobis fugit sapiente suscipit sed voluptates.
+              A product based companies are the ones that are focused on
+              producing or introducing products that have a high market value
+              and are capable enough to satisfy the customer.
             </p>
           </div>
         </Box>{" "}
@@ -193,56 +195,12 @@ const Placement1 = () => {
           <div className="details">
             <h3> Start Up</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Doloremque nobis fugit sapiente suscipit sed voluptates.
+              A startup company is a newly formed business with particular
+              momentum behind it based on percieve demand for it product or
+              sevice.
             </p>
           </div>
         </Box>{" "}
-        <Box
-          image={internships}
-          onClick={() => {
-            navigate("/internship");
-          }}
-        >
-          <div className="box3">Internships</div>
-          <div className="details">
-            <h3>Internships</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Doloremque nobis fugit sapiente suscipit sed voluptates.
-            </p>
-          </div>
-        </Box>{" "}
-        <Box
-          image={resume}
-          onClick={() => {
-            navigate("/freelance");
-          }}
-        >
-          <div className="box4">Freelancer</div>
-          <div className="details">
-            <h3>Freelancer</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Doloremque nobis fugit sapiente suscipit sed voluptates.
-            </p>
-          </div>
-        </Box>
-        <Box
-          image={govt}
-          onClick={() => {
-            navigate("/placementtraining");
-          }}
-        >
-          <div className="box4">Placement Training</div>
-          <div className="details">
-            <h3>Placement Training</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Doloremque nobis fugit sapiente suscipit sed voluptates.
-            </p>
-          </div>
-        </Box>
       </div>
     </Container>
   );

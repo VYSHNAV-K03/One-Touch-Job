@@ -130,6 +130,7 @@ const Box1 = styled.div`
 
   .content .description {
     text-align: center;
+    font-size: 1.2rem;
   }
 
   .placement {
@@ -182,6 +183,11 @@ const Box1 = styled.div`
     .title-services {
       font-size: 1.3rem;
     }
+
+    .content .description {
+      text-align: center;
+      font-size: 1rem;
+    }
     button {
       font-size: 1rem;
     }
@@ -206,8 +212,7 @@ const Home2 = () => {
             <div className="content">
               <h2 className="title-services">Placement</h2>
               <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores, possimus repellat? Sequi numquam enim ex?
+                Find the best carreer and dream job that matches your skills
               </div>
               <NavLink to="/placement" className="placement">
                 <button>click</button>
@@ -224,8 +229,7 @@ const Home2 = () => {
             <div className="content">
               <h1 className="title-services">Build Skills</h1>
               <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores, possimus repellat? Sequi numquam enim ex?
+                You can develop and improve your skills here
               </div>
               <NavLink to="/skill" className="placement">
                 <button>click</button>
@@ -242,8 +246,8 @@ const Home2 = () => {
             <div className="content">
               <h1 className="title-services">Workshops</h1>
               <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores, possimus repellat? Sequi numquam enim ex?
+                You can find workshops that can improve your skills and
+                knowledge
               </div>
               <NavLink to="/workshop" className="placement">
                 <button>click</button>
@@ -260,8 +264,7 @@ const Home2 = () => {
             <div className="content">
               <h1 className="title-services">Freelance Work</h1>
               <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores, possimus repellat? Sequi numquam enim ex?
+                Browse through works and find the work that you love to do
               </div>
               <NavLink to="" className="placement">
                 <button>click</button>
@@ -278,8 +281,8 @@ const Home2 = () => {
             <div className="content">
               <h1 className="title-services">Internship</h1>
               <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores, possimus repellat? Sequi numquam enim ex?
+                You will get internships that can provide you with payment and
+                experience
               </div>
               <NavLink to="/internship" className="placement">
                 <button>click</button>
@@ -296,7 +299,8 @@ const Home2 = () => {
             <div className="content">
               <h1 className="title-services">Placed Students</h1>
               <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Students who got placement in different companies are shown
+                here.
               </div>
               <NavLink to="/placedstudents" className="placement">
                 <button>click</button>
@@ -312,10 +316,7 @@ const Home2 = () => {
             </div>
             <div className="content">
               <h1 className="title-services">Portfolio</h1>
-              <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores, possimus repellat? Sequi numquam enim ex?
-              </div>
+              <div className="description">You can create your resume here</div>
               <NavLink to="/postportfolio" className="placement">
                 <button>click</button>
                 <i className="fal fa-angle-double-right"></i>{" "}
@@ -331,8 +332,7 @@ const Home2 = () => {
             <div className="content">
               <h1 className="title-services"> Projects</h1>
               <div className="description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores, possimus repellat? Sequi numquam enim ex?
+                You can showcase your projects that can share to anyone
               </div>
               <NavLink to="/projects" className="placement">
                 <button>click</button>
