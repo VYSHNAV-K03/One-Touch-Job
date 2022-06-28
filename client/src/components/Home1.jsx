@@ -140,16 +140,13 @@ const Home1 = () => {
     <Container>
       <div className="leftcontainer">
         <div className="title-info">Create Your Future With Us</div>
+        <div className="desc"></div>
         <div className="desc">
+          One touch job is an online platform where you can learn skills and
+          find a job a suitable for you.
         </div>
         <div className="desc">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum hic
-          atque mollitia exercitationem? Molestias?
-        </div>
-        <div className="desc">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum hic
-          nisi ipsam perspiciatis quo quidem alias atque mollitia
-          exercitationem? Molestias?
+          You can find your desired job or do freelance works.
         </div>
         <Button
           className="start-btn"
