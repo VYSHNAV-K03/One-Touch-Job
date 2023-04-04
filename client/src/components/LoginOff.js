@@ -1,0 +1,516 @@
+import { NavLink, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Navbar from "./Navbar";
+import { useSelector, useDispatch } from "react-redux";
+import loginbg from "../assets/images/progressbg1.png";
+import { offcampus } from "../actions";
+import React, { useState, useEffect } from "react";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import HomeIcon from "@mui/icons-material/Home";
+import { Avatar, Box, CircularProgress, Fab } from "@mui/material";
+import Drawer from "@mui/material/Drawer";
+import {
+  AccountCircle,
+  AirplanemodeActive,
+  AlternateEmail,
+  AppRegistration,
+  AutoAwesomeMotion,
+  BuildCircle,
+  Construction,
+  Help,
+  HomeRepairService,
+  Login,
+  Logout,
+  Work,
+} from "@mui/icons-material";
+import {
+  sidebardata1,
+  sidebardata2,
+  sidebardata3,
+} from "../frontenddatas/sidebardata";
+import { apiUrl } from "../data/api";
+import axios from "axios";
+
+import facebook from "../assets/Loginpage/facebookicon.png";
+import google from "../assets/Loginpage/googleicon.png";
+import linkedin from "../assets/Loginpage/linkedinicon.png";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import getGoogleUrl from "../utils/getGoogleUrl";
+
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login";
+
+// import linkedin from "react-linkedin-login-oauth2";
+
+const Container = styled.div`
+  height: 100vh;
+  background: linear-gradient(270deg, #005db3 0%, rgba(0, 52, 236, 0) 81.56%);
+  display: flex;
+  position: relative;
+  .backtohomeicon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+  }
+  .logincontainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .left_title {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 91px;
+    text-align: center;
+
+    color: #000000;
+  }
+  .left_info {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 40px;
+    text-align: center;
+
+    color: #000000;
+  }
+  .left_icons img {
+    width: 55px;
+    height: 55px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  label {
+    background: coral;
+  }
+  .or {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 32px;
+    text-align: center;
+
+    color: #000000;
+  }
+  input {
+    width: 500px;
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 44px;
+
+    color: #000000;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .forgot_link {
+    display: none;
+  }
+  .forgot_pass {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5rem;
+
+    color: #000000;
+  }
+  .loginbtn_container {
+    background: #ffffff;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+    border-radius: 33px;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loginbtn_container button {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 44px;
+
+    color: #000000;
+  }
+  .right {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .title2 {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 46px;
+    line-height: 73px;
+    text-align: center;
+
+    color: #ffffff;
+  }
+  .right_info {
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 28px;
+    text-align: center;
+
+    color: #ffffff;
+  }
+  .right_btn {
+    width: 200px;
+    height: 50px;
+    background: #ffffff;
+    border-radius: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Sarabun";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 35px;
+    text-align: center;
+    text-decoration: none;
+
+    color: #000000;
+  }
+  .google {
+    display: none;
+  }
+  .kep-login-facebook.metro {
+    display: none;
+  }
+
+  @media screen and (max-width: 1036px) {
+    .right {
+      display: none;
+    }
+    .forgot_link {
+      display: flex;
+    }
+  }
+  @media screen and (max-width: 624px) {
+    .left_title {
+      font-size: 40px;
+      line-height: 40px;
+    }
+    .left_info {
+      font-size: 19px;
+      line-height: 30px;
+    }
+    .left_icons img {
+      width: 35px;
+      height: 35px;
+      margin: 0 10px;
+    }
+    .or {
+      line-height: 25px;
+    }
+    input {
+      width: 300px;
+      font-size: 1rem;
+      line-height: 22px;
+      margin-bottom: 10px;
+    }
+    .forgot_pass {
+      font-size: 1rem;
+    }
+    .loginbtn_container {
+      box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+      border-radius: 33px;
+      width: 100px;
+      height: 40px;
+    }
+    .loginbtn_container button {
+      font-size: 1rem;
+      line-height: 14px;
+    }
+  }
+
+  @media screen and (max-width: 406px) {
+    .left_title {
+      font-size: 25px;
+      line-height: 28px;
+    }
+    .left_info {
+      font-size: 15px;
+      line-height: 18px;
+    }
+    .left_icons img {
+      width: 30px;
+      height: 30px;
+      margin: 0 10px;
+    }
+    .or {
+      line-height: 20px;
+    }
+    input {
+      width: 250px;
+      font-size: 1rem;
+      line-height: 22px;
+      margin-bottom: 10px;
+    }
+    .forgot_pass {
+      font-size: 1rem;
+      line-height: 12px;
+    }
+    .loginbtn_container {
+      box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.41);
+      border-radius: 33px;
+      transform: scale(0.8);
+    }
+    .loginbtn_container button {
+      font-size: 1rem;
+      line-height: 14px;
+    }
+  }
+`;
+const LoginOff = () => {
+  const dispatch = useDispatch();
+
+  const [loader_addbtn, setloader_addbtn] = useState(false);
+
+  const navigate = useNavigate();
+  const [user, setuser] = useState({
+    email: "",
+    password: "",
+  });
+
+  let name, value;
+  const handleLogin = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+
+    setuser({ ...user, [name]: value });
+  };
+  const Postdata = async (e) => {
+    e.preventDefault(); //????
+    const { email, password } = user;
+    try {
+      setloader_addbtn(true);
+
+      const res = await axios.post(
+        apiUrl + "/signin/off",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        window.alert(res.data);
+        navigate("/");
+      } else {
+        window.alert(res.data);
+      }
+      setloader_addbtn(false);
+    } catch (error) {
+      window.alert("invlaid credentials");
+      setloader_addbtn(false);
+    }
+  };
+  const [state, setState] = React.useState({
+    right: false,
+  });
+
+  const [profile, setprofile] = useState();
+
+  const [login, setlogin] = useState(true);
+
+  const myLoginState = useSelector((state) => state.changeTheLogin);
+  const callNavbar = async () => {
+    try {
+      const res = await axios.get(apiUrl + `/getData/${myLoginState}`, {
+        withCredentials: true,
+      });
+
+      const data = await res.data;
+      // console.log(res);
+      console.log(data);
+      setprofile(data.profile);
+      setlogin(data.name ? false : true);
+      if (res.status !== 200) {
+        throw new Error(res.error);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const responseSuccessGoogle = async (response) => {
+    try {
+      const res = await axios.post(
+        apiUrl + "/social/googlelogin",
+        {
+          tokenId: response.tokenId,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.status === 200) {
+        window.alert("Google login successfull");
+        navigate("/");
+      }
+    } catch (error) {
+      window.alert("check your system time is correct or not");
+    }
+  };
+
+  const responseErrorGoogle = (response) => {
+    console.log(response);
+  };
+
+  const responseFacebook = async (response) => {
+    console.log(response);
+    try {
+      const res = await axios.post(
+        apiUrl + "/social/facebooklogin",
+        {
+          accessToken: response.accessToken,
+          userID: response.userID,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.status === 200) {
+        window.alert("Facebook login successfull");
+        navigate("/");
+      }
+    } catch (error) {
+      window.alert("Something went wrong..");
+    }
+  };
+
+  const handleClickGoogle = () => {
+    const googleelement = document.querySelector(".google_btn");
+
+    googleelement.click();
+  };
+
+  const handleClickFacebook = () => {
+    const facebookelement = document.querySelector(".kep-login-facebook.metro");
+    facebookelement.click();
+  };
+
+  useEffect(() => {
+    callNavbar();
+  }, []);
+
+  return (
+    <>
+      <Container>
+        <div className="backtohomeicon" onClick={() => navigate("/login")}>
+          <ArrowBackIcon />
+        </div>
+        <div className="logincontainer">
+          <form method="POST" className="login">
+            <div className="left_title">Login to your account</div>
+            <p className="left_info">login using social network</p>
+            <div className="left_icons">
+              <img src={google} alt="" onClick={handleClickGoogle} />
+              <img src={facebook} alt="" onClick={handleClickFacebook} />
+              <div className="google">
+                <GoogleLogin
+                  className="google_btn"
+                  clientId="181670074172-vc2fa6775ofksgu4tu47mgf4darh941e.apps.googleusercontent.com"
+                  buttonText="Login with Google"
+                  onSuccess={responseSuccessGoogle}
+                  onFailure={responseErrorGoogle}
+                  cookiePolicy={"single_host_origin"}
+                />
+              </div>
+              <FacebookLogin
+                //it has predefined class
+                appId="1181943819010325"
+                autoLoad={false}
+                callback={responseFacebook}
+              />
+            </div>
+            <p className="or">OR</p>
+            <input
+              type="text"
+              name="email"
+              value={user.email}
+              className="form-control"
+              id="email"
+              placeholder="Username"
+              required="required"
+              onChange={handleLogin}
+            />
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              value={user.password}
+              id="password"
+              placeholder="password"
+              required="required"
+              onChange={handleLogin}
+            />
+            <NavLink
+              to="/resetpassword"
+              className="forgot_link"
+              style={{ textDecoration: "none", color: "blue" }}
+            >
+              <p className="forgot_pass">Create Account</p>
+            </NavLink>
+            <NavLink
+              to="/resetpassword"
+              style={{ textDecoration: "none", color: "blue" }}
+            >
+              <p className="forgot_pass">Forgot Password</p>
+            </NavLink>
+
+            <div className="loginbtn_container">
+              {loader_addbtn ? (
+                <CircularProgress />
+              ) : (
+                <button type="submit" onClick={Postdata}>
+                  Login
+                </button>
+              )}
+            </div>
+          </form>
+          <div className="right">
+            <div className="title2">New here?</div>
+            <p className="right_info">
+              Sign up and discover a great amount of new oportunities!
+            </p>
+            <NavLink to="/register" style={{ textDecoration: "none" }}>
+              <p className="right_btn">Sign up</p>
+            </NavLink>{" "}
+          </div>
+        </div>
+      </Container>
+    </>
+  );
+};
+
+export default LoginOff;

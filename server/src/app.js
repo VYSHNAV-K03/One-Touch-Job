@@ -1,0 +1,71 @@
+const mongoose = require("mongoose");
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const app = express();
+const cors = require("cors");
+const reader = require("xlsx");
+const fs = require("fs");
+
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+const cookieSession = require("cookie-session");
+
+const corsOptions = {
+  // origin: "https://onetouchjob-app.herokuapp.com/",
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+require("dotenv").config({
+  path: "server/.env",
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+const fileRoutes = require("./router/auth");
+const quizRoutes = require("./router/quiz");
+const workshopRoute = require("./router/workshoproute");
+const portfolioRoute = require("./router/portfolioroute");
+const coursesRoute = require("./router/coursesroute");
+const internshiRoute = require("./router/Internshiproute");
+const placedstudentsroute = require("./router/placedStudentroute");
+const socialRoute = require("./router/googleAuth");
+
+app.use(bodyParser.json());
+
+app.use("/api", fileRoutes);
+app.use("/api/quiz", quizRoutes);
+app.use("/api/workshop", workshopRoute);
+app.use("/api/portfolio", portfolioRoute);
+app.use("/api/courses", coursesRoute);
+app.use("/api/internship", internshiRoute);
+app.use("/api/placedstudents", placedstudentsroute);
+app.use("/api/social", socialRoute);
+
+app.use("/uploads", express.static(path.join("uploads")));
+
+require("./db/conn");
+
+//google authentication
+
+const GOOGLE_USER = require("./models/googleAuthUserSchema");
+
+const port = process.env.PORT || 5000;
+
+if (process.env.NODE_ENV == "production") {
+  const path = require("path");
+  app.use(express.static(path.join("client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve("client/build", "index.html"));
+  });
+}
+
+app.listen(port, () => {
+  console.log(`server running at port ${port}`);
+});
